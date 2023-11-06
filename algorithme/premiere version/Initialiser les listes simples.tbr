@@ -1,0 +1,71 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>Initialiser les listes simples</nom>
+  <date_creation>6/11/2023 10:41</date_creation>
+  <Elements>
+    <Action>
+      <Position>679;68</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>ListeIngredient</PreAssertion>
+      <PostAssertion>lviandeR, lviandeB,
+lfeculent, lpoisson,
+llegume</PostAssertion>
+      <Titre>Initialiser les listes simples</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>185;177</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>lviandeR</PostAssertion>
+          <Titre>ListeIngredient lviandeR</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>470;183</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>lviandeB</PostAssertion>
+          <Titre>ListeIngredient lviandeB</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>767;186</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>lfeculent</PostAssertion>
+          <Titre>ListeIngredient lfeculent</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1065;190</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>lpoisson</PostAssertion>
+          <Titre>ListeIngredient lpoisson</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1404;192</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>llegume</PostAssertion>
+          <Titre>ListeIngredient llegume</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>

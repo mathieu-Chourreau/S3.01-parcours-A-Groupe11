@@ -1,0 +1,129 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>initialiser les elements de lviandeR</nom>
+  <date_creation>6/11/2023 10:41</date_creation>
+  <Elements>
+    <Action>
+      <Position>619;70</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>lviandeR,
+ListeIngredient</PreAssertion>
+      <PostAssertion>lviandeR,
+steak_hache,
+magret, bavette,
+</PostAssertion>
+      <Titre>initialiser les elements de lviandeR</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>277;165</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>steak_hache,
+magret, bavette,
+</PostAssertion>
+          <Titre>initialiser les valeurs
+</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>21;275</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>steak_hache</PostAssertion>
+              <Titre>int steak_hache = 50</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>276;276</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>magret</PostAssertion>
+              <Titre>int magret= 50</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>487;280</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>bavette</PostAssertion>
+              <Titre>int bavette = 50</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>779;167</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>steak_hache,
+magret, bavette,
+lviandeR</PreAssertion>
+          <PostAssertion>lviandeR,
+steak_hache,
+magret, bavette,
+</PostAssertion>
+          <Titre>insertion dans la liste</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>717;333</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>steak_hache,
+lviandeR</PreAssertion>
+              <PostAssertion>lviandeR,
+steak_hache
+
+</PostAssertion>
+              <Titre>lviandeR.push_back
+(ListeIngredient:value_type(steak_hache)
+</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>845;448</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>magret,
+lviandeR</PreAssertion>
+              <PostAssertion>lviandeR,
+magret
+</PostAssertion>
+              <Titre>lviandeR.push_back
+(ListeIngredient:value_type(magret)
+</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>952;589</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>bavette,
+lviandeR</PreAssertion>
+              <PostAssertion>lviandeR,
+bavette
+</PostAssertion>
+              <Titre>lviandeR.push_back
+(ListeIngredient:value_type(bavette)
+</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
