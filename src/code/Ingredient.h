@@ -10,30 +10,43 @@
  */
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 #ifndef INGREDIENT_H
 #define INGREDIENT_H
 #include "Recette.h"
-#
 
+class Recette;
 
-class Ingredient
-{
+class Ingredient {
 private:
-    /* data */
+    string nom;
+    string prix;
+    Recette* maRecette;
+    string categorie;
+
 public:
-    Ingredient(/* args */);
-    ~Ingredient();
+    Ingredient();
+    Ingredient(const string& INom, const string& IPrix, const string& ICategorie);
+    Ingredient(const Ingredient& Ing);
+
+    const string& getNom() const;
+    void setNom(const string& newNom);
+
+    const string& getPrix() const;
+    void setPrix(const string& newPrix);
+
+    Recette* getMaRecette() const;
+    void setMaRecette(Recette* newRecette);
+
+    const string& getCategorie() const;
+    void setCategorie(const string& newCategorie);
+
+    // Déclaration des fonctions lierIngredient et delierIngredient
+    void lierIngredient(Recette* recette);
+    void delierIngredient();
 };
-
-Ingredient::Ingredient(/* args */)
-{
-}
-
-Ingredient::~Ingredient()
-{
-}
 
 
 #endif
