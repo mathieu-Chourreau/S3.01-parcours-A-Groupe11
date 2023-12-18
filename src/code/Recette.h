@@ -19,20 +19,18 @@
 using namespace std;
 
 class Ingredient;
-
+enum Difficulte {facile = 1, moyen = 2, difficile = 3};
 class Recette{
 
 private:
     int id;
     float temps;
     string nom;
-    string difficulte;
+    Difficulte difficulte;
     string categorie;
     float prix;
     typedef list<pair<Ingredient, float>> ListesIngredients;
     ListesIngredients mesIngredients;
-
-
 
 public:
     Recette();
@@ -50,17 +48,19 @@ public:
     const float &getTemps() const;
     void setTemps(const float &newTemps);
 
-    const string &getDifficulte() const;
-    void setDifficulte(const string &newDifficulte);
+    const Difficulte &getDifficulte() const;
+    void setDifficulte(const Difficulte &newDifficulte);
 
     const string &getCategorie() const;
     void setCategorie(const string &newCategorie);
 
     ListesIngredients getMesIngredients();
 
-    void ajouterIngredient(const Ingredient &ingredient, const string &poids);
-    void retirerIngredient(string &nomIngredient);
-    bool existeIngredient(string &nomIngredient) const;
+    bool comparerIngredients(Ingredient ingredient, Ingredient ingRecherche);
+
+    void ajouterIngredient(Ingredient ingredient, string poids);
+    void retirerIngredient(Ingredient ingredient);
+    bool existeIngredient(Ingredient ingredient) ;
 };
 
 #endif
