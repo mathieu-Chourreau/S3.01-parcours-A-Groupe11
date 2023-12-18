@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <map>
 #include <iostream>
+using namespace std;
 
 class Ingredient;
 
@@ -16,6 +17,14 @@ Recette::Recette(const string& RNom){
     difficulte = 1;
 }
 
+const int& Recette::getId() const {
+    return id;
+}
+
+void Recette::setId(const int& nvId) {
+    id = nvId;
+}
+
 const string& Recette::getNom() const {
     return nom;
 }
@@ -24,27 +33,27 @@ void Recette::setNom(const string& nvNom) {
     nom = nvNom;
 }
 
-const string& Recette::getPrix() const {
+const float& Recette::getPrix() const {
     return prix;
 }
 
-void Recette::setPrix(const string& nvPrix) {
+void Recette::setPrix(const float& nvPrix) {
     prix = nvPrix;
 }
 
-const string& Recette::getTemps() const {
+const float& Recette::getTemps() const {
     return temps;
 }
 
-void Recette::setTemps(const string& nvTemps) {
+void Recette::setTemps(const float& nvTemps) {
     temps = nvTemps;
 }
 
-int Recette::getDifficulte() const {
+const string& Recette::getDifficulte() const {
     return difficulte;
 }
 
-void Recette::setDifficulte(int nvDifficulte) {
+void Recette::setDifficulte(const string& nvDifficulte) {
     difficulte = nvDifficulte;
 }
 
@@ -60,8 +69,17 @@ Recette::ListesIngredients Recette::getMesIngredients() {
     return mesIngredients;
 }
 
-/*void Recette::ajouterIngredient(const Ingredient& ingredient, const string& poids) {
-    bool ingredientExiste = !existeIngredient(ingredient.getNom());
+
+bool compareIngredient(const auto &pair, const string &nomIngredient){
+    return (pair.first.getNom() == nomIngredient);
+}
+
+bool Recette::existeIngredient(string& nomIngredient) const {
+    auto existe = find_if(mesIngredients.begin(), mesIngredients.end(), compareIngredient(this, nomIngredient));
+}
+
+void Recette::ajouterIngredient(const Ingredient& ingredient, const string& poids) {
+    bool ingredientExiste = existeIngredient(ingredient.getNom());
 
     if (ingredientExiste) {
         mesIngredients.push_back(make_pair(ingredient, poids));
@@ -69,22 +87,15 @@ Recette::ListesIngredients Recette::getMesIngredients() {
 
 }
 
-void retirerIngredient( string &nomIngredient){
-
+void retirerIngredient(string &nomIngredient){
     if (existeIngredient(nomIngredient)) {
-
         mesIngredients.remove_if([ingredient](const auto& pair) {
-            return pair.first == ingredient.getNom();
+            return pair.first == nomIngredient;
         });
     }
 
 }
 
 
-bool Recette::existeIngredient(string &nomIngredient) const {
-    return std::any_of(mesIngredients.begin(), mesIngredients.end(), 
-                       [ingredient](const auto& pair) {
-                           return pair.first == nomIngredient;
-                       });
-}
-*/
+
+

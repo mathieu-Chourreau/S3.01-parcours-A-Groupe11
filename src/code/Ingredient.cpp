@@ -5,7 +5,7 @@ Ingredient::Ingredient() {
     maRecette = nullptr;
 }
 
-Ingredient::Ingredient(const string& INom, const string& IPrix, const string& ICategorie) {
+Ingredient::Ingredient(const string& INom, const float& IPrix, const string& ICategorie) {
     nom = INom;
     prix = IPrix;
     maRecette = nullptr;
@@ -27,11 +27,11 @@ void Ingredient::setNom(const string& newNom) {
     nom = newNom;
 }
 
-const string& Ingredient::getPrix() const {
+const float& Ingredient::getPrix() const {
     return prix;
 }
 
-void Ingredient::setPrix(const string& newPrix) {
+void Ingredient::setPrix(const float& newPrix) {
     prix = newPrix;
 }
 

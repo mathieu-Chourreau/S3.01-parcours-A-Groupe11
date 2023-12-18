@@ -23,12 +23,13 @@ class Ingredient;
 class Recette{
 
 private:
-    string temps;
+    int id;
+    float temps;
     string nom;
-    int difficulte;
+    string difficulte;
     string categorie;
-    string prix;
-    typedef list<pair<Ingredient, string>> ListesIngredients;
+    float prix;
+    typedef list<pair<Ingredient, float>> ListesIngredients;
     ListesIngredients mesIngredients;
 
 
@@ -37,17 +38,20 @@ public:
     Recette();
     Recette(const string &RNom);
 
+    const int &getId() const;
+    void setId(const int &newId);
+
     const string &getNom() const;
     void setNom(const string &newNom);
 
-    const string &getPrix() const;
-    void setPrix(const string &newPrix);
+    const float &getPrix() const;
+    void setPrix(const float &newPrix);
 
-    const string &getTemps() const;
-    void setTemps(const string &newTemps);
+    const float &getTemps() const;
+    void setTemps(const float &newTemps);
 
-    int getDifficulte() const;
-    void setDifficulte(int newDifficulte);
+    const string &getDifficulte() const;
+    void setDifficulte(const string &newDifficulte);
 
     const string &getCategorie() const;
     void setCategorie(const string &newCategorie);
@@ -55,8 +59,8 @@ public:
     ListesIngredients getMesIngredients();
 
     void ajouterIngredient(const Ingredient &ingredient, const string &poids);
-    void retirerIngredient( string &nomIngredient);
-    bool existeIngredient(string &nomIngredient);
+    void retirerIngredient(string &nomIngredient);
+    bool existeIngredient(string &nomIngredient) const;
 };
 
 #endif

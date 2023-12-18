@@ -10,7 +10,6 @@
  */
 
 #include <iostream>
-#include <string>
 using namespace std;
 
 #ifndef INGREDIENT_H
@@ -22,20 +21,20 @@ class Recette;
 class Ingredient {
 private:
     string nom;
-    string prix;
+    float prix;
     Recette* maRecette;
     string categorie;
 
 public:
     Ingredient();
-    Ingredient(const string& INom, const string& IPrix, const string& ICategorie);
+    Ingredient(const string& INom, const float& IPrix, const string& ICategorie);
     Ingredient(const Ingredient& Ing);
 
     const string& getNom() const;
     void setNom(const string& newNom);
 
-    const string& getPrix() const;
-    void setPrix(const string& newPrix);
+    const float& getPrix() const;
+    void setPrix(const float& newPrix);
 
     Recette* getMaRecette() const;
     void setMaRecette(Recette* newRecette);
@@ -43,7 +42,6 @@ public:
     const string& getCategorie() const;
     void setCategorie(const string& newCategorie);
 
-    // Déclaration des fonctions lierIngredient et delierIngredient
     void lierIngredient(Recette* recette);
     void delierIngredient();
 };
