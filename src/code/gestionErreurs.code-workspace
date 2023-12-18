@@ -8,6 +8,7 @@
 		"files.associations": {
 			"iostream": "cpp",
 			"ostream": "cpp",
+<<<<<<< HEAD
 			"array": "cpp",
 			"atomic": "cpp",
 			"*.tcc": "cpp",
@@ -47,6 +48,12 @@
 			"stdexcept": "cpp",
 			"streambuf": "cpp",
 			"typeinfo": "cpp"
+=======
+			"xstring": "cpp",
+			"utility": "cpp",
+			"list": "cpp",
+			"xtree": "cpp"
+>>>>>>> classeUtilisateur
 		},
 		"code-runner.executorMap": {   
 			"javascript": "node",
