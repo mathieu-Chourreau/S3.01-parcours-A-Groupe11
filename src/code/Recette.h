@@ -33,6 +33,7 @@ private:
 
 
 
+
 public:
     Recette();
     Recette(const string &RNom);
@@ -54,9 +55,11 @@ public:
 
     ListesIngredients getMesIngredients();
 
-    void ajouterIngredient(const Ingredient &ingredient, const string &poids);
-    void retirerIngredient( string &nomIngredient);
-    bool existeIngredient(string &nomIngredient);
+    bool comparerIngredients(Ingredient ingredient, Ingredient ingRecherche);
+
+    void ajouterIngredient(Ingredient ingredient, string poids);
+    void retirerIngredient(Ingredient ingredient);
+    bool existeIngredient(Ingredient ingredient) ;
 };
 
 #endif

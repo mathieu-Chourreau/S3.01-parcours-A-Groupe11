@@ -7,84 +7,105 @@
 
 class Ingredient;
 
-Recette::Recette(){
+Recette::Recette()
+{
     difficulte = 1;
 }
 
-Recette::Recette(const string& RNom){
+Recette::Recette(const string &RNom)
+{
     nom = RNom;
     difficulte = 1;
 }
 
-const string& Recette::getNom() const {
+const string &Recette::getNom() const
+{
     return nom;
 }
 
-void Recette::setNom(const string& nvNom) {
+void Recette::setNom(const string &nvNom)
+{
     nom = nvNom;
 }
 
-const string& Recette::getPrix() const {
+const string &Recette::getPrix() const
+{
     return prix;
 }
 
-void Recette::setPrix(const string& nvPrix) {
+void Recette::setPrix(const string &nvPrix)
+{
     prix = nvPrix;
 }
 
-const string& Recette::getTemps() const {
+const string &Recette::getTemps() const
+{
     return temps;
 }
 
-void Recette::setTemps(const string& nvTemps) {
+void Recette::setTemps(const string &nvTemps)
+{
     temps = nvTemps;
 }
 
-int Recette::getDifficulte() const {
+int Recette::getDifficulte() const
+{
     return difficulte;
 }
 
-void Recette::setDifficulte(int nvDifficulte) {
+void Recette::setDifficulte(int nvDifficulte)
+{
     difficulte = nvDifficulte;
 }
 
-const string& Recette::getCategorie() const {
+const string &Recette::getCategorie() const
+{
     return categorie;
 }
 
-void Recette::setCategorie(const string& nvCategorie) {
+void Recette::setCategorie(const string &nvCategorie)
+{
     categorie = nvCategorie;
 }
 
-Recette::ListesIngredients Recette::getMesIngredients() {
+Recette::ListesIngredients Recette::getMesIngredients()
+{
     return mesIngredients;
 }
 
-/*void Recette::ajouterIngredient(const Ingredient& ingredient, const string& poids) {
-    bool ingredientExiste = !existeIngredient(ingredient.getNom());
+bool Recette::comparerIngredients(Ingredient ingredient, Ingredient ingRecherche)
+{
+    return (ingredient.getNom() == ingRecherche.getNom());
+}
 
-    if (ingredientExiste) {
+bool Recette::existeIngredient(Ingredient ingRecherche)
+{
+    auto existe = std::find_if(mesIngredients.begin(), mesIngredients.end(),
+        [this, ingRecherche](const Ingredient& ingredient) {
+            return comparerIngredients(ingredient, ingRecherche);
+        });
+
+    return (existe != mesIngredients.end());
+}
+
+void Recette::ajouterIngredient(Ingredient ingredient, string poids) {
+    if (!existeIngredient(ingredient)) {
         mesIngredients.push_back(make_pair(ingredient, poids));
     }
-
 }
 
-void retirerIngredient( string &nomIngredient){
-
-    if (existeIngredient(nomIngredient)) {
-
-        mesIngredients.remove_if([ingredient](const auto& pair) {
-            return pair.first == ingredient.getNom();
-        });
+void Recette::retirerIngredient(Ingredient ingredient){
+     // Utilisation d'un itérateur pour parcourir la liste et supprimer l'élément
+    for (auto iterator = mesIngredients.begin(); iterator != mesIngredients.end();) {
+        // Vérification de la valeur de la première composante de la paire
+        if (iterator->first.getNom() == ingredient.getNom()) {
+            // Suppression de l'élément correspondant
+            iterator = mesIngredients.erase(iterator);
+        } else {
+            // Passer à l'élément suivant dans la liste
+            ++iterator;
+        }
     }
-
 }
 
 
-bool Recette::existeIngredient(string &nomIngredient) const {
-    return std::any_of(mesIngredients.begin(), mesIngredients.end(), 
-                       [ingredient](const auto& pair) {
-                           return pair.first == nomIngredient;
-                       });
-}
-*/
