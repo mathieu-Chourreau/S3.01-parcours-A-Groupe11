@@ -1,8 +1,8 @@
 #include "Recette.h"
 #include "Ingredient.h"
 #include <utility>
-#include <map>
 #include <algorithm>
+#include <map>
 #include <iostream>
 
 class Ingredient;
@@ -20,42 +20,71 @@ const string& Recette::getNom() const {
     return nom;
 }
 
-void Recette::setNom(const string& newNom) {
-    nom = newNom;
+void Recette::setNom(const string& nvNom) {
+    nom = nvNom;
 }
 
 const string& Recette::getPrix() const {
     return prix;
 }
 
-void Recette::setPrix(const string& newPrix) {
-    prix = newPrix;
+void Recette::setPrix(const string& nvPrix) {
+    prix = nvPrix;
 }
 
 const string& Recette::getTemps() const {
     return temps;
 }
 
-void Recette::setTemps(const string& newTemps) {
-    temps = newTemps;
+void Recette::setTemps(const string& nvTemps) {
+    temps = nvTemps;
 }
 
 int Recette::getDifficulte() const {
     return difficulte;
 }
 
-void Recette::setDifficulte(int newDifficulte) {
-    difficulte = newDifficulte;
+void Recette::setDifficulte(int nvDifficulte) {
+    difficulte = nvDifficulte;
 }
 
 const string& Recette::getCategorie() const {
     return categorie;
 }
 
-void Recette::setCategorie(const string& newCategorie) {
-    categorie = newCategorie;
+void Recette::setCategorie(const string& nvCategorie) {
+    categorie = nvCategorie;
 }
 
 Recette::ListesIngredients Recette::getMesIngredients() {
     return mesIngredients;
 }
+
+/*void Recette::ajouterIngredient(const Ingredient& ingredient, const string& poids) {
+    bool ingredientExiste = !existeIngredient(ingredient.getNom());
+
+    if (ingredientExiste) {
+        mesIngredients.push_back(make_pair(ingredient, poids));
+    }
+
+}
+
+void retirerIngredient( string &nomIngredient){
+
+    if (existeIngredient(nomIngredient)) {
+
+        mesIngredients.remove_if([ingredient](const auto& pair) {
+            return pair.first == ingredient.getNom();
+        });
+    }
+
+}
+
+
+bool Recette::existeIngredient(string &nomIngredient) const {
+    return std::any_of(mesIngredients.begin(), mesIngredients.end(), 
+                       [ingredient](const auto& pair) {
+                           return pair.first == nomIngredient;
+                       });
+}
+*/
