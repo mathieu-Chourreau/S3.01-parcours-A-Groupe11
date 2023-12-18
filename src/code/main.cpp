@@ -7,7 +7,9 @@
  */
 
 #include <iostream>
-#include <map> 
+#include <map>
+#include "Ingredient.h"
+#include "Recette.h"
 using namespace std;
 
 int main(void){

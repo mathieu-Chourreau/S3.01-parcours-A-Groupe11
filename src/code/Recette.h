@@ -15,29 +15,46 @@
 #include <list>
 using namespace std;
 
-typedef pair<int/*a remplir*/, int> PoidIngredient;
-typedef list<PoidIngredient> lIngredient;
-class Recette
-{
+#include <iostream>
+#include <list>
+#include <utility>
+#include "Ingredient.h"
+using namespace std;
+
+class Ingredient;
+
+class Recette {
 private:
-    string nom;
-    unsigned int prix;  
     string temps;
-    unsigned difficulte;
+    string nom;
+    int difficulte;
     string categorie;
-    string ustencile;
-    lIngredient mesIngredients;
+    string prix;
+
 public:
-    Recette(/* args */);
-    ~Recette();
+    typedef list<pair<Ingredient, string>> ListesIngredients;
+    ListesIngredients mesIngredients;
+
+public:
+    Recette();
+    Recette(const string& RNom);
+
+    const string& getNom() const;
+    void setNom(const string& newNom);
+
+    const string& getPrix() const;
+    void setPrix(const string& newPrix);
+
+    const string& getTemps() const;
+    void setTemps(const string& newTemps);
+
+    int getDifficulte() const;
+    void setDifficulte(int newDifficulte);
+
+    const string& getCategorie() const;
+    void setCategorie(const string& newCategorie);
+
+    ListesIngredients getMesIngredients();
 };
-
-Recette::Recette(/* args */)
-{
-}
-
-Recette::~Recette()
-{
-}
 
 #endif
