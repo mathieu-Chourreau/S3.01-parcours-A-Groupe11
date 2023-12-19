@@ -9,13 +9,6 @@
  * 
  */
 
-#include <iostream>
-#include <string>
-using namespace std;
-
-#ifndef INGREDIENT_H
-#define INGREDIENT_H
-#include "Recette.h"
 
 class Recette;
 
