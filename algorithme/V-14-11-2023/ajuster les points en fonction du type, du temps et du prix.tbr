@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>ajuster les points en fonction du type, du temps et du prix</nom>
+  <date_creation>14/11/2023 15:31</date_creation>
+  <Elements>
+    <Action>
+      <Position>556;75</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>nbPointRecette,temps,budget</PreAssertion>
+      <PostAssertion>nbPointRecette</PostAssertion>
+      <Titre>ajuster les points en fonction  du temps et du prix, piquant</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>252;236</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>budget
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuster avec le prix</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>384.5;368</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>1</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>listeRecette[i].budget > budget</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>241;477</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>∅</PreAssertion>
+                      <PostAssertion>∅</PostAssertion>
+                      <Titre>nbPointRecette -= (listeRecette[i].budget - budget)/(budget*0.1)*40</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants/>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>714;224</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>temps
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuster avec le temps</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>811.5;341</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>1</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>listeRecette[i].temps > temps</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>738;465</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>∅</PreAssertion>
+                      <PostAssertion>∅</PostAssertion>
+                      <Titre>nbPointRecette -= (listeRecette[i].temps - temps)/(temps*0.5)*40</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants/>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1173;219</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>piquant
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuster piquant oui</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>1298;320</Position>
+              <StyleLien>0</StyleLien>
+              <estUnique>0</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>piquant ← oui</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>1295;403</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>nbPointRecette</PostAssertion>
+                      <Titre>nbPointRecette += 25</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>
