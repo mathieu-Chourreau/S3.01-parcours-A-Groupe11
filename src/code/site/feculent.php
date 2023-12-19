@@ -22,7 +22,7 @@
         <div class="recherche_default">
             <ul>Féculent : </ul>
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="autre.php">
+            <form action="prixTempsSale.php">
                 <p id = "type_pref">Je n'en veux pas | Je n'aime pas | Sans préférence | J'aime | J'adore</p>
 
                 <?php
