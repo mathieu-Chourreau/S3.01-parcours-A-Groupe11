@@ -1,25 +1,21 @@
 import java.util.ArrayList;
-import java.util.List;
+import javafx.util.Pair;
 
 public class Recette {
-    private float temps;
+    private double temps;
     private String nom;
-    private int difficulte;
+    private String difficulte;
     private String categorie;
     private float prix;
-    private List<ArrayList<Ingredient, String>> mesIngredients;
+    private ArrayList<Pair<Ingredient, Integer>> mesIngredients;
 
-    public class Ingredient {}
-
-    public Recette() {
-        difficulte = 1;
-        mesIngredients = new ArrayList<>();
-    }
-
-    public Recette(String RNom) {
-        nom = RNom;
-        difficulte = 1;
-        mesIngredients = new ArrayList<>();
+    public Recette(String n, double t, String d, String c, float p) {
+        nom = n;
+        difficulte = d;
+        temps = t;
+        categorie = c;
+        prix = p;
+        mesIngredients = new ArrayList<Pair<Ingredient, Integer>>();
     }
 
     public String getNom() {
@@ -38,7 +34,7 @@ public class Recette {
         prix = newPrix;
     }
 
-    public float getTemps() {
+    public double getTemps() {
         return temps;
     }
 
@@ -46,11 +42,11 @@ public class Recette {
         temps = newTemps;
     }
 
-    public int getDifficulte() {
+    public String getDifficulte() {
         return difficulte;
     }
 
-    public void setDifficulte(int newDifficulte) {
+    public void setDifficulte(String newDifficulte) {
         difficulte = newDifficulte;
     }
 
@@ -62,7 +58,35 @@ public class Recette {
         categorie = newCategorie;
     }
 
-    public List<ArrayList<Object>> getMesIngredients() {
+    public ArrayList<Pair<Ingredient, Integer>> getMesIngredients() {
         return mesIngredients;
     }
+
+    public boolean ajouterIngredient(Ingredient i, int p){
+        Pair<Ingredient, Integer> pairAjt = new Pair<Ingredient,Integer>(i, p);
+        boolean insert = mesIngredients.add(pairAjt);
+        if (insert) {
+            i.ajouterRecette(this);
+        }
+        return insert;
+    }
+
+    public boolean retirerIngredient(Ingredient i){
+        for(Pair<Ingredient,Integer> ing:getMesIngredients()){
+            if (ing.getKey() == i) {
+                return mesIngredients.remove(ing);
+            }
+        }
+        return false;
+    }
+
+    public boolean existeIngredient(Ingredient i){
+        for(Pair<Ingredient,Integer> ing:getMesIngredients()){
+            if (ing.getKey() == i) {
+                return mesIngredients.contains(ing);
+            }
+        }
+        return false;
+    }
+
 }

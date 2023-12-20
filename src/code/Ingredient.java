@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * @file Ingredient.java
  * @author Chourreau Mathieu, Fermé Léo, Piel Nathan, Zaza Souleymen
@@ -11,26 +13,23 @@
 
 public class Ingredient {
     private String nom;
-    private float prix;
-    private Recette maRecette;
+    private double prix;
     private String categorie;
     public ArrayList<Recette> lesRecettes;
 
-    public Ingredient() {
-        // Default constructor
-    }
 
-    public Ingredient(String INom, String IPrix, String ICategorie) {
+    public Ingredient(String INom, double IPrix, String ICategorie) {
         nom = INom;
         prix = IPrix;
         categorie = ICategorie;
+        lesRecettes = new ArrayList<Recette>();
     }
 
     public Ingredient(Ingredient Ing) {
         nom = Ing.getNom();
         prix = Ing.getPrix();
-        maRecette = Ing.getMaRecette();
         categorie = Ing.getCategorie();
+        lesRecettes = Ing.getLesRecette();
     }
 
     public String getNom() {
@@ -41,7 +40,7 @@ public class Ingredient {
         nom = newNom;
     }
 
-    public float getPrix() {
+    public double getPrix() {
         return prix;
     }
 
@@ -49,12 +48,20 @@ public class Ingredient {
         prix = newPrix;
     }
 
-    public Recette getMaRecette() {
-        return maRecette;
+    public ArrayList<Recette> getLesRecette() {
+        return lesRecettes;
     }
 
-    public void setMaRecette(Recette newRecette) {
-        maRecette = newRecette;
+    public boolean ajouterRecette(Recette r){
+        return lesRecettes.add(r);
+    }
+    
+    public boolean retirerRecette(Recette r){
+        return lesRecettes.remove(r);
+    }
+
+    public boolean existeRecette(Recette r){
+        return lesRecettes.contains(r);
     }
 
     public String getCategorie() {
@@ -63,18 +70,5 @@ public class Ingredient {
 
     public void setCategorie(String newCategorie) {
         categorie = newCategorie;
-    }
-
-    // Déclaration des fonctions lierIngredient et delierIngredient
-    public void lierIngredient(Recette recette) {
-        setMaRecette(recette);
-        recette.getMesIngredients().add(new Recette.Pair(this, ""));
-    }
-
-    public void delierIngredient() {
-        if (maRecette != null) {
-            maRecette.getMesIngredients().removeIf(pair -> pair.getIngredient() == this);
-            setMaRecette(null);
-        }
     }
 }
