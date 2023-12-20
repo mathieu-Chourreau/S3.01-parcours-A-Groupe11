@@ -53,7 +53,12 @@ public class Ingredient {
     }
 
     public boolean ajouterRecette(Recette r){
-        return lesRecettes.add(r);
+        if (!existeRecette(r)) {
+            return lesRecettes.add(r);   
+        }
+        else{
+            return false;
+        }
     }
     
     public boolean retirerRecette(Recette r){

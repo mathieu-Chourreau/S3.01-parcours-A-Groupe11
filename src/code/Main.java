@@ -25,5 +25,22 @@ public class Main {
         for (Pair<Ingredient, Integer> pair : recette.getMesIngredients()) {
             System.out.println(pair.getKey().getNom() + " - Quantité(g): " + pair.getValue());
         }
+
+        System.out.println("\n Recette de poulet:");
+        for (Recette rec : ingredient1.getLesRecette()) {
+            System.out.println(rec.getNom());
+        }
+        
+        ingredient1.retirerRecette(recette);
+        System.out.println(ingredient1.retirerRecette(recette));
+
+        for (Pair<Ingredient, Integer> pair : recette.getMesIngredients()) {
+            System.out.println(pair.getKey().getNom() + " - Quantité(g): " + pair.getValue());
+        }
+
+        System.out.println("\n Recette de poulet:");
+        for (Recette rec : ingredient1.getLesRecette()) {
+            System.out.println(rec.getNom());
+        }
     }
 }

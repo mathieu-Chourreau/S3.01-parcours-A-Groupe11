@@ -64,16 +64,22 @@ public class Recette {
 
     public boolean ajouterIngredient(Ingredient i, int p){
         Pair<Ingredient, Integer> pairAjt = new Pair<Ingredient,Integer>(i, p);
-        boolean insert = mesIngredients.add(pairAjt);
-        if (insert) {
-            i.ajouterRecette(this);
+        if (!existeIngredient(i)) {
+            boolean insert = mesIngredients.add(pairAjt);
+            if (insert) {
+                i.ajouterRecette(this);
+            }
+            return insert;   
         }
-        return insert;
+        else{
+            return false;
+        }
     }
 
     public boolean retirerIngredient(Ingredient i){
         for(Pair<Ingredient,Integer> ing:getMesIngredients()){
-            if (ing.getKey() == i) {
+            if (existeIngredient(ing.getKey())) {
+                i.retirerRecette(this);
                 return mesIngredients.remove(ing);
             }
         }
