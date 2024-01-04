@@ -9,6 +9,13 @@
             "name": "bd",
             "request": "launch",
             "mainClass": "bd",
+            "projectName": "code_a94cea61"
+        },
+        {
+            "type": "java",
+            "name": "bd",
+            "request": "launch",
+            "mainClass": "bd",
             "projectName": "code_47d83f51"
         },
         {
