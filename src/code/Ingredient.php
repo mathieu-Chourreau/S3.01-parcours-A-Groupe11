@@ -23,51 +23,51 @@ class Ingredient {
         return $this->nom;
     }
 
-    public function setNom($newNom) {
-        $this->nom = $newNom;
+    public function setNom($nvNom) {
+        $this->nom = $nvNom;
     }
 
     public function getPrix() {
         return $this->prix;
     }
 
-    public function setPrix($newPrix) {
-        $this->prix = $newPrix;
+    public function setPrix($nvPrix) {
+        $this->prix = $nvPrix;
     }
 
     public function getLesRecette() {
         return $this->lesRecettes;
     }
 
-    public function ajouterRecette($r) {
-        if (!$this->existeRecette($r)) {
-            $this->lesRecettes[] = $r;
+    public function ajouterRecette($recette) {
+        if (!$this->existeRecette($recette)) {
+            $this->lesRecettes[] = $recette;
             return true;
         } else {
             return false;
         }
     }
 
-    public function retirerRecette($r) {
-        $key = array_search($r, $this->lesRecettes);
-        if ($key !== false) {
-            unset($this->lesRecettes[$key]);
+    public function retirerRecette($recette) {
+        $cle = array_search($recette, $this->lesRecettes);
+        if ($cle !== false) {
+            unset($this->lesRecettes[$cle]);
             return true;
         } else {
             return false;
         }
     }
 
-    public function existeRecette($r) {
-        return in_array($r, $this->lesRecettes);
+    public function existeRecette($recette) {
+        return in_array($recette, $this->lesRecettes);
     }
 
     public function getCategorie() {
         return $this->categorie;
     }
 
-    public function setCategorie($newCategorie) {
-        $this->categorie = $newCategorie;
+    public function setCategorie($nvCategorie) {
+        $this->categorie = $nvCategorie;
     }
 }
 
