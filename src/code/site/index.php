@@ -27,26 +27,40 @@
 
                 <?php
                 include 'bd.php'; 
-                $sql = "SELECT nom FROM ingredient WHERE categorie ='Viande rouge'";
+                $sql = "SELECT categorie FROM ingredient GROUP BY categorie";
+
                 $result = $conn->query($sql);
-                $conn->close();
+
+                $listeCategoriesStocks = []; // Initialise un tableau vide
+
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-
-                        echo '<div class="ingredient">';
-                        echo '<label for="' . $row["nom"] . '">' . $row["nom"] . '</label>';
-                        echo '<input type="radio" id="'. $row["nom"].'jamais" name="' . $row["nom"] . '" value ="0">';
-                        echo '<input type="radio" id="'. $row["nom"].'aimePas" name="' . $row["nom"] . '" value ="0.5">';
-                        echo '<input type="radio" id="'. $row["nom"].'sansPreference" name="' . $row["nom"] . '" value ="1" checked>';
-                        echo '<input type="radio" id="'. $row["nom"].'aime" name="' . $row["nom"] . '" value ="1.5">';
-                        echo '<input type="radio" id="'. $row["nom"].'adore" name="' . $row["nom"] . '" value ="2">';
-                        echo '</div>';
+                        // Ajoute chaque catégorie au tableau
+                        $listeCategoriesStocks[] = $row["categorie"];
                     }
-                } else {
-                    echo "Aucun ingrédient trouvé";
+                } 
+                for ($i=0; $i <count($listeCategoriesStocks) ; $i++) { 
+                    $sql = "SELECT nom FROM ingredient WHERE categorie ='{$listeCategoriesStocks[$i]}'";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+
+                            echo '<div class="ingredient">';
+                            echo '<label for="' . $row["nom"] . '">' . $row["nom"] . '</label>';
+                            echo '<input type="radio" id="'. $row["nom"].'jamais" name="' . $row["nom"] . '" value ="0">';
+                            echo '<input type="radio" id="'. $row["nom"].'aimePas" name="' . $row["nom"] . '" value ="0.5">';
+                            echo '<input type="radio" id="'. $row["nom"].'sansPreference" name="' . $row["nom"] . '" value ="1" checked>';
+                            echo '<input type="radio" id="'. $row["nom"].'aime" name="' . $row["nom"] . '" value ="1.5">';
+                            echo '<input type="radio" id="'. $row["nom"].'adore" name="' . $row["nom"] . '" value ="2">';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "Aucun ingrédient trouvé";
+                    }
                 }
-                ?>
-                <button id="btnSuivant">Suivant</button>
+                $conn->close();
+                    ?>
+                    <button id="btnSuivant">Suivant</button>
             </form>
         </div>
     </section>
@@ -64,6 +78,7 @@
                 }
             });
         });
+        
         function reinitialiserPref() {
 
             var boutonsViandes = document.querySelectorAll('input[type="radio"]');
