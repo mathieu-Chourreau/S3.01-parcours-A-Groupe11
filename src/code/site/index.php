@@ -38,7 +38,7 @@
                         // Ajoute chaque catégorie au tableau
                         $listeCategoriesStocks[] = $row["categorie"];
                     }
-                } 
+                }
                 for ($i=0; $i <count($listeCategoriesStocks) ; $i++) { 
                     $sql = "SELECT nom FROM ingredient WHERE categorie ='{$listeCategoriesStocks[$i]}'";
                     $result = $conn->query($sql);
