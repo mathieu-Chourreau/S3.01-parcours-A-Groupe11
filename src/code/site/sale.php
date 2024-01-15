@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['ingredientsPreferences'])) {
+    $_SESSION['ingredientsPreferences'] = array();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    foreach ($_POST as $nomIngredient => $valeur) {
+        $_SESSION['ingredientsPreferences'][$nomIngredient] = $valeur;
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,7 +37,7 @@
         </div>
         <div class="recherche_default">
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="sale.php">
+            <form action="liste.php" method = "post">
 
                 <?php
                 

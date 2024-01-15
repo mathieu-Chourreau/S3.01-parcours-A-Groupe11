@@ -26,7 +26,7 @@
 
                 <?php
                 include 'bd.php'; 
-                $sql = "SELECT categorie FROM ingredient GROUP BY categorie";
+                $sql = "SELECT categorie FROM categorieingredient GROUP BY categorie";
 
                 $result = $conn->query($sql);
 
@@ -38,11 +38,10 @@
                         $listeCategoriesStocks[] = $row["categorie"];
                     }
                 }
-                $listeIngredientsInverse = array_reverse($listeCategoriesStocks);
 
-                for ($i = 0; $i < count($listeIngredientsInverse); $i++) { 
-                    echo '<h3>' . $listeIngredientsInverse[$i] . '</h3>';
-                    $sql = "SELECT nom FROM ingredient WHERE categorie ='{$listeIngredientsInverse[$i]}'";
+                for ($i = 0; $i < count($listeCategoriesStocks); $i++) { 
+                    echo '<h3>' . $listeCategoriesStocks[$i] . '</h3>';
+                    $sql = "SELECT nom, categorie FROM ingredient JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant WHERE categorie ='{$listeCategoriesStocks[$i]}'";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         echo '<p id="type_pref">Je n\'en veux pas | Je n\'aime pas | Sans préférence | J\'aime | J\'adore</p>';
