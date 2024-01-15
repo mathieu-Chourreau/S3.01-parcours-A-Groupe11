@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>trier les recette en fonction de la correspondance</nom>
+  <date_creation>14/11/2023 15:31</date_creation>
+  <Elements>
+    <Action>
+      <Position>597;71</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>listeRecette, nbPointRecette</PreAssertion>
+      <PostAssertion>∅</PostAssertion>
+      <Titre>trier les recette en fonction de la correspondance</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>0</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>855;162</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>tri a bulle</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

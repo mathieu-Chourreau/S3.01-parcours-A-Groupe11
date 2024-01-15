@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>calculer la moyenne de correspondance de recette</nom>
+  <date_creation>14/11/2023 15:31</date_creation>
+  <Elements>
+    <Action>
+      <Position>543;-4</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>listeRecette
+lIngredientPref</PreAssertion>
+      <PostAssertion>lIngredientPoint</PostAssertion>
+      <Titre>Calculer le nombre de points de chaque recettes </Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Iteration>
+          <Position>805.5;121.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour i de 0 a len(listeRecette)</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Action>
+              <Position>776;262</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>poidsRecette</PreAssertion>
+              <PostAssertion>nbRecettePoint</PostAssertion>
+              <Titre>calculer le nombre de points de chaque recette
+</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Iteration>
+                  <Position>1354.5;431.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>Pour i allant de 0 aux nombre d'ingredients de la recette</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>1456;539</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>ajouter des points à la recette en fonction de la préférence de l'utilisateur face à l'ingrédients</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Iteration>
+                          <Position>1644.5;649.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>for e in lIngredientPref </Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Action>
+                              <Position>1407;727</Position>
+                              <StyleLien>2</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>verifier si l'ingredient de la recette se trouve dans la liste des ingredients préférés </Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>0</DetailsVideVisible>
+                              <Enfants>
+                                <Condition>
+                                  <Position>1502;894</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <estUnique>1</estUnique>
+                                  <operationsLogiques>
+                                    <operation>
+                                      <Titre>e = mesIngredients[i]</Titre>
+                                      <Enfants>
+                                        <Action>
+                                          <Position>1369;1016</Position>
+                                          <StyleLien>2</StyleLien>
+                                          <PreAssertion>?</PreAssertion>
+                                          <PostAssertion>nbPointRecette</PostAssertion>
+                                          <Titre>Rajouter le nombre de point de l'ingredient dans la recette en fonction de la preference de l'utilisateur</Titre>
+                                          <DetailsVisible>1</DetailsVisible>
+                                          <DetailsVideVisible>0</DetailsVideVisible>
+                                          <Enfants>
+                                            <Action>
+                                              <Position>1464;1163</Position>
+                                              <StyleLien>1</StyleLien>
+                                              <PreAssertion>?</PreAssertion>
+                                              <PostAssertion>nbPointRecette</PostAssertion>
+                                              <Titre>nbPointRecette += prop *  e→second</Titre>
+                                              <DetailsVisible>0</DetailsVisible>
+                                              <DetailsVideVisible>0</DetailsVideVisible>
+                                              <Enfants/>
+                                            </Action>
+                                          </Enfants>
+                                        </Action>
+                                      </Enfants>
+                                    </operation>
+                                    <operation>
+                                      <Titre>Sinon</Titre>
+                                      <Enfants/>
+                                    </operation>
+                                  </operationsLogiques>
+                                </Condition>
+                              </Enfants>
+                            </Action>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>1013;542</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>prop</PostAssertion>
+                      <Titre>calculer la proportion de l'ingredient dans la recette</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>1058;673</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>prop = (mesIngredients[i]→second
+/poidsRecette) * 100</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </Iteration>
+                <Action>
+                  <Position>667;424</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>nbPointRecette</PostAssertion>
+                  <Titre>initialiser nbPointRecette</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>685;537</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>nbPointRecette</PostAssertion>
+                      <Titre>nbPointRecette = 0</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>2367;340</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>nbPointRecette</PreAssertion>
+              <PostAssertion>lRecettePoint</PostAssertion>
+              <Titre>ajouter les recettes et leurs points dans une liste</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>2441;511</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>lRecettePoint.append([recette[i], nbPointRecette])</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>1577;334</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>nbRecettePoint,temps , budget, piquant</PreAssertion>
+              <PostAssertion>nbRecettePoint</PostAssertion>
+              <Titre>ajuster les points en fonction du temps et du prix, piquant</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>113;292</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>piquant</PreAssertion>
+              <PostAssertion>listeRecette</PostAssertion>
+              <Titre>Vérifier si l'utilisateur souhaite des recettes pimentées</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Condition>
+                  <Position>303;414</Position>
+                  <StyleLien>0</StyleLien>
+                  <estUnique>0</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>piquant = non</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>241;520</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>enlever la recette de la liste de recette</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Iteration>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>

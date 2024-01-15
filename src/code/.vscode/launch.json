@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "bd",
+            "request": "launch",
+            "mainClass": "bd",
+            "projectName": "code_47d83f51"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "code_47d83f51"
+        },
+        {
             "name": "g++.exe - Générer et déboguer le fichier actif",
             "type": "cppdbg",
             "request": "launch",

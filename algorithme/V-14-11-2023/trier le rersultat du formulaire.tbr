@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>recuperer le resultat du formulaire</nom>
+  <date_creation>14/11/2023 15:31</date_creation>
+  <Elements>
+    <Action>
+      <Position>566;51</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>resultatFormulaire</PreAssertion>
+      <PostAssertion>lIngredientPref ,piquant, budget,tempsMax
+pileIngredientRefus </PostAssertion>
+      <Titre>recuperer le resultat du formulaire</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>63;220</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>resultatFormulaire</PreAssertion>
+          <PostAssertion>lIngredientPref ,pileIngredientRefus </PostAssertion>
+          <Titre>récuperer les préférences des ingredients </Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Iteration>
+              <Position>325.5;343.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>?</Titre>
+              <IterationFixe>0</IterationFixe>
+              <Enfants>
+                <Action>
+                  <Position>284;424</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>trier l'ingredient</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>1180;621</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>passer à l'élément suivant</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>60;622</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>verifier si il ne reste plus d'ingredients et sortir de la boucle</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Condition>
+                          <Position>152;748</Position>
+                          <StyleLien>1</StyleLien>
+                          <estUnique>1</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>Il n'y a plus d'ingredient</Titre>
+                              <Enfants>
+                                <Sortie>
+                                  <Position>205;880</Position>
+                                </Sortie>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants/>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </Action>
+                    <Action>
+                      <Position>599;621</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Stocker l'ingredient en fonction de la preference de l'utilisateur</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Condition>
+                          <Position>745;746</Position>
+                          <StyleLien>0</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>preference = 0</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>480;875</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>pileIngredientRefus </PostAssertion>
+                                  <Titre>mettre l'ingrédient dans une pile
+contenant les ingredients qu'il ne veut pas</Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>0</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>950;878</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>resultatFormulaire</PreAssertion>
+                                  <PostAssertion>lIngredientPref</PostAssertion>
+                                  <Titre>mettre les ingredients dans une liste de paire&lt;Ingredient, preference></Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>665;328</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>resultatFormulaire</PreAssertion>
+          <PostAssertion>piquant</PostAssertion>
+          <Titre>recuperer la préférence du piquant</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>1237;220</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>resultatFormulaire</PreAssertion>
+          <PostAssertion>budget,tempsMax</PostAssertion>
+          <Titre>recuperer le budget et le tempsMax
+</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>1366;336</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>saisie verif erreur</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+  <Dictionary/>
+</Algorithme>
