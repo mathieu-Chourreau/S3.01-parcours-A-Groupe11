@@ -45,3 +45,12 @@ header {
     width: 100px; 
     margin-bottom: 10px; 
 }
+.prixTempsSale input[type="radio"] {
+    margin-right: 10px; 
+}
+
+.prixTempsSale label {
+    display: inline-block; 
+    width: 100px; 
+    margin-bottom: 10px;  
+}
