@@ -20,10 +20,9 @@
             <p>Mes préférences : </p>
         </div>
         <div class="recherche_default">
-            <ul>Viande Rouge : </ul>
+            <ul>Liste d'ingredient : </ul>
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="viandeBlanche.php" method="post">
-                <p id = "type_pref">Je n'en veux pas | Je n'aime pas | Sans préférence | J'aime | J'adore</p>
+            <form action="sale.php" method="post">
 
                 <?php
                 include 'bd.php'; 
@@ -39,12 +38,15 @@
                         $listeCategoriesStocks[] = $row["categorie"];
                     }
                 }
-                for ($i=0; $i <count($listeCategoriesStocks) ; $i++) { 
-                    $sql = "SELECT nom FROM ingredient WHERE categorie ='{$listeCategoriesStocks[$i]}'";
+                $listeIngredientsInverse = array_reverse($listeCategoriesStocks);
+
+                for ($i = 0; $i < count($listeIngredientsInverse); $i++) { 
+                    echo '<h3>' . $listeIngredientsInverse[$i] . '</h3>';
+                    $sql = "SELECT nom FROM ingredient WHERE categorie ='{$listeIngredientsInverse[$i]}'";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
+                        echo '<p id="type_pref">Je n\'en veux pas | Je n\'aime pas | Sans préférence | J\'aime | J\'adore</p>';
                         while ($row = $result->fetch_assoc()) {
-
                             echo '<div class="ingredient">';
                             echo '<label for="' . $row["nom"] . '">' . $row["nom"] . '</label>';
                             echo '<input type="radio" id="'. $row["nom"].'jamais" name="' . $row["nom"] . '" value ="0">';
@@ -59,13 +61,12 @@
                     }
                 }
                 $conn->close();
-                    ?>
-                    <button id="btnSuivant">Suivant</button>
+                ?>
+                <button id="btnSuivant">Suivant</button>
             </form>
         </div>
     </section>
     <script>
- 
         document.getElementById("btnSuivant").addEventListener("click", function() {
             var boutonsViandes = document.querySelectorAll('input[type="radio"]');
             var valeursPref = {};
@@ -80,10 +81,8 @@
         });
         
         function reinitialiserPref() {
-
             var boutonsViandes = document.querySelectorAll('input[type="radio"]');
             
-
             boutonsViandes.forEach(function(bouton) {
                 if (bouton.id.endsWith('sansPreference')) {
                     bouton.checked = true; 
