@@ -197,6 +197,7 @@ class Recette {
         return false;
     }
 
+
     public function existeIngredient($ing_recherche) {
         foreach ($this->getMesIngredients() as $ing) {
             if ($ing[0] == $ing_recherche) {
@@ -205,6 +206,15 @@ class Recette {
         }
         return false;
     }
+
+    public function getPrix() {
+        $prix = 0;
+        foreach ($this->getMesIngredients() as $ing) {
+            $prix+=$ing[0]->getPrix()*0.01*$ing[1];
+        }
+        return $prix;
+    }
+
     public function afficherDetails() {
         echo "identifiant: " .$this->getIdentifiant() ."nom: " .$this->getNom() . ", temps: " .$this->getTemps() .", dif: " .$this->getDifficulte() .", instuction: " .$this->getInstruction() .", grammage: " .$this->getGrammage();
         echo "</br> je suis composer de ";
@@ -212,6 +222,8 @@ class Recette {
             echo "</br>";
             echo $ing[1] ."de" .$ing[0]->getNom();
         }
+        echo "</br>";
+        echo $this->getPrix();
     }
 }
 
@@ -325,7 +337,6 @@ $sale = $_SESSION['ingredientsPreferencesPageSale']['sale'];
 $temps = $_SESSION['ingredientsPreferencesPageSale']['zone_temps'];
 $budget = $_SESSION['ingredientsPreferencesPageSale']['zone_prix'];
 
-
 // tri des recettes en fonction des préférences
 
 // Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
@@ -390,6 +401,7 @@ if (isset($pileIngredientRefus)){
     $recette1->afficherDetails();
 }   
 
+$lRecettePoint = array();
 
 foreach ($listeRecette as $val){
     //Verifier si une recette est salé A FAIRE
@@ -404,10 +416,49 @@ foreach ($listeRecette as $val){
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
             }
         }
-        //ajuster en fonction du temps ...
+    //ajuster en fonction du prix
+    if ($val->getPrix()>$budget) {
+        //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
+        $nbPointRecette -= ($val->getPrix()-$budget)/($budget*0.1)*40;
+    }
+
+    //ajuster en fonction du temps
+    if ($val->getTemps() > $temps) {
+        //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
+        $nbPointRecette -= ($val->getTemps()-$temps)/($temps*0.5)*40;
+    }
+
+    //ajuster en fonction de si la recette est salé
+    if ($sale==2) {
+        //On ajoute un bonus de points à la recette
+        $nbPointRecette +=25;
+    }
 
     }
-    echo "<br>";
-    echo "nb point :";
-    echo $nbPointRecette;
+
+    //création d'un array avec un recette et ses points
+    $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $nbPointRecette);
 }
+
+//trier les recette en fonction de la correspondance dans l'ordre decroissant
+$n =count($lRecettePoint);
+do {
+    $bchanger= false;
+    for ($i = 0; $i < $n - 1; $i++) {
+        if ($lRecettePoint[$i]['point'] < $lRecettePoint[$i + 1]['point']) {
+            //echange des éléments si l'élément actuel a un score plus bas que l'élément suivant
+            $temp = $lRecettePoint[$i];
+            $lRecettePoint[$i] = $lRecettePoint[$i + 1];
+            $lRecettePoint[$i + 1] = $temp;
+            $bchanger = true;
+        }
+    }
+} while ($bchanger);
+
+echo "<br>";
+echo "recette :";
+foreach ($lRecettePoint as $rec) {
+    echo "</br>";
+    echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
+}
+echo $budget;
