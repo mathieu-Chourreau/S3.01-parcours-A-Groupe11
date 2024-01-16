@@ -34,7 +34,7 @@
                         $pointActuel = $points[$index];
 
                         echo '<li>';
-                        echo '<h3>' . $row["nom"] . ' : ' . $pointActuel .' points </h3>';
+                        echo '<h3>' . $row["nom"] . ' :  ' . $pointActuel .' points </h3>';
                         echo '<p>' . $row["instruction"] . '</p>';
                         echo '</li>';
 
