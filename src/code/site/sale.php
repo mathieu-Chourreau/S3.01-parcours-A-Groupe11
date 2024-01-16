@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="recherche_default">
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="liste.php" method = "post">
+            <form action="mainglobal.php" method = "post">
 
                 <?php
                 
