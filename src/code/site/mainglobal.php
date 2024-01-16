@@ -110,7 +110,7 @@ class Ingredient {
 }
 
 class Recette {
-    private $identifiant
+    private $identifiant;
     private $nom;
     private $temps;
     private $instruction;
@@ -118,13 +118,13 @@ class Recette {
     private $grammage;
     private $mesIngredients;
 
-    public function __construct($n, $t, $d, $i, $g) {
-        $this->identifiant;
+    public function __construct($id, $n, $t, $d, $i, $g) {
+        $this->identifiant = $id;
         $this->nom = $n;
         $this->difficulte = $d;
         $this->temps = $t;
         $this->instruction = $i;
-        $this->grammage;
+        $this->grammage = $g;
         $this->mesIngredients = array();
     }
 
@@ -173,7 +173,7 @@ class Recette {
         return $this->instruction;
     }
 
-    public function setCategorie($nvInstr) {
+    public function setInstruction($nvInstr) {
         $this->instruction = $nvInstr;
     }
 
@@ -217,7 +217,12 @@ class Recette {
         return false;
     }
     public function afficherDetails() {
-        echo "nom: " . $this->nom . ", temps: " . $this->temps . ", dif: " . $this->difficulte;
+        echo "identifiant: " .$this->getIdentifiant() ."nom: " .$this->getNom() . ", temps: " .$this->getTemps() .", dif: " .$this->getDifficulte() .", instuction: " .$this->getInstruction() .", grammage: " .$this->getGrammage();
+        echo "</br> je suis composer de ";
+        foreach ($this->getMesIngredients() as $ing) {
+            echo "</br>";
+            echo $ing[1] ."de" .$ing[0]->getNom();
+        }
     }
 }
 
@@ -262,7 +267,7 @@ class Utilisateur {
     }
 
     public function getTempsMin() {
-        return $this->tempsMin$tempsMin;
+        return $this->tempsMin;
     }
 
     public function setTempsMin($t) {
@@ -351,15 +356,36 @@ if (isset($pileIngredientRefus)){
                                 WHERE ig.NOM IN $conditionWhere)
     ORDER BY r.identifiant;";
 
-    $result = $conn->query($sql);
+    $resultR = $conn->query($sql);
+    $nomVar = "";
 
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $row['nom_recette'] = new Recette($row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette']);
-            $row['nom_recette']->afficherDetails();
-            $sql = "SELECT ";
-        
-            $result = $conn->query($sql);
+    if ($resultR && $resultR->num_rows > 0) {
+        while ($row = $resultR->fetch_assoc()) {
+            $nomVar = "recette".$row['identifiant_recette'];
+            $$nomVar = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
+            $sql= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
+                    FROM ingredient i
+                    JOIN categorieingredient ci on i.identifiantC = ci.identifiant
+                    JOIN contenir c ON i.nom = c.Ingredient_id
+                    JOIN recette r ON c.Recette_id = r.identifiant
+                    WHERE r.identifiant =". $row['identifiant_recette'].";";
+            $resultI = $conn->query($sql);
+            if ($resultI && $resultI->num_rows > 0) {
+                while ($row = $resultI->fetch_assoc()) {
+                    $nomVarI = "".$row['nom_ingr'];
+                    $nomVarI = str_replace(' ', '_', $nomVarI);
+                    if (!isset($$nomVarI)) {
+                        $$nomVarI = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
+                        $$nomVar->ajouterIngredient($$nomVarI,$row['quantite']);
+                        $$nomVarI->ajouterRecette($$nomVar);
+                    }
+                }
+            }   
         }
     }
-}
+    $recette1->afficherDetails();
+}   
+
+/*echo "</br>";
+  $sql = "SELECT ";
+  $resultR = $conn->query($sql);*/
