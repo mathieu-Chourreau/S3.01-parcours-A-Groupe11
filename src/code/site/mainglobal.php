@@ -39,20 +39,20 @@ if (!isset($_SESSION['ingredientsPreferencesPageSale'])) {
 include 'bd.php';
 class Ingredient {
     private $nom;
-    private $prix;
+    private $prixKg;
     private $categorie;
     private $lesRecettes;
 
     public function __construct($INom, $IPrix, $ICategorie) {
         $this->nom = $INom;
-        $this->prix = $IPrix;
+        $this->prixKg = $IPrix;
         $this->categorie = $ICategorie;
         $this->lesRecettes = array();
     }
 
     public function __constructCopy(Ingredient $Ing) {
         $this->nom = $Ing->getNom();
-        $this->prix = $Ing->getPrix();
+        $this->prixKg = $Ing->getPrix();
         $this->categorie = $Ing->getCategorie();
         $this->lesRecettes = $Ing->getLesRecette();
     }
@@ -66,11 +66,11 @@ class Ingredient {
     }
 
     public function getPrix() {
-        return $this->prix;
+        return $this->prixKg;
     }
 
     public function setPrix($nvPrix) {
-        $this->prix = $nvPrix;
+        $this->prixKg = $nvPrix;
     }
 
     public function getLesRecette() {
@@ -110,16 +110,38 @@ class Ingredient {
 }
 
 class Recette {
-    private $temps;
+    private $identifiant
     private $nom;
+    private $temps;
+    private $instruction;
     private $difficulte;
+    private $grammage;
     private $mesIngredients;
 
-    public function __construct($n, $t, $d) {
+    public function __construct($n, $t, $d, $i, $g) {
+        $this->identifiant;
         $this->nom = $n;
         $this->difficulte = $d;
         $this->temps = $t;
+        $this->instruction = $i;
+        $this->grammage;
         $this->mesIngredients = array();
+    }
+
+    public function getGrammage() {
+        return $this->grammage;
+    }
+
+    public function setGrammage($gram) {
+        $this->grammage = $gram;
+    }
+
+    public function getIdentifiant() {
+        return $this->identifiant;
+    }
+
+    public function setIdentifiant($id) {
+        $this->identifiant = $id;
     }
 
     public function getNom() {
@@ -145,6 +167,14 @@ class Recette {
 
     public function setDifficulte($nvDifficulte) {
         $this->difficulte = $nvDifficulte;
+    }
+
+    public function getInstruction() {
+        return $this->instruction;
+    }
+
+    public function setCategorie($nvInstr) {
+        $this->instruction = $nvInstr;
     }
 
     public function getMesIngredients() {
@@ -195,8 +225,8 @@ class Utilisateur {
     private $identifiant;
     private $nom;
     private $prenom;
-    private $budget;
-    private $tempsMax;
+    private $date_naissance;
+    private $tempsMin;
     private $mesPreferences;
 
     public function getIdentifiant() {
@@ -223,20 +253,20 @@ class Utilisateur {
         $this->prenom = $p;
     }
 
-    public function getBudget() {
-        return $this->budget;
+    public function getDate() {
+        return $this->date_naissance;
     }
 
-    public function setBudget($b) {
-        $this->budget = $b;
+    public function setDate($b) {
+        $this->date_naissance = $b;
     }
 
-    public function getTempsMax() {
-        return $this->tempsMax;
+    public function getTempsMin() {
+        return $this->tempsMin$tempsMin;
     }
 
-    public function setTempsMax($t) {
-        $this->tempsMax = $t;
+    public function setTempsMin($t) {
+        $this->tempsMin = $t;
     }
 
     public function getMesPreferences() {
@@ -293,7 +323,7 @@ if (isset($pileIngredientRefus)){
 /*
 $sale = $ingPageSale['sale'];
 $temps = $ingPageSale['temps'];
-$budget = $ingPageSale['prix'];
+$date_naissance = $ingPageSale['prixKg'];
 */
 
 // tri des recettes en fonction des préférences
