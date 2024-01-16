@@ -113,14 +113,12 @@ class Recette {
     private $temps;
     private $nom;
     private $difficulte;
-    private $categorie;
     private $mesIngredients;
 
-    public function __construct($n, $t, $d, $c) {
+    public function __construct($n, $t, $d) {
         $this->nom = $n;
         $this->difficulte = $d;
         $this->temps = $t;
-        $this->categorie = $c;
         $this->mesIngredients = array();
     }
 
@@ -147,14 +145,6 @@ class Recette {
 
     public function setDifficulte($nvDifficulte) {
         $this->difficulte = $nvDifficulte;
-    }
-
-    public function getCategorie() {
-        return $this->categorie;
-    }
-
-    public function setCategorie($nvCategorie) {
-        $this->categorie = $nvCategorie;
     }
 
     public function getMesIngredients() {
@@ -195,6 +185,9 @@ class Recette {
             }
         }
         return false;
+    }
+    public function afficherDetails() {
+        echo "nom: " . $this->nom . ", temps: " . $this->temps . ", dif: " . $this->difficulte;
     }
 }
 
@@ -317,7 +310,7 @@ if (isset($pileIngredientRefus)){
     $conditionWhere = substr($conditionWhere, 1);
     $conditionWhere = "(".$conditionWhere .")";
 
-    $sql = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveau_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
+    $sql = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
     FROM RECETTE r
     JOIN CONTENIR c ON r.identifiant = c.recette_id  
     JOIN INGREDIENT i ON c.ingredient_id = i.nom
@@ -332,8 +325,11 @@ if (isset($pileIngredientRefus)){
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo $row['nom_recette'];
-            $row['nom_recette'] = new Recette();
+            $row['nom_recette'] = new Recette($row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette']);
+            $row['nom_recette']->afficherDetails();
+            $sql = "SELECT ";
+        
+            $result = $conn->query($sql);
         }
     }
 }
