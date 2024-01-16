@@ -17,14 +17,14 @@
 
     <section class="section">
         <div class="recette">
-            <h2>Les 10 meilleures recettes :</h2>
+            <h3>Les 5 meilleures recettes :</h3>
             <ul>
                 <?php
                 include 'bd.php'; 
                 
-                $points = range(1, 10);
+                $points = range(5, 1);
 
-                $sql = "SELECT * FROM recette LIMIT 10";
+                $sql = "SELECT * FROM recette LIMIT 5";
                 $result = $conn->query($sql);
                 $conn->close();
 
@@ -41,7 +41,7 @@
                         $index++;
                     }
                 } else {
-                    echo "Aucune recette trouvée";
+                    echo "Aucune recette n'a été trouvée";
                 }
                 ?>
             </ul>
