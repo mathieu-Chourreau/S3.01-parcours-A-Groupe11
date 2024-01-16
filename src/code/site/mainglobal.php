@@ -13,10 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<h2>Préférences des ingrédients (depuis la session) :</h2>";
     echo "<ul>";
-    foreach ($_SESSION['ingredientsPreferences'] as $nomIngredient => $valeur) {
-        echo "<li>$nomIngredient : $valeur</li>";
-    }
-    echo "</ul>";
     echo "<h2>Préférences des ingrédients (Page Sale) :</h2>";
     echo "<ul>";
     foreach ($_SESSION['ingredientsPreferencesPageSale'] as $nomIngredient => $valeur) {
@@ -27,13 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Le formulaire n'a pas été soumis.";
 }
 
-if (!isset($_SESSION['ingredientsPreferences'])) {
-    $_SESSION['ingredientsPreferences'] = $ingPref;
-}
-
-if (!isset($_SESSION['ingredientsPreferencesPageSale'])) {
-    $_SESSION['ingredientsPreferencesPageSale'] = $ingPageSale;
-}
 
 
 include 'bd.php';
@@ -306,6 +295,7 @@ class Utilisateur {
     }
 }
 
+
 // Récuperer les préférences de l'utilisateur
 foreach ($_SESSION['ingredientsPreferences'] as $nomIngredient => $valeur) {
     //Stocker l'ingredient en fonction de la preference
@@ -317,6 +307,11 @@ foreach ($_SESSION['ingredientsPreferences'] as $nomIngredient => $valeur) {
     }
 }
 
+foreach ($lIngredientPref as $nomIngredient => $valeur) {
+    echo "<li>$nomIngredient : $valeur</li>";
+}
+echo "</ul>";
+
 if (isset($pileIngredientRefus)){
     foreach ($pileIngredientRefus as $nomIngredient => $valeur) {
         echo "<li>$nomIngredient : $valeur</li>";
@@ -325,15 +320,17 @@ if (isset($pileIngredientRefus)){
 }
 
 // Récuperer le salé
-/*
-$sale = $ingPageSale['sale'];
-$temps = $ingPageSale['temps'];
-$date_naissance = $ingPageSale['prixKg'];
-*/
+
+$sale = $_SESSION['ingredientsPreferencesPageSale']['sale'];
+$temps = $_SESSION['ingredientsPreferencesPageSale']['zone_temps'];
+$budget = $_SESSION['ingredientsPreferencesPageSale']['zone_prix'];
+
 
 // tri des recettes en fonction des préférences
 
 // Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
+
+$listeRecette = array();
 
 if (isset($pileIngredientRefus)){
     $conditionWhere = '';
@@ -358,18 +355,25 @@ if (isset($pileIngredientRefus)){
 
     $resultR = $conn->query($sql);
     $nomVar = "";
+    
 
     if ($resultR && $resultR->num_rows > 0) {
         while ($row = $resultR->fetch_assoc()) {
+
             $nomVar = "recette".$row['identifiant_recette'];
             $$nomVar = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
+            $listeRecette[] = $$nomVar;
+
             $sql= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
                     FROM ingredient i
                     JOIN categorieingredient ci on i.identifiantC = ci.identifiant
                     JOIN contenir c ON i.nom = c.Ingredient_id
                     JOIN recette r ON c.Recette_id = r.identifiant
                     WHERE r.identifiant =". $row['identifiant_recette'].";";
+            
             $resultI = $conn->query($sql);
+            
+
             if ($resultI && $resultI->num_rows > 0) {
                 while ($row = $resultI->fetch_assoc()) {
                     $nomVarI = "".$row['nom_ingr'];
@@ -386,6 +390,24 @@ if (isset($pileIngredientRefus)){
     $recette1->afficherDetails();
 }   
 
-/*echo "</br>";
-  $sql = "SELECT ";
-  $resultR = $conn->query($sql);*/
+
+foreach ($listeRecette as $val){
+    //Verifier si une recette est salé A FAIRE
+
+    //Initialisation de nbPointRecette
+    $nbPointRecette = 0;
+    foreach ($val->getMesIngredients() as $ing){
+        $proportion = ($ing[1]/$val->getGrammage())*100;
+
+        foreach ($lIngredientPref as $nomIngredient => $valeur){
+            if ($nomIngredient == $ing[0]->getNom()){
+                $nbPointRecette = $nbPointRecette + $proportion * $valeur;
+            }
+        }
+        //ajuster en fonction du temps ...
+
+    }
+    echo "<br>";
+    echo "nb point :";
+    echo $nbPointRecette;
+}
