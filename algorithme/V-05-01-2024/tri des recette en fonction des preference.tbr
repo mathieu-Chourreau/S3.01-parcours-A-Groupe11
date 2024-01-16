@@ -1,0 +1,165 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>tri des recette en fonction des preference</nom>
+  <date_creation>15/1/2024 11:53</date_creation>
+  <Elements>
+    <Action>
+      <Position>543;82</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>lIngredientPref ,piquant ,budget ,tempsMax
+pileIngredientRefus </PreAssertion>
+      <PostAssertion>listeRecette</PostAssertion>
+      <Titre>tri des recettes en fonctions des préferences</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>1357;207</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>lRecettePoint</PreAssertion>
+          <PostAssertion>listeRecette</PostAssertion>
+          <Titre>trier les recette en fonction de la correspondance</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>75;203</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>pileIngredientRefus</PreAssertion>
+          <PostAssertion>listeRecette</PostAssertion>
+          <Titre>Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>471;318</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>conditionWhere</PreAssertion>
+              <PostAssertion>listeRecette</PostAssertion>
+              <Titre>creer et executer la requete</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>1300;434</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>resultatRequete</PreAssertion>
+                  <PostAssertion>listeRecette</PostAssertion>
+                  <Titre>transformer le resultat de la requete en une liste d'objet recette</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+                <Action>
+                  <Position>461;422</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>Rajouter à conditionWhere tous les ingrédients que l'utilisateur 
+ne souhaite pas avoir</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Iteration>
+                      <Position>549.5;501.5</Position>
+                      <StyleLien>1</StyleLien>
+                      <Titre>?</Titre>
+                      <IterationFixe>0</IterationFixe>
+                      <Enfants>
+                        <Condition>
+                          <Position>299;615</Position>
+                          <StyleLien>1</StyleLien>
+                          <estUnique>1</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>Si pileIngredientRedfus est vide</Titre>
+                              <Enfants>
+                                <Sortie>
+                                  <Position>354;706</Position>
+                                </Sortie>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants/>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                        <Action>
+                          <Position>581;612</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>On ajoute à conditionWhere l'ingredient qu'on dépile de pileIngredientRefus ainsi que le texte "and "</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Iteration>
+                  </Enfants>
+                </Action>
+                <Action>
+                  <Position>782;437</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>conditionWhere</PreAssertion>
+                  <PostAssertion>resultatRequete</PostAssertion>
+                  <Titre>Execution de notre requete à l'aide de conditionWhere</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>913;527</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>resultatRequete</PostAssertion>
+                      <Titre>SELECT * FROM Recette
+WHERE libelle NOT IN (SELECT libelle FROM Recette R JOIN ingredient ON R.id_ingredient = ingredient.id  WHERE conditionWhere )</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>15;318</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>conditionWhere</PostAssertion>
+              <Titre>création d'un string correspondant à la condition de la requete</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>34;397</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>conditionWhere</PostAssertion>
+                  <Titre>conditionWhere="libelle = "</Titre>
+                  <DetailsVisible>0</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>806;206</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>listeRecette
+lIngredientPref</PreAssertion>
+          <PostAssertion>lRecettePoint</PostAssertion>
+          <Titre>calculer la moyenne de correspondance de recette</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
