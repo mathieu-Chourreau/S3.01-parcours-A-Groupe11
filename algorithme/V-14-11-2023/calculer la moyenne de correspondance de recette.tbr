@@ -1,13 +1,13 @@
-<?xml version="1.0"?>
+<?xml version="1.1"?>
 <!DOCTYPE Tabula_Rasa>
 <Algorithme>
   <nom>calculer la moyenne de correspondance de recette</nom>
-  <date_creation>14/11/2023 15:31</date_creation>
+  <date_creation>16/1/2024 23:06</date_creation>
   <Elements>
     <Action>
       <Position>543;-4</Position>
       <StyleLien>2</StyleLien>
-      <PreAssertion>listeRecette
+      <PreAssertion>listeRecette&#xd;
 lIngredientPref</PreAssertion>
       <PostAssertion>lIngredientPoint</PostAssertion>
       <Titre>Calculer le nombre de points de chaque recettes </Titre>
@@ -25,7 +25,7 @@ lIngredientPref</PreAssertion>
               <StyleLien>2</StyleLien>
               <PreAssertion>poidsRecette</PreAssertion>
               <PostAssertion>nbRecettePoint</PostAssertion>
-              <Titre>calculer le nombre de points de chaque recette
+              <Titre>calculer le nombre de points de chaque recette&#xd;
 </Titre>
               <DetailsVisible>1</DetailsVisible>
               <DetailsVideVisible>1</DetailsVideVisible>
@@ -117,7 +117,7 @@ lIngredientPref</PreAssertion>
                           <StyleLien>1</StyleLien>
                           <PreAssertion>?</PreAssertion>
                           <PostAssertion>?</PostAssertion>
-                          <Titre>prop = (mesIngredients[i]→second
+                          <Titre>prop = (mesIngredients[i]→second&#xd;
 /poidsRecette) * 100</Titre>
                           <DetailsVisible>1</DetailsVisible>
                           <DetailsVideVisible>0</DetailsVideVisible>
@@ -172,7 +172,7 @@ lIngredientPref</PreAssertion>
               </Enfants>
             </Action>
             <Action>
-              <Position>1577;334</Position>
+              <Position>1447;301</Position>
               <StyleLien>1</StyleLien>
               <PreAssertion>nbRecettePoint,temps , budget, piquant</PreAssertion>
               <PostAssertion>nbRecettePoint</PostAssertion>
@@ -219,5 +219,4 @@ lIngredientPref</PreAssertion>
       </Enfants>
     </Action>
   </Elements>
-  <Dictionary/>
 </Algorithme>

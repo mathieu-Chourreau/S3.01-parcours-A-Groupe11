@@ -20,38 +20,52 @@
             <p>Mes préférences : </p>
         </div>
         <div class="recherche_default">
-            <ul>Viande Rouge : </ul>
+            <ul>Liste d'ingredient : </ul>
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="viandeBlanche.php" method="post">
-                <p id = "type_pref">Je n'en veux pas | Je n'aime pas | Sans préférence | J'aime | J'adore</p>
+            <form action="sale.php" method="post">
 
                 <?php
                 include 'bd.php'; 
-                $sql = "SELECT nom FROM ingredient WHERE categorie ='Viande rouge'";
+                $sql = "SELECT categorie FROM categorieingredient GROUP BY categorie";
+
                 $result = $conn->query($sql);
-                $conn->close();
+
+                $listeCategoriesStocks = []; // Initialise un tableau vide
+
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-
-                        echo '<div class="ingredient">';
-                        echo '<label for="' . $row["nom"] . '">' . $row["nom"] . '</label>';
-                        echo '<input type="radio" id="'. $row["nom"].'jamais" name="' . $row["nom"] . '" value ="0">';
-                        echo '<input type="radio" id="'. $row["nom"].'aimePas" name="' . $row["nom"] . '" value ="0.5">';
-                        echo '<input type="radio" id="'. $row["nom"].'sansPreference" name="' . $row["nom"] . '" value ="1" checked>';
-                        echo '<input type="radio" id="'. $row["nom"].'aime" name="' . $row["nom"] . '" value ="1.5">';
-                        echo '<input type="radio" id="'. $row["nom"].'adore" name="' . $row["nom"] . '" value ="2">';
-                        echo '</div>';
+                        // Ajoute chaque catégorie au tableau
+                        $listeCategoriesStocks[] = $row["categorie"];
                     }
-                } else {
-                    echo "Aucun ingrédient trouvé";
                 }
+
+                for ($i = 0; $i < count($listeCategoriesStocks); $i++) { 
+                    echo '<h3>' . $listeCategoriesStocks[$i] . '</h3>';
+                    $sql = "SELECT nom, categorie FROM ingredient JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant WHERE categorie ='{$listeCategoriesStocks[$i]}'";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        echo '<p id="type_pref">Je n\'en veux pas | Je n\'aime pas | Sans préférence | J\'aime | J\'adore</p>';
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="ingredient">';
+                            echo '<label for="' . $row["nom"] . '">' . $row["nom"] . '</label>';
+                            echo '<input type="radio" id="'. $row["nom"].'jamais" name="' . $row["nom"] . '" value ="0">';
+                            echo '<input type="radio" id="'. $row["nom"].'aimePas" name="' . $row["nom"] . '" value ="0.5">';
+                            echo '<input type="radio" id="'. $row["nom"].'sansPreference" name="' . $row["nom"] . '" value ="1" checked>';
+                            echo '<input type="radio" id="'. $row["nom"].'aime" name="' . $row["nom"] . '" value ="1.5">';
+                            echo '<input type="radio" id="'. $row["nom"].'adore" name="' . $row["nom"] . '" value ="2">';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "Aucun ingrédient trouvé";
+                    }
+                }
+                $conn->close();
                 ?>
                 <button id="btnSuivant">Suivant</button>
             </form>
         </div>
     </section>
     <script>
- 
         document.getElementById("btnSuivant").addEventListener("click", function() {
             var boutonsViandes = document.querySelectorAll('input[type="radio"]');
             var valeursPref = {};
@@ -64,11 +78,10 @@
                 }
             });
         });
+        
         function reinitialiserPref() {
-
             var boutonsViandes = document.querySelectorAll('input[type="radio"]');
             
-
             boutonsViandes.forEach(function(bouton) {
                 if (bouton.id.endsWith('sansPreference')) {
                     bouton.checked = true; 

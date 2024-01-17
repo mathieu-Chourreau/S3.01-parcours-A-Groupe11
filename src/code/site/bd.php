@@ -13,4 +13,4 @@ if ($conn->connect_error) {
     die("La connexion a échoué : " . $conn->connect_error);
 }
 
-    ?>
+?>

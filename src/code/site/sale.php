@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['ingredientsPreferences'])) {
+    $_SESSION['ingredientsPreferences'] = array();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    foreach ($_POST as $nomIngredient => $valeur) {
+        $_SESSION['ingredientsPreferences'][$nomIngredient] = $valeur;
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,11 +37,11 @@
         </div>
         <div class="recherche_default">
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="prixTempsSale.php">
+            <form action="mainglobal.php" method = "post">
 
                 <?php
                 
-                    echo '<div class="prixTempsSale">';
+                    echo '<div class="sale">';
                     echo '<div class="sale">';
                     echo '<label for="sale">Sale : </label>';
                     echo '<input type="radio" id="salenon" name="sale" value ="0">';
@@ -51,7 +67,7 @@
                 ?>
                 <button id="btnvalider">Valider</button>
             </form>
-            <form action="feculent.php">
+            <form action="index.php">
                 <button id="btnPrecedent">Précédent</button>
             </form>
         </div>

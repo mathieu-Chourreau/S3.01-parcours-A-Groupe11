@@ -1,13 +1,13 @@
-<?xml version="1.0"?>
+<?xml version="1.1"?>
 <!DOCTYPE Tabula_Rasa>
 <Algorithme>
   <nom>trier les recette en fonction de la correspondance</nom>
-  <date_creation>14/11/2023 15:31</date_creation>
+  <date_creation>16/1/2024 23:06</date_creation>
   <Elements>
     <Action>
-      <Position>597;71</Position>
+      <Position>598;70</Position>
       <StyleLien>2</StyleLien>
-      <PreAssertion>listeRecette, nbPointRecette</PreAssertion>
+      <PreAssertion>lRecettePoint</PreAssertion>
       <PostAssertion>∅</PostAssertion>
       <Titre>trier les recette en fonction de la correspondance</Titre>
       <DetailsVisible>1</DetailsVisible>
@@ -26,5 +26,4 @@
       </Enfants>
     </Action>
   </Elements>
-  <Dictionary/>
 </Algorithme>
