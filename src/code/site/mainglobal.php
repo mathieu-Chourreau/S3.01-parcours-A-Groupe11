@@ -20,11 +20,11 @@ include 'Recette.php';
 include 'Ingredient.php';
 include 'utilisateur.php';
 
-$ingredientsPref = $_SESSION['ingredientsPreferences'];
+$lIngredientsPref = $_SESSION['ingredientsPreferences'];
 $ingredientsPrefPageSale = $_SESSION['ingredientsPreferencesPageSale'];
 
 // Récuperer les préférences de l'utilisateur
-foreach ($ingredientsPref as $nomIngredient => $valeur) {
+foreach ($lIngredientsPref as $nomIngredient => $valeur) {
     //Stocker l'ingredient en fonction de la preference
     if ($valeur == 0){
         $tabIngredientRefus[$nomIngredient] = $valeur;
@@ -164,12 +164,3 @@ do {
         }
     }
 } while ($bchanger);
-
-echo "<br>";
-echo "recette :";
-foreach ($lRecettePoint as $rec) {
-    if ($rec['point']>0) {
-        echo "</br>";
-        echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
-    }
-}
