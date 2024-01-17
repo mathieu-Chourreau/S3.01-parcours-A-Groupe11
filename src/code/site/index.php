@@ -1,3 +1,36 @@
+<?php
+session_start();
+include 'bd.php';
+
+// Récupérer la catégorie actuelle (par défaut, la première catégorie)
+$sql = "SELECT categorie FROM categorieIngredient GROUP BY categorie";
+$result = $conn->query($sql);
+
+$listeCategoriesStocks = [];
+
+if ($result && $result->num_rows > 0) {
+while ($row = $result->fetch_assoc()) {
+// Ajoutez la catégorie à la fin du tableau
+$listeCategoriesStocks[] = $row["categorie"];
+}
+}
+
+$currentCategory = $listeCategoriesStocks[0];
+echo '<input type="hidden" id="category" name="category" value="' . $currentCategory . '" />';
+$currentIndex = (in_array($currentCategory, $listeCategoriesStocks) ? array_search($currentCategory, $listeCategoriesStocks) : 0);
+
+echo '<script>';
+echo 'var categories = ' . json_encode($listeCategoriesStocks, JSON_HEX_QUOT | JSON_HEX_APOS) . ';';
+echo 'var currentIndex = ' . $currentIndex . ';';
+echo '</script>';
+
+$conn->close();
+
+echo '</div>';
+
+$precedentButtonClass = $currentIndex > 0 ? 'visible' : 'invisible';
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -28,45 +61,13 @@
             <div id="categoryContent"></div>
 
             <!-- Balise category -->
-
-                <?php
-                include 'bd.php';
-
-                // Récupérer la catégorie actuelle (par défaut, la première catégorie)
-                $sql = "SELECT categorie FROM categorieIngredient GROUP BY categorie";
-                $result = $conn->query($sql);
-
-                $listeCategoriesStocks = [];
-
-                if ($result && $result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        // Ajoutez la catégorie à la fin du tableau
-                        $listeCategoriesStocks[] = $row["categorie"];
-                    }
-                }
-
-                $currentCategory = $listeCategoriesStocks[0];
-                echo '<input type="hidden" id="category" name="category" value="' . $currentCategory . '" />';
-                $currentIndex = (in_array($currentCategory, $listeCategoriesStocks) ? array_search($currentCategory, $listeCategoriesStocks) : 0);
-
-                echo '<script>';
-                echo 'var categories = ' . json_encode($listeCategoriesStocks, JSON_HEX_QUOT | JSON_HEX_APOS) . ';';
-                echo 'var currentIndex = ' . $currentIndex . ';';
-                echo '</script>';
-
-                $conn->close();
-                
-                echo '</div>';
-                
-                $precedentButtonClass = $currentIndex > 0 ? 'visible' : 'invisible';
-
-                // Afficher le bouton "Précédent" avec la classe appropriée
-                echo '<button id="btnPrecedent" type="button" class="' . $precedentButtonClass . '" onclick=CategoriePrecedente()>Précédent</button>';
-                echo '<button type="button" onclick=CategorieSuivante()>Suivant</button>';
-                echo '<button type="button">Enregistrer</button>';
-                ?>
         
         </div>
+
+        <button id="btnPrecedent" type="button" class="<?php echo ($currentIndex > 0 ? 'visible' : 'invisible'); ?>" onclick="CategoriePrecedente()">Précédent</button>
+        <button type="button" onclick="CategorieSuivante()">Suivant</button>
+        <button type="button">Enregistrer</button>
+
     </section>
 
     <script>
@@ -78,6 +79,7 @@
 
         // JavaScript pour soumettre le formulaire
         function loadRecipes() {
+        console.log("Current Category: " + document.getElementById("category").value);
         var xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function () {
@@ -103,8 +105,7 @@
 
         // JavaScript pour gérer le bouton Suivant
         function CategorieSuivante() {
-
-            if(currentIndex >= categories.length - 1){
+            if (currentIndex >= categories.length - 1) {
                 window.location.href = 'sale.php';
             }
 
@@ -118,13 +119,12 @@
             } else {
                 precedentButton.classList.remove("invisible");
             }
+            // Sauvegarder les préférences
+            savePreferences();
 
-            //hideStaticForm();
-
-            
             // Afficher la catégorie suivante
             loadRecipes();
-        }   
+        } 
 
         function CategoriePrecedente() {
         currentIndex = (currentIndex - 1);
@@ -137,6 +137,10 @@
             } else {
                 precedentButton.classList.remove("invisible");
             }
+
+        // Sauvegarder les préférences
+        savePreferences();
+
         loadRecipes();
         };
 
@@ -152,7 +156,19 @@
             });
         }
 
+        function savePreferences() {
+        var ingredients = document.querySelectorAll('.ingredient');
 
+        ingredients.forEach(function (ingredient) {
+            var nom = ingredient.getAttribute('data-nom');
+            var checkedRadio = ingredient.querySelector('input[type="radio"]:checked');
+
+            if (checkedRadio) {
+                var value = checkedRadio.value;
+                console.log(nom + ': ' + value);
+            }
+            });
+        }
 
 
         /* Fonction pour cacher ou supprimer la balise statique
