@@ -372,9 +372,9 @@ else {$conditionWhere = "('null')";}
                     $nomIngredient = str_replace(' ', '_', $nomIngredient);
                     if (!isset($$nomIngredient)) {
                         $$nomIngredient = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
-                        $$nomRecette->ajouterIngredient($$nomIngredient,$row['quantite']);
-                        $$nomIngredient->ajouterRecette($$nomRecette);
                     }
+                    $$nomRecette->ajouterIngredient($$nomIngredient,$row['quantite']);
+                    $$nomIngredient->ajouterRecette($$nomRecette);
                 }
             }   
         }
@@ -385,15 +385,24 @@ $lRecettePoint = array();
 
 foreach ($listeRecette as $val){
     //Verifier si une recette est salé
-    $sql="SELECT cr.gout
+    $sql="SELECT cr.gout as gout
     FROM categorierecette cr 
     JOIN appartenirrc rc ON cr.identifiant = rc.identifiantC
     JOIN recette r ON rc.identifiantR = r.identifiant
-    WHERE cr.gout = 'sale'
-    AND r.identifiant =" .$val->getIdentifiant().";";
+    WHERE r.identifiant =" .$val->getIdentifiant().";";
 
     $resultS = $conn->query($sql);
-    if ($resultS && $resultS->num_rows > 0 && $sale == 0) {
+    $bSale = false;
+    if ($resultS && $resultS->num_rows > 0) {
+        while ($row = $resultS->fetch_assoc()) {
+            $gout = "".$row['gout'];
+            if ($gout == 'Salé') {
+                $bSale = true;;
+            }
+        }
+    }
+
+    if ($bSale && $sale == 0) {
         $nbPointRecette = -1000;
     }else {
     //Initialisation de nbPointRecette
@@ -401,6 +410,7 @@ foreach ($listeRecette as $val){
     foreach ($val->getMesIngredients() as $ing){
         $proportion = ($ing[1]/$val->getGrammage())*100;
         foreach ($tabIngredientPref as $nomIngredient => $valeur){
+            $nomIngredient = str_replace('_', ' ', $nomIngredient);
             if ($nomIngredient == $ing[0]->getNom()){
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
             }
@@ -419,13 +429,15 @@ foreach ($listeRecette as $val){
     }
 
     //ajuster en fonction de si la recette est salé
-    if ($sale==2) {
+    if ($sale==2 && $bSale) {
         //On ajoute un bonus de points à la recette
         $nbPointRecette +=25;
     }
 
+    $partieEntiere = intval($nbPointRecette);
+
     //création d'un array avec un recette et ses points
-    $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $nbPointRecette);
+    $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $partieEntiere);
     }
 }
 
