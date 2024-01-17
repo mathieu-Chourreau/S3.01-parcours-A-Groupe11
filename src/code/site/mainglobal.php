@@ -1,5 +1,11 @@
 <?php 
-
+/**
+ * @file    mainglobal.php
+ * @author  SMathieu,Leo,Nathan,Souleyme
+ * @brief   Page principale contenant le tri des recettes
+ * @version 0.6
+ * @date    17/01/2024
+ */
 session_start();
 
 if (!isset($_SESSION['ingredientsPreferencesPageSale'])) {

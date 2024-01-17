@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['foreach_0',['foreach',['../_main_8php.html#a25d32659085c08ebddb74d20802263e8',1,'Main.php']]]
+  ['do_0',['do',['../mainglobal_8php.html#a721c6ff80a6d3e4ad4ffa52a04c60085',1,'mainglobal.php']]]
 ];

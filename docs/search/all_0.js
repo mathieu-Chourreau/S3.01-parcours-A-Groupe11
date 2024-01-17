@@ -1,6 +1,24 @@
 var searchData=
 [
-  ['_24ingredient1_0',['$ingredient1',['../_main_8php.html#a6ce9014536058791eb3246ccace82757',1,'Main.php']]],
-  ['_24ingredient2_1',['$ingredient2',['../_main_8php.html#a2d7762b07718b77006add962652eb80a',1,'Main.php']]],
-  ['_24recette_2',['$recette',['../_main_8php.html#ac4149e4760b665ae0749dacbf9051e60',1,'Main.php']]]
+  ['_24budget_0',['$budget',['../mainglobal_8php.html#a862ce1a2bcfea630ffd9f0e716403aa2',1,'mainglobal.php']]],
+  ['_24conditionrequete_1',['$conditionRequete',['../mainglobal_8php.html#a6753ff868f4b89cdb4cbaefbc59ed477',1,'mainglobal.php']]],
+  ['_24conn_2',['$conn',['../bd_8php.html#aa8a5a87b9c1a6a0819b88447cbe41877',1,'bd.php']]],
+  ['_24dbname_3',['$dbname',['../bd_8php.html#ac5111a571fffa2499732833bb7f0d8c1',1,'bd.php']]],
+  ['_24ingredientsprefpagesale_4',['$ingredientsPrefPageSale',['../mainglobal_8php.html#a3f826fff45e3d77c7e151ba1bbff0d22',1,'mainglobal.php']]],
+  ['_24lingredientspref_5',['$lIngredientsPref',['../mainglobal_8php.html#a3abae65d04c529883c2b9cb1b6296d87',1,'mainglobal.php']]],
+  ['_24listecategoriesstocks_6',['$listeCategoriesStocks',['../index_8php.html#ae5bd94c7356c7ab50dc10ceb0983c772',1,'index.php']]],
+  ['_24listerecette_7',['$listeRecette',['../mainglobal_8php.html#a5b26c500e7885bd759fce17b89326832',1,'mainglobal.php']]],
+  ['_24lrecettepoint_8',['$lRecettePoint',['../mainglobal_8php.html#a6766ae66210069a28781e18be1c9565e',1,'mainglobal.php']]],
+  ['_24n_9',['$n',['../mainglobal_8php.html#a3b340bb3c0a0fe3bcd455d6f4ff67495',1,'mainglobal.php']]],
+  ['_24nomrecette_10',['$nomRecette',['../mainglobal_8php.html#a65eb04c4f86063573c1badaa4801f4df',1,'mainglobal.php']]],
+  ['_24password_11',['$password',['../bd_8php.html#a607686ef9f99ea7c42f4f3dd3dbb2b0d',1,'bd.php']]],
+  ['_24recettevalide_12',['$recetteValide',['../mainglobal_8php.html#a5e764b741397308e9fee9d4bf1baf5f1',1,'mainglobal.php']]],
+  ['_24result_13',['$result',['../index_8php.html#a112ef069ddc0454086e3d1e6d8d55d07',1,'index.php']]],
+  ['_24resultrecette_14',['$resultRecette',['../mainglobal_8php.html#a0cebd26065b9aa373adde14b63f219e0',1,'mainglobal.php']]],
+  ['_24sale_15',['$sale',['../mainglobal_8php.html#ad106bd73279a8d84b2220ceb893f7609',1,'mainglobal.php']]],
+  ['_24servername_16',['$servername',['../bd_8php.html#ad79b54e31bd1050001133c4d70f850fe',1,'bd.php']]],
+  ['_24sql_17',['$sql',['../index_8php.html#a047170d6020a882807665812a27e2525',1,'index.php']]],
+  ['_24tempscuisinemax_18',['$tempsCuisineMax',['../mainglobal_8php.html#a8f5da99d8e6dcfc8442c4b08d27d2bb4',1,'mainglobal.php']]],
+  ['_24topingredients_19',['$topIngredients',['../affichage__recette_8php.html#afab9d7febb44a425833ba12b6f3e1b1e',1,'affichage_recette.php']]],
+  ['_24username_20',['$username',['../bd_8php.html#a0eb82aa5f81cf845de4b36cd653c42cf',1,'bd.php']]]
 ];

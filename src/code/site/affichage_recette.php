@@ -20,6 +20,13 @@
             <h3>Les 5 meilleures recettes :</h3>
             <ul>
                 <?php
+                /**
+                 * @file    Recette.php
+                 * @author  Mathieu,Leo,Nathan,Souleymen
+                 * @brief   Cette page permet l'affichage des recettes
+                 * @version 0.1
+                 * @date    17/01/2024
+                 */
                 include 'mainglobal.php'; 
                 $topIngredients = array_slice($lRecettePoint, 0, 5);
                 foreach ($topIngredients as $rec) {
