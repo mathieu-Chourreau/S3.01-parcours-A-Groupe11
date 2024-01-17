@@ -1,0 +1,278 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>calculer la moyenne de correspondance de recette</nom>
+  <date_creation>17/1/2024 23:36</date_creation>
+  <Elements>
+    <Action>
+      <Position>549;48</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>listeRecette&#xd;
+lIngredientPref</PreAssertion>
+      <PostAssertion>lRecettePoint</PostAssertion>
+      <Titre>calculer la moyenne de correspondance de recette</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Iteration>
+          <Position>758.5;124.5</Position>
+          <StyleLien>1</StyleLien>
+          <Titre>pour tous les recette de listeRecette</Titre>
+          <IterationFixe>1</IterationFixe>
+          <Enfants>
+            <Action>
+              <Position>150;237</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>sale</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>Vérifier si recette est sale</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>161;335</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>sql</PostAssertion>
+                  <Titre>creer et executer la requete sale</Titre>
+                  <DetailsVisible>0</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>-31;526</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>sql</PostAssertion>
+                      <Titre>sql← =""SELECT cr.gout as gout
+    FROM categorierecette cr 
+    JOIN appartenirrc rc ON cr.identifiant = rc.identifiantC
+    JOIN recette r ON rc.identifiantR = r.identifiant
+    WHERE r.identifiant =" .$val→getIdentifiant().";"</Titre>
+                      <DetailsVisible>0</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>178;468</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>sql</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>executer la requete</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                  </Enfants>
+                </Action>
+                <Condition>
+                  <Position>428;648</Position>
+                  <StyleLien>0</StyleLien>
+                  <estUnique>0</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>sinon</Titre>
+                      <Enfants>
+                        <Condition>
+                          <Position>499;916</Position>
+                          <StyleLien>1</StyleLien>
+                          <estUnique>1</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>Si le nombre de ligne de la requete est superieur à 0 et que la requete a bien été executée</Titre>
+                              <Enfants>
+                                <Iteration>
+                                  <Position>573.5;992.5</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <Titre>?</Titre>
+                                  <IterationFixe>1</IterationFixe>
+                                  <Enfants>
+                                    <Condition>
+                                      <Position>779;1090</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <estUnique>1</estUnique>
+                                      <operationsLogiques>
+                                        <operation>
+                                          <Titre>gout = 'sale'</Titre>
+                                          <Enfants>
+                                            <Action>
+                                              <Position>790;1174</Position>
+                                              <StyleLien>1</StyleLien>
+                                              <PreAssertion>?</PreAssertion>
+                                              <PostAssertion>?</PostAssertion>
+                                              <Titre>bsale =true</Titre>
+                                              <DetailsVisible>1</DetailsVisible>
+                                              <DetailsVideVisible>0</DetailsVideVisible>
+                                              <Enfants/>
+                                            </Action>
+                                          </Enfants>
+                                        </operation>
+                                        <operation>
+                                          <Titre>Sinon</Titre>
+                                          <Enfants/>
+                                        </operation>
+                                      </operationsLogiques>
+                                    </Condition>
+                                    <Condition>
+                                      <Position>464;1118</Position>
+                                      <StyleLien>1</StyleLien>
+                                      <estUnique>1</estUnique>
+                                      <operationsLogiques>
+                                        <operation>
+                                          <Titre>tous les enregistrement ont été parcouru</Titre>
+                                          <Enfants>
+                                            <Sortie>
+                                              <Position>545;1193</Position>
+                                            </Sortie>
+                                          </Enfants>
+                                        </operation>
+                                        <operation>
+                                          <Titre>Sinon</Titre>
+                                          <Enfants/>
+                                        </operation>
+                                      </operationsLogiques>
+                                    </Condition>
+                                  </Enfants>
+                                </Iteration>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants/>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                        <Action>
+                          <Position>104;902</Position>
+                          <StyleLien>2</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>nbPointRecette</PostAssertion>
+                          <Titre>Initialisation du nombre de point de la recette</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants>
+                            <Action>
+                              <Position>150;991</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>nbPointRecette←0</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>0</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                    <operation>
+                      <Titre>sale = non et la recette est salé</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>648;749</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>nbPointRecette = -1000</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+                <Action>
+                  <Position>380;385</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>bsale = false</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>952;273</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>nbPointRecette</PostAssertion>
+              <Titre>Initialisation de nbPointRecette</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>799;382</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>nbPointRecette ← 0</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>1</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+                <Iteration>
+                  <Position>1154.5;389.5</Position>
+                  <StyleLien>1</StyleLien>
+                  <Titre>Pour tous les éléments ing de 
+val→getMesIngredients()</Titre>
+                  <IterationFixe>1</IterationFixe>
+                  <Enfants>
+                    <Action>
+                      <Position>853;526</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Calculer la proportion de ing dans la recette Actuelle</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Iteration>
+                      <Position>1228.5;521.5</Position>
+                      <StyleLien>1</StyleLien>
+                      <Titre>Pour tous les éléments nomIngredient, valeur de tabIngredientPref</Titre>
+                      <IterationFixe>1</IterationFixe>
+                      <Enfants/>
+                    </Iteration>
+                  </Enfants>
+                </Iteration>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>1442;275</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>nbPointRecette, tempsCuisineMax,
+budget, sale</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>ajuster les points en fonction  du temps et du budget,et de sale</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Iteration>
+      </Enfants>
+    </Action>
+    <Condition>
+      <Position>1218;643</Position>
+      <StyleLien>1</StyleLien>
+      <estUnique>1</estUnique>
+      <operationsLogiques>
+        <operation>
+          <Titre>?</Titre>
+          <Enfants/>
+        </operation>
+        <operation>
+          <Titre>?</Titre>
+          <Enfants/>
+        </operation>
+        <operation>
+          <Titre>Sinon</Titre>
+          <Enfants/>
+        </operation>
+      </operationsLogiques>
+    </Condition>
+  </Elements>
+</Algorithme>

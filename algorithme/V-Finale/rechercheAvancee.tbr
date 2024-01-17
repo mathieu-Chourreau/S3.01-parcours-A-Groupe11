@@ -1,0 +1,41 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>algo tri des recettes en fonction des preferences</nom>
+  <date_creation>17/1/2024 23:36</date_creation>
+  <Elements>
+    <Action>
+      <Position>616;72</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>resultatFormulaire</PreAssertion>
+      <PostAssertion>listeRecette</PostAssertion>
+      <Titre>algo tri des recettes en fonction des preferences</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>192;197</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>tabIngredientPref, budget, tempsCuisineMax
+tabIngredientRefus </PostAssertion>
+          <Titre>recuperer le resultat du formulaire</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>926;196</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>tabIngredientPref, budget, tempsCuisineMax
+tabIngredientRefus </PreAssertion>
+          <PostAssertion>listeRecette</PostAssertion>
+          <Titre>tri des recettes en fonctions des préferences</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
