@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="recherche_default">
             <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-            <form action="mainglobal.php" method = "post">
+            <form action="affichage_recette.php" method = "post">
 
                 <?php
                 
@@ -54,18 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '</div>';
 
                     echo '<div class="prix">';
-                    echo '<label for="prix">Prix (euros): </label>';
-                    echo '<textarea id="zone_prix" name="zone_prix" rows="1" cols="10"></textarea>';
+                    echo '<label for="prix">Budget (euros): </label>';
+                    echo '<input type="text" id="zone_prix" name="zone_prix" pattern="\d+" required title = "Il faut que ce soit un nombre">';
                     echo '</div>';
 
                     echo '<div class="temps">';
                     echo '<label for="temps">Temps (minute): </label>';
-                    echo '<textarea id="zone_temps" name="zone_temps" rows="1" cols="10"></textarea>';
+                    echo '<input type="text" id="zone_temps" name="zone_temps" pattern="\d+" required title = "Il faut que ce soit un nombre">';
                     echo '</div>';
-
+                    echo '<button type="submit" id="btnvalider">Valider</button>';
                    
                 ?>
-                <button id="btnvalider">Valider</button>
             </form>
             <form action="index.php">
                 <button id="btnPrecedent">Précédent</button>

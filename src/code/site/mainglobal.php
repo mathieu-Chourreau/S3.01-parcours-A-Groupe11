@@ -416,17 +416,24 @@ foreach ($listeRecette as $val){
             }
         }
     }
+
+    $nbPointRecette = $nbPointRecette/2;
+    $nbPointRecetteOrigin = $nbPointRecette;
     //ajuster en fonction du prix
     if ($val->getPrix()>$budget) {
         //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
-        $nbPointRecette -= ($val->getPrix()-$budget)/($budget*0.1)*40;
+        $nbPointRecette -= (($val->getPrix()-$budget)/($budget*0.1)*10)/2;
     }
+
+    $nbPointRecetteAjustBudget = intval($nbPointRecette);
 
     //ajuster en fonction du temps
     if ($val->getTemps() > $temps) {
         //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
-        $nbPointRecette -= ($val->getTemps()-$temps)/($temps*0.5)*40;
+        $nbPointRecette -= (($val->getTemps()-$temps)/($temps*0.5)*10)/2;
     }
+
+    $nbPointRecetteAjustTemps = intval($nbPointRecette);
 
     //ajuster en fonction de si la recette est salé
     if ($sale==2 && $bSale) {
@@ -437,7 +444,7 @@ foreach ($listeRecette as $val){
     $partieEntiere = intval($nbPointRecette);
 
     //création d'un array avec un recette et ses points
-    $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $partieEntiere);
+    $lRecettePoint[] = array('id_recette' => $val->getIdentifiant(), 'recette' => $val->getNom(), 'point' => $partieEntiere, 'nbPointRecetteOrigin' => $nbPointRecetteOrigin, 'nbPointRecetteAjustBudget' => $nbPointRecetteAjustBudget, 'nbPointRecetteAjustTemps' => $nbPointRecetteAjustTemps, 'prixRec' => $val->getPrix(), 'tempsRec' => $val->getTemps());
     }
 }
 
@@ -455,12 +462,3 @@ do {
         }
     }
 } while ($bchanger);
-
-echo "<br>";
-echo "recette :";
-foreach ($lRecettePoint as $rec) {
-    if ($rec['point']>0) {
-        echo "</br>";
-        echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
-    }
-}

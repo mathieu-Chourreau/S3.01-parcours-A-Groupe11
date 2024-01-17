@@ -20,32 +20,22 @@
             <h3>Les 5 meilleures recettes :</h3>
             <ul>
                 <?php
-                include 'bd.php'; 
-                
-                $points = range(5, 1);
-
-                $sql = "SELECT * FROM recette LIMIT 5";
-                $result = $conn->query($sql);
-                $conn->close();
-
-                if ($result && $result->num_rows > 0) {
-                    $index = 0;
-                    while ($row = $result->fetch_assoc()) {
-                        $pointActuel = $points[$index];
-
-                        echo '<li>';
-                        echo '<h3>' . $row["nom"] . ' :  ' . $pointActuel .' points </h3>';
-                        echo '<p>' . $row["instruction"] . '</p>';
-                        echo '</li>';
-
-                        $index++;
+                include 'mainglobal.php'; 
+                $topIngredients = array_slice($lRecettePoint, 0, 5);
+                foreach ($topIngredients as $rec) {
+                    if ($rec['point']>0) {
+                        echo '<li><h3>' . $rec['recette'] . ' :  ' . $rec['point'] .' points </h3></li>';
+                        echo '<li> Nombre de points sans les ajustements : ' . $rec['nbPointRecetteOrigin'] . '</li>';
+                        echo '<li> Prix de la recette : ' . $rec['prixRec'] . '</li>';
+                        echo '<li> Nombre de points apres ajustement de prix : ' . $rec['nbPointRecetteAjustBudget'] . '</li>';
+                        echo '<li> Temps de la recette : ' . $rec['tempsRec'] . '</li>';
+                        echo '<li> Nombre de points apres ajustement de temps : ' . $rec['nbPointRecetteAjustTemps'] . '</li>';
                     }
-                } else {
-                    echo "Aucune recette n'a été trouvée";
                 }
                 ?>
             </ul>
         </div>
+        <a href="index.php"><button>Revenir à la page d'accueil</button></a>
     </section>
 </body>
 </html>
