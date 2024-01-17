@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * @file    sale.php
+ * @author  Mathieu
+ * @brief   La page Sale permet à l'utilisateur de saisir son prix, son temps et si il veut du salé
+ * @version 0.1
+ * @date    17/01/2024
+ */
 session_start();
 
 if (!isset($_SESSION['ingredientsPreferences'])) {

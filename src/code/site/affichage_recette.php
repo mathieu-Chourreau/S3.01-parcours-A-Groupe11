@@ -21,6 +21,13 @@
             <ul>
                 <?php
                 include 'main.php'; 
+                /**
+                 * @file    Recette.php
+                 * @author  Mathieu,Leo,Nathan,Souleymen
+                 * @brief   Cette page permet l'affichage des recettes
+                 * @version 0.3
+                 * @date    17/01/2024
+                 */
                 $topIngredients = array_slice($lRecettePoint, 0, 5);
                 foreach ($topIngredients as $rec) {
                     if ($rec['point']>0) {

@@ -25,12 +25,27 @@
             <form action="sale.php" method="post">
 
                 <?php
+                /**
+                 * @file    index.php
+                 * @author  Mathieu,Nathan
+                 * @brief   La page index.php permet à l'utilisateur de remplir le formulaire
+                 * @version 0.1
+                 * @date    17/01/2024
+                 */
+
                 include 'bd.php'; 
+                /**
+                 * @brief   Récupère les catégories d'ingrédients depuis la base de données
+                 * @details Utilise une requête SQL pour obtenir les catégories d'ingrédients uniques
+                 * @return  array Tableau contenant les catégories d'ingrédients
+                 */
                 $sql = "SELECT categorie FROM categorieingredient GROUP BY categorie";
 
                 $result = $conn->query($sql);
-
-                $listeCategoriesStocks = []; // Initialise un tableau vide
+                /**
+                 * @brief   Initialise un tableau à vide
+                 */
+                $listeCategoriesStocks = [];
 
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -38,7 +53,10 @@
                         $listeCategoriesStocks[] = $row["categorie"];
                     }
                 }
-
+                
+                /**
+                 * @details Utilise une boucle pour afficher les catégories et une requête SQL pour obtenir les ingrédients par catégorie
+                 */
                 for ($i = 0; $i < count($listeCategoriesStocks); $i++) { 
                     echo '<h3>' . $listeCategoriesStocks[$i] . '</h3>';
                     $sql = "SELECT nom, categorie FROM ingredient JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant WHERE categorie ='{$listeCategoriesStocks[$i]}'";
@@ -66,30 +84,38 @@
         </div>
     </section>
     <script>
-        document.getElementById("btnSuivant").addEventListener("click", function() {
-            var boutonsViandes = document.querySelectorAll('input[type="radio"]');
-            var valeursPref = {};
+    /**
+     * @brief   Gère les événements de clic sur le bouton Suivant
+     * @details Récupère les valeurs des préférences d'ingrédients sélectionnées par l'utilisateur
+     */
+    document.getElementById("btnSuivant").addEventListener("click", function() {
+        var boutonsViandes = document.querySelectorAll('input[type="radio"]');
+        var valeursPref = {};
 
-            boutonsViandes.forEach(function(bouton) {
-                if (bouton.checked) {
-                    var nomIngredient = bouton.name;
-                    var valeur = parseFloat(bouton.value); 
-                    valeursPrefRouge[nomIngredient] = valeur;
-                }
-            });
+        boutonsViandes.forEach(function(bouton) {
+            if (bouton.checked) {
+                var nomIngredient = bouton.name;
+                var valeur = parseFloat(bouton.value); 
+                valeursPref[nomIngredient] = valeur;
+            }
         });
+    });
+    
+    /**
+     * @brief   Réinitialise les préférences d'ingrédients à la valeur par défaut
+     * @details Parcourt tous les boutons radio et les réinitialise à la valeur "Sans préférence"
+     */
+    function reinitialiserPref() {
+        var boutonsViandes = document.querySelectorAll('input[type="radio"]');
         
-        function reinitialiserPref() {
-            var boutonsViandes = document.querySelectorAll('input[type="radio"]');
-            
-            boutonsViandes.forEach(function(bouton) {
-                if (bouton.id.endsWith('sansPreference')) {
-                    bouton.checked = true; 
-                } else {
-                    bouton.checked = false; 
-                }
-            });
-        }
-    </script>
+        boutonsViandes.forEach(function(bouton) {
+            if (bouton.id.endsWith('sansPreference')) {
+                bouton.checked = true; 
+            } else {
+                bouton.checked = false; 
+            }
+        });
+    }
+</script>
 </body>
 </html>
