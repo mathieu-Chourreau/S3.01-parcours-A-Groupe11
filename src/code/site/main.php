@@ -20,89 +20,113 @@ include 'Ingredient.php';
 include 'Recette.php';
 Include 'Utilisateur.php';
 
-$ingredientsPref = $_SESSION['ingredientsPreferences'];
-$ingredientsPrefPageSale = $_SESSION['ingredientsPreferencesPageSale'];
+// Récuperer le resultat du formulaire
 
-// Récuperer les préférences de l'utilisateur
-foreach ($ingredientsPref as $nomIngredient => $valeur) {
-    //Stocker l'ingredient en fonction de la preference
-    if ($valeur == 0){
-        $tabIngredientRefus[$nomIngredient] = $valeur;
-    }
-    else{
-        $tabIngredientPref[$nomIngredient] = $valeur;
-    }
-}
+    // Initialiser les variables
+    $lIngredientsPref = $_SESSION['ingredientsPreferences'];
+    $ingredientsPrefPageSale = $_SESSION['ingredientsPreferencesPageSale'];
 
-// Recuperer la préférence du salé, le temps et le budget
-
-$sale = $ingredientsPrefPageSale['sale'];
-$temps = $ingredientsPrefPageSale['zone_temps'];
-$budget = $ingredientsPrefPageSale['zone_prix'];
-
-// tri des recettes en fonction des préférences
-// Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
-
-$listeRecette = array();
-
-if (isset($tabIngredientRefus)){
-    $conditionWhere = '';
-    // Creer et excecuter la requete
-    foreach ($tabIngredientRefus as $nomIngredient => $valeur) {
-        $conditionWhere = "".$conditionWhere .",'" .$nomIngredient ."'";
-    }
-    $conditionWhere = substr($conditionWhere, 1);
-    $conditionWhere = "(".$conditionWhere .")";
-}
-else {$conditionWhere = "('null')";}
-    $recetteValide = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
-    FROM RECETTE r
-    JOIN CONTENIR c ON r.identifiant = c.recette_id  
-    JOIN INGREDIENT i ON c.ingredient_id = i.nom
-    WHERE r.IDENTIFIANT NOT IN (SELECT rt.IDENTIFIANT
-                                FROM RECETTE rt
-                                JOIN CONTENIR ct ON rt.identifiant = ct.recette_id  
-                                JOIN INGREDIENT ig ON ct.ingredient_id = ig.nom
-                                WHERE ig.NOM IN $conditionWhere)
-    ORDER BY r.identifiant;";
-
-    $resultRecette = $conn->query($recetteValide);
-    $nomRecette = "";
-    
-
-    if ($resultRecette && $resultRecette->num_rows > 0) {
-        while ($row = $resultRecette->fetch_assoc()) {
-
-            $nomRecette = "recette".$row['identifiant_recette'];
-            $$nomRecette = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
-            $listeRecette[] = $$nomRecette;
-
-            $ingredientDeRecette= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
-                    FROM ingredient i
-                    JOIN categorieingredient ci on i.identifiantC = ci.identifiant
-                    JOIN contenir c ON i.nom = c.Ingredient_id
-                    JOIN recette r ON c.Recette_id = r.identifiant
-                    WHERE r.identifiant =". $row['identifiant_recette'].";";
-            
-            $resultIngredient = $conn->query($ingredientDeRecette);
-            
-
-            if ($resultIngredient && $resultIngredient->num_rows > 0) {
-                while ($row = $resultIngredient->fetch_assoc()) {
-                    $nomIngredient = "".$row['nom_ingr'];
-                    $nomIngredient = str_replace(' ', '_', $nomIngredient);
-                    if (!isset($$nomIngredient)) {
-                        $$nomIngredient = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
-                    }
-                    $$nomRecette->ajouterIngredient($$nomIngredient,$row['quantite']);
-                    $$nomIngredient->ajouterRecette($$nomRecette);
-                }
-            }   
+    // Récuperer les préférences de l'utilisateur
+    foreach ($lIngredientsPref as $nomIngredient => $preferenceIngPourUtilisateur) {
+        
+        //Stocker l'ingredient en fonction de la preference
+        if ($preferenceIngPourUtilisateur == 0){
+            $tabIngredientRefus[$nomIngredient] = $preferenceIngPourUtilisateur;
+        }
+        else{
+            $tabIngredientPref[$nomIngredient] = $preferenceIngPourUtilisateur;
         }
     }
- 
 
-$lRecettePoint = array();
+    // Recuperer la préférence du salé, le temps et le budget
+
+    $sale = $ingredientsPrefPageSale['sale'];
+    $tempsCuisineMax = $ingredientsPrefPageSale['zone_temps'];
+    $budget = $ingredientsPrefPageSale['zone_prix'];
+
+// TRI DES RECETTES EN FONCTION DES PREFERENCES
+    
+    // Initialiser les variables
+    $listeRecette = array();
+    $nomRecette = "";
+    
+    // Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
+        
+        //création d'un string correspondant à la condition de la requete
+        $conditionRequete = '';
+        
+        // Creer la condition de la requete
+        if (isset($tabIngredientRefus)){
+            
+            // Rajouter à conditionRequete tous les ingrédients que l'utilisateur ne souhaite pas avoir
+            foreach ($tabIngredientRefus as $nomIngredient => $valeur) {
+                
+                // On ajoute à conditionRequete le nom de l'ingredient pour l'exclure du résultat de la requete
+                $conditionRequete = "".$conditionRequete .",'" .$nomIngredient ."'";
+            }
+            $conditionRequete = substr($conditionRequete, 1);
+            $conditionRequete = "(".$conditionRequete .")";
+        }
+
+        // Affecter null à la condition
+        else {$conditionRequete = "('null')";}
+
+    // Gerer l'execution de la requete
+
+        //Création et execution d'une requete pour réupérer les recette
+        $recetteValide = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
+        FROM RECETTE r
+        JOIN CONTENIR c ON r.identifiant = c.recette_id  
+        JOIN INGREDIENT i ON c.ingredient_id = i.nom
+        WHERE r.IDENTIFIANT NOT IN (SELECT rt.IDENTIFIANT
+                                    FROM RECETTE rt
+                                    JOIN CONTENIR ct ON rt.identifiant = ct.recette_id  
+                                    JOIN INGREDIENT ig ON ct.ingredient_id = ig.nom
+                                    WHERE ig.NOM IN $conditionRequete)
+        ORDER BY r.identifiant;";
+        
+        // executer la requete avec la condition
+        $resultRecette = $conn->query($recetteValide);
+
+        // Transformer le resultat de la requete en une liste d'objet recette
+        if ($resultRecette && $resultRecette->num_rows > 0) {
+
+            while ($row = $resultRecette->fetch_assoc()) {
+                
+                // Créer des objets de Recette
+                $nomRecette = "recette".$row['identifiant_recette'];
+                $$nomRecette = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
+                
+                // Ajouter l'objet à la liste de Recette
+                $listeRecette[] = $$nomRecette;
+
+                // recuperer et creer les Ingredients de la recette
+                $ingredientDeRecette= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
+                        FROM ingredient i
+                        JOIN categorieingredient ci on i.identifiantC = ci.identifiant
+                        JOIN contenir c ON i.nom = c.Ingredient_id
+                        JOIN recette r ON c.Recette_id = r.identifiant
+                        WHERE r.identifiant =". $row['identifiant_recette'].";";
+                
+                $resultIngredient = $conn->query($ingredientDeRecette);
+                
+                
+                if ($resultIngredient && $resultIngredient->num_rows > 0) {
+                    while ($row = $resultIngredient->fetch_assoc()) {
+                        $nomIngredient = "".$row['nom_ingr'];
+                        $nomIngredient = str_replace(' ', '_', $nomIngredient);
+                        if (!isset($$nomIngredient)) {
+                            $$nomIngredient = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
+                        }
+                        $$nomRecette->ajouterIngredient($$nomIngredient,$row['quantite']);
+                        $$nomIngredient->ajouterRecette($$nomRecette);
+                    }
+                }   
+            }
+        }
+    
+
+    $lRecettePoint = array();
 
 foreach ($listeRecette as $val){
     //Verifier si une recette est salé
@@ -126,6 +150,7 @@ foreach ($listeRecette as $val){
     if ($bSale && $sale == 0) {
         $nbPointRecette = -1000;
     }else {
+    
     //Initialisation de nbPointRecette
     $nbPointRecette = 0;
     foreach ($val->getMesIngredients() as $ing){
@@ -149,9 +174,9 @@ foreach ($listeRecette as $val){
     $nbPointRecetteAjustBudget = intval($nbPointRecette);
 
     //ajuster en fonction du temps
-    if ($val->getTemps() > $temps) {
+    if ($val->getTemps() > $tempsCuisineMax) {
         //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
-        $nbPointRecette -= (($val->getTemps()-$temps)/($temps*0.5)*10)/2;
+        $nbPointRecette -= (($val->getTemps()-$tempsCuisineMax)/($tempsCuisineMax*0.5)*10)/2;
     }
 
     $nbPointRecetteAjustTemps = intval($nbPointRecette);
