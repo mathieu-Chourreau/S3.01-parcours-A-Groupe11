@@ -1,0 +1,48 @@
+\doxysection{S3.01-\/parcours-\/\+A-\/\+Groupe11/src/code/site/index.php File Reference}
+\hypertarget{index_8php}{}\label{index_8php}\index{S3.01-\/parcours-\/A-\/Groupe11/src/code/site/index.php@{S3.01-\/parcours-\/A-\/Groupe11/src/code/site/index.php}}
+
+
+La page \doxylink{index_8php}{index.\+php} permet à l\textquotesingle{}utilisateur de remplir le formulaire.  
+
+
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{index_8php_a047170d6020a882807665812a27e2525}{\$sql}} = "{}SELECT categorie FROM categorieingredient GROUP BY categorie"{}
+\begin{DoxyCompactList}\small\item\em Récupère les catégories d\textquotesingle{}ingrédients depuis la base de données. \end{DoxyCompactList}\item 
+\Hypertarget{index_8php_a112ef069ddc0454086e3d1e6d8d55d07}\label{index_8php_a112ef069ddc0454086e3d1e6d8d55d07} 
+{\bfseries \$result} = \$conn-\/$>$query(\$sql)
+\item 
+\Hypertarget{index_8php_ae5bd94c7356c7ab50dc10ceb0983c772}\label{index_8php_ae5bd94c7356c7ab50dc10ceb0983c772} 
+{\bfseries \$liste\+Categories\+Stocks} = \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Initialise un tableau à vide. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+La page \doxylink{index_8php}{index.\+php} permet à l\textquotesingle{}utilisateur de remplir le formulaire. 
+
+\begin{DoxyAuthor}{Author}
+Mathieu,Nathan 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17/01/2024 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{index_8php_a047170d6020a882807665812a27e2525}\label{index_8php_a047170d6020a882807665812a27e2525} 
+\index{index.php@{index.php}!\$sql@{\$sql}}
+\index{\$sql@{\$sql}!index.php@{index.php}}
+\doxysubsubsection{\texorpdfstring{\$sql}{\$sql}}
+{\footnotesize\ttfamily \$sql = "{}SELECT categorie FROM categorieingredient GROUP BY categorie"{}}
+
+
+
+Récupère les catégories d\textquotesingle{}ingrédients depuis la base de données. 
+
+Utilise une requête SQL pour obtenir les catégories d\textquotesingle{}ingrédients uniques \begin{DoxyReturn}{Returns}
+array Tableau contenant les catégories d\textquotesingle{}ingrédients 
+\end{DoxyReturn}

@@ -1,0 +1,250 @@
+\doxysection{Utilisateur Class Reference}
+\hypertarget{class_utilisateur}{}\label{class_utilisateur}\index{Utilisateur@{Utilisateur}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_utilisateur_a131f790a81ff6dab85766cc201500b3f}{get\+Identifiant}} ()
+\begin{DoxyCompactList}\small\item\em Récuperer l\textquotesingle{}identifiant de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a23fe02a75be9202e4b141cb7c7da3941}{set\+Identifiant}} (\$i)
+\begin{DoxyCompactList}\small\item\em Définir l\textquotesingle{}identifiant de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a120b16927096a872de2d16fa0d54a191}{get\+Nom}} ()
+\begin{DoxyCompactList}\small\item\em Récuperer le nom de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a1fe8b913e8905b1612226a99f0f0d4a7}{set\+Nom}} (\$n)
+\begin{DoxyCompactList}\small\item\em Définir le nom de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a8034331ca3024a748da4e347e2e96a59}{get\+Prenom}} ()
+\begin{DoxyCompactList}\small\item\em Récuperer le prénom de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_acbfba1a6c239af60fa32f41aa2fbadd1}{set\+Prenom}} (\$p)
+\begin{DoxyCompactList}\small\item\em Définir le prénom de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a72e5cecb2ea1123af878c34303d565ef}{get\+Date}} ()
+\begin{DoxyCompactList}\small\item\em Récuperer la date de naissance de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_af9eeefef77f9cc4d805b3adaf8bb689e}{set\+Date}} (\$b)
+\begin{DoxyCompactList}\small\item\em Définir la date de naissance de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a2616c571d66d8aa9deb9eb7c0cfa326d}{get\+Temps\+Min}} ()
+\begin{DoxyCompactList}\small\item\em Recuperer le temps minimum que l\textquotesingle{}utilisateur veut mettre à faire une recette. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_ad5d879328d724d81c1ce1945ee7a5f24}{set\+Temps\+Min}} (\$t)
+\begin{DoxyCompactList}\small\item\em Définir le temps minimum que l\textquotesingle{}utilisateur veut mettre à faire une recette. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_aa9b040bb2ab9ab739ebb59b386e7d3bf}{get\+Mes\+Preferences}} ()
+\begin{DoxyCompactList}\small\item\em Recuperer les préférences de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_ad68ffc351cce6936047d7e576ae1dd67}{ajouter\+Ingredient}} (\$i, \$p)
+\begin{DoxyCompactList}\small\item\em Ajouter un ingrédient à la liste des préférences de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a385ab9453d9050a92844208a9903ba9e}{retirer\+Ingredient}} (\$i)
+\begin{DoxyCompactList}\small\item\em Retirer un ingrédient de la liste des préférences de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_utilisateur_a726abf14fee4c207badda709fbcae8eb}{existe\+Ingredient}} (\$i)
+\begin{DoxyCompactList}\small\item\em Verifier si un ingrédient existe dans les préférences de l\textquotesingle{}utilisateur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_utilisateur_ad68ffc351cce6936047d7e576ae1dd67}\label{class_utilisateur_ad68ffc351cce6936047d7e576ae1dd67} 
+\index{Utilisateur@{Utilisateur}!ajouterIngredient@{ajouterIngredient}}
+\index{ajouterIngredient@{ajouterIngredient}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{ajouterIngredient()}{ajouterIngredient()}}
+{\footnotesize\ttfamily Utilisateur\+::ajouter\+Ingredient (\begin{DoxyParamCaption}\item[{}]{\$i,  }\item[{}]{\$p }\end{DoxyParamCaption})}
+
+
+
+Ajouter un ingrédient à la liste des préférences de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxylink{class_ingredient}{Ingredient} & {\em \$i} & Nouvel ingrédient à ajouter \\
+\hline
+int & {\em \$p} & Poids de l\textquotesingle{}ingrédient dans les préférences \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Nombre d\textquotesingle{}éléments après l\textquotesingle{}ajout 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a726abf14fee4c207badda709fbcae8eb}\label{class_utilisateur_a726abf14fee4c207badda709fbcae8eb} 
+\index{Utilisateur@{Utilisateur}!existeIngredient@{existeIngredient}}
+\index{existeIngredient@{existeIngredient}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{existeIngredient()}{existeIngredient()}}
+{\footnotesize\ttfamily Utilisateur\+::existe\+Ingredient (\begin{DoxyParamCaption}\item[{}]{\$i }\end{DoxyParamCaption})}
+
+
+
+Verifier si un ingrédient existe dans les préférences de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxylink{class_ingredient}{Ingredient} & {\em \$i} & Ingrédient à rechercher dans les préférences \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Retourne true si l\textquotesingle{}ingrédient existe dans les préférences, false sinon 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a72e5cecb2ea1123af878c34303d565ef}\label{class_utilisateur_a72e5cecb2ea1123af878c34303d565ef} 
+\index{Utilisateur@{Utilisateur}!getDate@{getDate}}
+\index{getDate@{getDate}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getDate()}{getDate()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Récuperer la date de naissance de l\textquotesingle{}utilisateur. 
+
+\begin{DoxyReturn}{Returns}
+string Date de naissance de l\textquotesingle{}utilisateur 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a131f790a81ff6dab85766cc201500b3f}\label{class_utilisateur_a131f790a81ff6dab85766cc201500b3f} 
+\index{Utilisateur@{Utilisateur}!getIdentifiant@{getIdentifiant}}
+\index{getIdentifiant@{getIdentifiant}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getIdentifiant()}{getIdentifiant()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Identifiant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Récuperer l\textquotesingle{}identifiant de l\textquotesingle{}utilisateur. 
+
+\begin{DoxyReturn}{Returns}
+int Identifiant de l\textquotesingle{}utilisateur 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_aa9b040bb2ab9ab739ebb59b386e7d3bf}\label{class_utilisateur_aa9b040bb2ab9ab739ebb59b386e7d3bf} 
+\index{Utilisateur@{Utilisateur}!getMesPreferences@{getMesPreferences}}
+\index{getMesPreferences@{getMesPreferences}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getMesPreferences()}{getMesPreferences()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Mes\+Preferences (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Recuperer les préférences de l\textquotesingle{}utilisateur. 
+
+\begin{DoxyReturn}{Returns}
+array Liste des préférences de l\textquotesingle{}utilisateur 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a120b16927096a872de2d16fa0d54a191}\label{class_utilisateur_a120b16927096a872de2d16fa0d54a191} 
+\index{Utilisateur@{Utilisateur}!getNom@{getNom}}
+\index{getNom@{getNom}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getNom()}{getNom()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Nom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Récuperer le nom de l\textquotesingle{}utilisateur. 
+
+\begin{DoxyReturn}{Returns}
+string Nom de l\textquotesingle{}utilisateur 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a8034331ca3024a748da4e347e2e96a59}\label{class_utilisateur_a8034331ca3024a748da4e347e2e96a59} 
+\index{Utilisateur@{Utilisateur}!getPrenom@{getPrenom}}
+\index{getPrenom@{getPrenom}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getPrenom()}{getPrenom()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Prenom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Récuperer le prénom de l\textquotesingle{}utilisateur. 
+
+\begin{DoxyReturn}{Returns}
+string Prénom de l\textquotesingle{}utilisateur 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a2616c571d66d8aa9deb9eb7c0cfa326d}\label{class_utilisateur_a2616c571d66d8aa9deb9eb7c0cfa326d} 
+\index{Utilisateur@{Utilisateur}!getTempsMin@{getTempsMin}}
+\index{getTempsMin@{getTempsMin}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{getTempsMin()}{getTempsMin()}}
+{\footnotesize\ttfamily Utilisateur\+::get\+Temps\+Min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Recuperer le temps minimum que l\textquotesingle{}utilisateur veut mettre à faire une recette. 
+
+\begin{DoxyReturn}{Returns}
+int Temps minimum pour faire une recette 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_a385ab9453d9050a92844208a9903ba9e}\label{class_utilisateur_a385ab9453d9050a92844208a9903ba9e} 
+\index{Utilisateur@{Utilisateur}!retirerIngredient@{retirerIngredient}}
+\index{retirerIngredient@{retirerIngredient}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{retirerIngredient()}{retirerIngredient()}}
+{\footnotesize\ttfamily Utilisateur\+::retirer\+Ingredient (\begin{DoxyParamCaption}\item[{}]{\$i }\end{DoxyParamCaption})}
+
+
+
+Retirer un ingrédient de la liste des préférences de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxylink{class_ingredient}{Ingredient} & {\em \$i} & Ingrédient à retirer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Retourne true si l\textquotesingle{}ingrédient a été retiré avec succès, false sinon 
+\end{DoxyReturn}
+\Hypertarget{class_utilisateur_af9eeefef77f9cc4d805b3adaf8bb689e}\label{class_utilisateur_af9eeefef77f9cc4d805b3adaf8bb689e} 
+\index{Utilisateur@{Utilisateur}!setDate@{setDate}}
+\index{setDate@{setDate}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{setDate()}{setDate()}}
+{\footnotesize\ttfamily Utilisateur\+::set\+Date (\begin{DoxyParamCaption}\item[{}]{\$b }\end{DoxyParamCaption})}
+
+
+
+Définir la date de naissance de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$b} & Nouvelle date de naissance de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_utilisateur_a23fe02a75be9202e4b141cb7c7da3941}\label{class_utilisateur_a23fe02a75be9202e4b141cb7c7da3941} 
+\index{Utilisateur@{Utilisateur}!setIdentifiant@{setIdentifiant}}
+\index{setIdentifiant@{setIdentifiant}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{setIdentifiant()}{setIdentifiant()}}
+{\footnotesize\ttfamily Utilisateur\+::set\+Identifiant (\begin{DoxyParamCaption}\item[{}]{\$i }\end{DoxyParamCaption})}
+
+
+
+Définir l\textquotesingle{}identifiant de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$i} & Nouvel identifiant de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_utilisateur_a1fe8b913e8905b1612226a99f0f0d4a7}\label{class_utilisateur_a1fe8b913e8905b1612226a99f0f0d4a7} 
+\index{Utilisateur@{Utilisateur}!setNom@{setNom}}
+\index{setNom@{setNom}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{setNom()}{setNom()}}
+{\footnotesize\ttfamily Utilisateur\+::set\+Nom (\begin{DoxyParamCaption}\item[{}]{\$n }\end{DoxyParamCaption})}
+
+
+
+Définir le nom de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$n} & Nouveau nom de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_utilisateur_acbfba1a6c239af60fa32f41aa2fbadd1}\label{class_utilisateur_acbfba1a6c239af60fa32f41aa2fbadd1} 
+\index{Utilisateur@{Utilisateur}!setPrenom@{setPrenom}}
+\index{setPrenom@{setPrenom}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{setPrenom()}{setPrenom()}}
+{\footnotesize\ttfamily Utilisateur\+::set\+Prenom (\begin{DoxyParamCaption}\item[{}]{\$p }\end{DoxyParamCaption})}
+
+
+
+Définir le prénom de l\textquotesingle{}utilisateur. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$p} & Nouveau prénom de l\textquotesingle{}utilisateur \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_utilisateur_ad5d879328d724d81c1ce1945ee7a5f24}\label{class_utilisateur_ad5d879328d724d81c1ce1945ee7a5f24} 
+\index{Utilisateur@{Utilisateur}!setTempsMin@{setTempsMin}}
+\index{setTempsMin@{setTempsMin}!Utilisateur@{Utilisateur}}
+\doxysubsubsection{\texorpdfstring{setTempsMin()}{setTempsMin()}}
+{\footnotesize\ttfamily Utilisateur\+::set\+Temps\+Min (\begin{DoxyParamCaption}\item[{}]{\$t }\end{DoxyParamCaption})}
+
+
+
+Définir le temps minimum que l\textquotesingle{}utilisateur veut mettre à faire une recette. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$t} & Nouveau temps minimum pour faire une recette \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+S3.\+01-\/parcours-\/\+A-\/\+Groupe11/src/code/site/\mbox{\hyperlink{_utilisateur_8php}{Utilisateur.\+php}}\end{DoxyCompactItemize}

@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "$_abdegimrsu",
+  0: "$_abegirsu",
   1: "iru",
-  2: "abimrsu",
+  2: "birsu",
   3: "_aegrs",
-  4: "$dei"
+  4: "$"
 };
 
 var indexSectionNames =
@@ -18,10 +18,10 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "Tout",
-  1: "Structures de données",
-  2: "Fichiers",
-  3: "Fonctions",
+  0: "All",
+  1: "Classes",
+  2: "Files",
+  3: "Functions",
   4: "Variables"
 };
 

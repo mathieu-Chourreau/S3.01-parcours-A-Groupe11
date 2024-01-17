@@ -111,7 +111,60 @@ class Recette {
         $this->nom = $nvNom;
     }
 
-    // ... (méthodes similaires pour temps, difficulte, instruction)
+    /**
+     * @brief Recuperer le temps de la recette
+     *
+     * @return string Temps de la recette
+     */
+    public function getTemps() {
+        return $this->temps;
+    }
+
+    /**
+     * @brief Definir le temps de la recette
+     *
+     * @param string $nvTemps Nouveau temps de la recette
+     */
+    public function setTemps($nvTemps) {
+        $this->temps = $nvTemps;
+    }
+    /**
+     * @brief Recuperer la difficulte de la recette
+     *
+     * @return string difficulte de la recette
+     */
+    public function getDifficulte() {
+        return $this->difficulte;
+    }
+
+    /**
+     * @brief Definir la difficulte de la recette
+     *
+     * @param string $nvDifficulte Nouvelle difficulte de la recette
+     */
+    public function setDifficulte($nvDifficulte) {
+        $this->difficulte = $nvDifficulte;
+    }  
+    /**
+     * @brief Recuperer les instructions de la recette
+     *
+     * @return string instruction de la recette
+     */
+    public function getInstruction() {
+        return $this->instruction;
+    }
+
+    /**
+     * @brief Definir les instructions de la recette
+     *
+     * @param string $nvInstruction Nouvelle instruction de la recette
+     */
+    public function setDifficulte($nvInstruction) {
+        $this->instruction = $nvInstruction;
+    }
+
+
+
 
     /**
      * @brief Recuperer les ingredients de la recette

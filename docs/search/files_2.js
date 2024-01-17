@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['index_2ephp_0',['index.php',['../index_8php.html',1,'']]],
-  ['ingredient_2ephp_1',['Ingredient.php',['../_ingredient_8php.html',1,'']]]
+  ['recette_2ephp_0',['Recette.php',['../_recette_8php.html',1,'']]]
 ];
