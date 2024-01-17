@@ -20,7 +20,7 @@
             <h3>Les 5 meilleures recettes :</h3>
             <ul>
                 <?php
-                include 'mainglobal.php'; 
+                include 'main.php'; 
                 $topIngredients = array_slice($lRecettePoint, 0, 5);
                 foreach ($topIngredients as $rec) {
                     if ($rec['point']>0) {
