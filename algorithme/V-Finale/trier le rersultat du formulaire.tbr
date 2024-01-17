@@ -1,0 +1,138 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>recuperer le resultat du formulaire</nom>
+  <date_creation>17/1/2024 23:36</date_creation>
+  <Elements>
+    <Action>
+      <Position>575;51</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>tabIngredientPref, budget, tempsCuisineMax
+tabIngredientRefus </PostAssertion>
+      <Titre>recuperer le resultat du formulaire</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>0</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>186;252</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>lIngredientsPref,
+</PreAssertion>
+          <PostAssertion>tabIngredientPref,&#xd;
+tabIngredientRefus</PostAssertion>
+          <Titre>Récuperer les préférences de l'utilisateur</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Iteration>
+              <Position>405.5;330.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>Pour tous les éléments nomIngredient preferenceIngPourUtilisateur dans lIngredientsPrefPourUtilisateur </Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Action>
+                  <Position>319;411</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>Stocker l'ingredient en fonction de la preference de l'utilisateur</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Condition>
+                      <Position>303;501</Position>
+                      <StyleLien>0</StyleLien>
+                      <estUnique>0</estUnique>
+                      <operationsLogiques>
+                        <operation>
+                          <Titre>preferenceIngPourUtilisteur = 0</Titre>
+                          <Enfants>
+                            <Action>
+                              <Position>-56;608</Position>
+                              <StyleLien>2</StyleLien>
+                              <PreAssertion>nomIngredient
+preferenceIngPourUtilisateur</PreAssertion>
+                              <PostAssertion>tabIngredientRefus</PostAssertion>
+                              <Titre>mettre l'ingrédient dans un tableau contenant les ingredients 
+qu'il ne veut pas</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants>
+                                <Action>
+                                  <Position>126;697</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>tabIngredientRefus[nomIngredient]←
+preferenceIngPourUtilisateur</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </Action>
+                          </Enfants>
+                        </operation>
+                        <operation>
+                          <Titre>Sinon</Titre>
+                          <Enfants>
+                            <Action>
+                              <Position>523;609</Position>
+                              <StyleLien>2</StyleLien>
+                              <PreAssertion>nomIngredient
+preferenceIngPourUtilisateur</PreAssertion>
+                              <PostAssertion>tabIngredientPref</PostAssertion>
+                              <Titre>mettre l'ingrédient dans un tableau contenant les autres ingredients </Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants>
+                                <Action>
+                                  <Position>708;687</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>tabIngredientPref[nomIngredient]←
+preferenceIngPourUtilisateur</Titre>
+                                  <DetailsVisible>0</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </Action>
+                          </Enfants>
+                        </operation>
+                      </operationsLogiques>
+                    </Condition>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>786;159</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>ingredientsPrefPageSale</PreAssertion>
+          <PostAssertion>sale, tempsCuisineMax,
+budget</PostAssertion>
+          <Titre>initialiser la preference par rapport au temps, au budget et salé</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>-110;156</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>?</PreAssertion>
+          <PostAssertion>lIngredientsPref,
+ingredientsPrefPageSale</PostAssertion>
+          <Titre>initialiser les variables</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>0</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>

@@ -1,0 +1,154 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>recuperer et creer les Ingredients de la recette</nom>
+  <date_creation>17/1/2024 23:36</date_creation>
+  <Elements>
+    <Action>
+      <Position>788;47</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>Recette
+resultRecette</PreAssertion>
+      <PostAssertion>Ingredient</PostAssertion>
+      <Titre>recuperer et creer les Ingredients de la recette</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>505;197</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>resultRecette</PreAssertion>
+          <PostAssertion>resultIngredient</PostAssertion>
+          <Titre>Création et execution d'une requete pour réupérer les ingredients</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>358;341</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>ingredientDeRecette ← "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
+                    FROM ingredient i
+                    JOIN categorieingredient ci on i.identifiantC = ci.identifiant
+                    JOIN contenir c ON i.nom = c.Ingredient_id
+                    JOIN recette r ON c.Recette_id = r.identifiant
+                    WHERE r.identifiant =". $row['identifiant_recette'].";";</Titre>
+              <DetailsVisible>0</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+            <Action>
+              <Position>691;352</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>ingredientDeRecette</PreAssertion>
+              <PostAssertion>resultIngredient</PostAssertion>
+              <Titre>executer la requete</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1162;265</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>Recette
+resultIngredient</PreAssertion>
+          <PostAssertion>?</PostAssertion>
+          <Titre>transformer le resultat de la requete en ojet Ingredient qu'on met dans la liste de Recette</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>1310;358</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>1</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>Si le nombre de ligne de la requete est superieur à 0 et que la requete a bien été executée</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>1168;437</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>resultIngredient</PreAssertion>
+                      <PostAssertion>Recette, 
+Ingredient</PostAssertion>
+                      <Titre>parcourir les champs de la requete</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants>
+                        <Iteration>
+                          <Position>1376.5;523.5</Position>
+                          <StyleLien>1</StyleLien>
+                          <Titre>?</Titre>
+                          <IterationFixe>1</IterationFixe>
+                          <Enfants>
+                            <Condition>
+                              <Position>635;634</Position>
+                              <StyleLien>1</StyleLien>
+                              <estUnique>1</estUnique>
+                              <operationsLogiques>
+                                <operation>
+                                  <Titre>tous les enregistrement ont été parcouru</Titre>
+                                  <Enfants>
+                                    <Sortie>
+                                      <Position>731;735</Position>
+                                    </Sortie>
+                                  </Enfants>
+                                </operation>
+                                <operation>
+                                  <Titre>Sinon</Titre>
+                                  <Enfants/>
+                                </operation>
+                              </operationsLogiques>
+                            </Condition>
+                            <Action>
+                              <Position>848;622</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>resultIngredient</PreAssertion>
+                              <PostAssertion>Ingredient</PostAssertion>
+                              <Titre>creer les objet Ingredient</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                            <Action>
+                              <Position>1262;622</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>Recette
+Ingredient</PreAssertion>
+                              <PostAssertion>Recette</PostAssertion>
+                              <Titre>ajouter a la liste de Recette</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                            <Action>
+                              <Position>1672;627</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>Recette</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>ajouter la recette a la liste de recette de Ingredient</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>1</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </Iteration>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants/>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
