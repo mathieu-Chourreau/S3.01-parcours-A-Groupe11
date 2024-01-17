@@ -307,53 +307,41 @@ class Utilisateur {
     }
 }
 
+$ingredientsPref = $_SESSION['ingredientsPreferences'];
+$ingredientsPrefPageSale = $_SESSION['ingredientsPreferencesPageSale'];
 
 // Récuperer les préférences de l'utilisateur
-foreach ($_SESSION['ingredientsPreferences'] as $nomIngredient => $valeur) {
+foreach ($ingredientsPref as $nomIngredient => $valeur) {
     //Stocker l'ingredient en fonction de la preference
     if ($valeur == 0){
-        $pileIngredientRefus[$nomIngredient] = $valeur;
+        $tabIngredientRefus[$nomIngredient] = $valeur;
     }
     else{
-        $lIngredientPref[$nomIngredient] = $valeur;
+        $tabIngredientPref[$nomIngredient] = $valeur;
     }
 }
 
-foreach ($lIngredientPref as $nomIngredient => $valeur) {
-    echo "<li>$nomIngredient : $valeur</li>";
-}
-echo "</ul>";
+// Recuperer la préférence du salé, le temps et le budget
 
-if (isset($pileIngredientRefus)){
-    foreach ($pileIngredientRefus as $nomIngredient => $valeur) {
-        echo "<li>$nomIngredient : $valeur</li>";
-    }
-    echo "</ul>";
-}
-
-// Récuperer le salé
-
-$sale = $_SESSION['ingredientsPreferencesPageSale']['sale'];
-$temps = $_SESSION['ingredientsPreferencesPageSale']['zone_temps'];
-$budget = $_SESSION['ingredientsPreferencesPageSale']['zone_prix'];
+$sale = $ingredientsPrefPageSale['sale'];
+$temps = $ingredientsPrefPageSale['zone_temps'];
+$budget = $ingredientsPrefPageSale['zone_prix'];
 
 // tri des recettes en fonction des préférences
-
 // Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
 
 $listeRecette = array();
 
-if (isset($pileIngredientRefus)){
+if (isset($tabIngredientRefus)){
     $conditionWhere = '';
     // Creer et excecuter la requete
-
-    foreach ($pileIngredientRefus as $nomIngredient => $valeur) {
+    foreach ($tabIngredientRefus as $nomIngredient => $valeur) {
         $conditionWhere = "".$conditionWhere .",'" .$nomIngredient ."'";
     }
     $conditionWhere = substr($conditionWhere, 1);
     $conditionWhere = "(".$conditionWhere .")";
 
-    $sql = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
+    $recetteValide = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
     FROM RECETTE r
     JOIN CONTENIR c ON r.identifiant = c.recette_id  
     JOIN INGREDIENT i ON c.ingredient_id = i.nom
@@ -364,41 +352,40 @@ if (isset($pileIngredientRefus)){
                                 WHERE ig.NOM IN $conditionWhere)
     ORDER BY r.identifiant;";
 
-    $resultR = $conn->query($sql);
-    $nomVar = "";
+    $resultRecette = $conn->query($recetteValide);
+    $nomRecette = "";
     
 
-    if ($resultR && $resultR->num_rows > 0) {
-        while ($row = $resultR->fetch_assoc()) {
+    if ($resultRecette && $resultRecette->num_rows > 0) {
+        while ($row = $resultRecette->fetch_assoc()) {
 
-            $nomVar = "recette".$row['identifiant_recette'];
-            $$nomVar = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
-            $listeRecette[] = $$nomVar;
+            $nomRecette = "recette".$row['identifiant_recette'];
+            $$nomRecette = new Recette($row['identifiant_recette'], $row['nom_recette'], $row['temps_recette'], $row['niveauDif_recette'], $row['instruction_recette'], $row['grammage_recette']);
+            $listeRecette[] = $$nomRecette;
 
-            $sql= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
+            $ingredientDeRecette= "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
                     FROM ingredient i
                     JOIN categorieingredient ci on i.identifiantC = ci.identifiant
                     JOIN contenir c ON i.nom = c.Ingredient_id
                     JOIN recette r ON c.Recette_id = r.identifiant
                     WHERE r.identifiant =". $row['identifiant_recette'].";";
             
-            $resultI = $conn->query($sql);
+            $resultIngredient = $conn->query($ingredientDeRecette);
             
 
-            if ($resultI && $resultI->num_rows > 0) {
-                while ($row = $resultI->fetch_assoc()) {
-                    $nomVarI = "".$row['nom_ingr'];
-                    $nomVarI = str_replace(' ', '_', $nomVarI);
-                    if (!isset($$nomVarI)) {
-                        $$nomVarI = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
-                        $$nomVar->ajouterIngredient($$nomVarI,$row['quantite']);
-                        $$nomVarI->ajouterRecette($$nomVar);
+            if ($resultIngredient && $resultIngredient->num_rows > 0) {
+                while ($row = $resultIngredient->fetch_assoc()) {
+                    $nomIngredient = "".$row['nom_ingr'];
+                    $nomIngredient = str_replace(' ', '_', $nomIngredient);
+                    if (!isset($$nomIngredient)) {
+                        $$nomIngredient = new Ingredient($row['nom_ingr'], $row['prix'], $row['categorie']);
+                        $$nomRecette->ajouterIngredient($$nomIngredient,$row['quantite']);
+                        $$nomIngredient->ajouterRecette($$nomRecette);
                     }
                 }
             }   
         }
     }
-    $recette1->afficherDetails();
 }   
 
 $lRecettePoint = array();
@@ -409,13 +396,29 @@ foreach ($listeRecette as $val){
     //Initialisation de nbPointRecette
     $nbPointRecette = 0;
     foreach ($val->getMesIngredients() as $ing){
-        $proportion = ($ing[1]/$val->getGrammage())*100;
 
-        foreach ($lIngredientPref as $nomIngredient => $valeur){
+        $proportion = ($ing[1]/$val->getGrammage())*100;
+        echo "prop :";
+        echo $proportion;
+        echo "<br>";
+        echo "pointRE 1:";
+        echo $nbPointRecette;
+        echo "<br>";
+        foreach ($tabIngredientPref as $nomIngredient => $valeur){
             if ($nomIngredient == $ing[0]->getNom()){
+                echo "nom ing :";
+                echo $nomIngredient;
+                echo "<br>";
+                echo "valeur :";
+                echo $valeur;
+                echo "<br>";
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
+                echo "point RE 2:";
+                echo $nbPointRecette;
+                echo "<br>";
             }
         }
+    }
     //ajuster en fonction du prix
     if ($val->getPrix()>$budget) {
         //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
@@ -433,8 +436,13 @@ foreach ($listeRecette as $val){
         //On ajoute un bonus de points à la recette
         $nbPointRecette +=25;
     }
-
-    }
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo $nbPointRecette;
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
 
     //création d'un array avec un recette et ses points
     $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $nbPointRecette);
@@ -461,4 +469,3 @@ foreach ($lRecettePoint as $rec) {
     echo "</br>";
     echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
 }
-echo $budget;
