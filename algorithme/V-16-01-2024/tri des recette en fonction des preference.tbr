@@ -1,0 +1,317 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>tri des recette en fonction des preference</nom>
+  <date_creation>17/1/2024 01:25</date_creation>
+  <Elements>
+    <Action>
+      <Position>1479;509</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>recetteValide</PreAssertion>
+      <PostAssertion>listeRecette</PostAssertion>
+      <Titre>transformer le resultat de la requete en une liste d'objet recette</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>543;82</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>tabIngredientPref, tabIngredientRefus
+sale, temps, budget</PreAssertion>
+      <PostAssertion>listeRecette</PostAssertion>
+      <Titre>tri des recettes en fonctions des préferences</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>1357;207</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>lRecettePoint</PreAssertion>
+          <PostAssertion>listeRecette</PostAssertion>
+          <Titre>trier les recette en fonction de la correspondance</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+        <Action>
+          <Position>75;203</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>tabIngredientRefus</PreAssertion>
+          <PostAssertion>listeRecette</PostAssertion>
+          <Titre>Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>471;318</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>conditionWhere</PreAssertion>
+              <PostAssertion>listeRecette</PostAssertion>
+              <Titre>creer et executer la requete</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>1</DetailsVideVisible>
+              <Enfants>
+                <Condition>
+                  <Position>637.5;395</Position>
+                  <StyleLien>1</StyleLien>
+                  <estUnique>1</estUnique>
+                  <operationsLogiques>
+                    <operation>
+                      <Titre>Si tabIngredientRefus n'est pas vide</Titre>
+                      <Enfants>
+                        <Action>
+                          <Position>309;514</Position>
+                          <StyleLien>2</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>?</PostAssertion>
+                          <Titre>Rajouter à conditionWhere tous les ingrédients que l'utilisateur 
+ne souhaite pas avoir</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants>
+                            <Iteration>
+                              <Position>395.5;603.5</Position>
+                              <StyleLien>1</StyleLien>
+                              <Titre>Pour chaque élément de tabIngredientRefus</Titre>
+                              <IterationFixe>1</IterationFixe>
+                              <Enfants>
+                                <Action>
+                                  <Position>307;691</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>?</PreAssertion>
+                                  <PostAssertion>?</PostAssertion>
+                                  <Titre>On ajoute à conditionWhere l'ingredient actuel de tabIngredientRefus sous forme de liste</Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>0</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </Iteration>
+                          </Enfants>
+                        </Action>
+                        <Action>
+                          <Position>671;512</Position>
+                          <StyleLien>2</StyleLien>
+                          <PreAssertion>conditionWhere</PreAssertion>
+                          <PostAssertion>recetteValide</PostAssertion>
+                          <Titre>Execution de notre requete à l'aide de conditionWhere</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>1</DetailsVideVisible>
+                          <Enfants>
+                            <Action>
+                              <Position>646;629</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>recetteValide</PostAssertion>
+                              <Titre>$recetteValide ← "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
+    FROM RECETTE r
+    JOIN CONTENIR c ON r.identifiant = c.recette_id  
+    JOIN INGREDIENT i ON c.ingredient_id = i.nom
+    WHERE r.IDENTIFIANT NOT IN (SELECT rt.IDENTIFIANT
+                                FROM RECETTE rt
+                                JOIN CONTENIR ct ON rt.identifiant = ct.recette_id  
+                                JOIN INGREDIENT ig ON ct.ingredient_id = ig.nom
+                                WHERE ig.NOM IN conditionWhere)
+    ORDER BY r.identifiant;";</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>0</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                            <Action>
+                              <Position>1041;625</Position>
+                              <StyleLien>1</StyleLien>
+                              <PreAssertion>?</PreAssertion>
+                              <PostAssertion>?</PostAssertion>
+                              <Titre>executer la requete</Titre>
+                              <DetailsVisible>1</DetailsVisible>
+                              <DetailsVideVisible>0</DetailsVideVisible>
+                              <Enfants/>
+                            </Action>
+                          </Enfants>
+                        </Action>
+                      </Enfants>
+                    </operation>
+                    <operation>
+                      <Titre>Sinon</Titre>
+                      <Enfants/>
+                    </operation>
+                  </operationsLogiques>
+                </Condition>
+              </Enfants>
+            </Action>
+            <Action>
+              <Position>15;318</Position>
+              <StyleLien>2</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>conditionWhere</PostAssertion>
+              <Titre>création d'un string correspondant à la condition de la requete</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants>
+                <Action>
+                  <Position>14;393</Position>
+                  <StyleLien>1</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>conditionWhere</PostAssertion>
+                  <Titre>conditionWhere = ""</Titre>
+                  <DetailsVisible>0</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants/>
+                </Action>
+              </Enfants>
+            </Action>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>806;206</Position>
+          <StyleLien>1</StyleLien>
+          <PreAssertion>listeRecette
+lIngredientPref</PreAssertion>
+          <PostAssertion>lRecettePoint</PostAssertion>
+          <Titre>calculer la moyenne de correspondance de recette</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants/>
+        </Action>
+      </Enfants>
+    </Action>
+    <Action>
+      <Position>1555;613</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>On parcours les champs de la requete</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Condition>
+      <Position>1630.5;710</Position>
+      <StyleLien>1</StyleLien>
+      <estUnique>1</estUnique>
+      <operationsLogiques>
+        <operation>
+          <Titre>Si le nombre de ligne de la requete est superieur à 0 et que ce résultat existe</Titre>
+          <Enfants/>
+        </operation>
+        <operation>
+          <Titre>Sinon</Titre>
+          <Enfants/>
+        </operation>
+      </operationsLogiques>
+    </Condition>
+    <Action>
+      <Position>1068;931</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>Initilisation</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>818;1052</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>nomRecette</PostAssertion>
+      <Titre>On créer une variable pour stocker le nom de la Recette</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Iteration>
+      <Position>1704.5;786.5</Position>
+      <StyleLien>1</StyleLien>
+      <Titre>tant que tous les champs n'ont pas été parcouru</Titre>
+      <IterationFixe>1</IterationFixe>
+      <Enfants/>
+    </Iteration>
+    <Action>
+      <Position>1241;1055</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>On créer l'objet Recette à partir de ces valeurs</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>971;1141</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>listeRecette</PostAssertion>
+      <Titre>On créer une liste qui contiendra toutes les recettes</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>1747;926</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>Création d'une requete pour réupérer les ingredient de la recette afin d'en faire des objets</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>1767;1052</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>ingredientDeRecette</PostAssertion>
+      <Titre>ingredientDeRecette ← "SELECT i.nom as nom_ingr, i.prixKG as prix, ci.categorie as categorie, c.quantite as quantite
+                    FROM ingredient i
+                    JOIN categorieingredient ci on i.identifiantC = ci.identifiant
+                    JOIN contenir c ON i.nom = c.Ingredient_id
+                    JOIN recette r ON c.Recette_id = r.identifiant
+                    WHERE r.identifiant =". $row['identifiant_recette'].";";</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>1691;1172</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>nomIngredient</PostAssertion>
+      <Titre>On créer une variable pour stocker le nom de l'ingredient</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>2150;1165</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>On créer l'objet Ingredient à partir de ces valeurs</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>1950;1283</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>On applique ajouterIngredient() à la recette actuelle</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+    <Action>
+      <Position>1949;1357</Position>
+      <StyleLien>1</StyleLien>
+      <PreAssertion>?</PreAssertion>
+      <PostAssertion>?</PostAssertion>
+      <Titre>On applique ajouterRecette() à l'ingredient actuel</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants/>
+    </Action>
+  </Elements>
+</Algorithme>
