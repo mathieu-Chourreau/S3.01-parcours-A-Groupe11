@@ -340,7 +340,8 @@ if (isset($tabIngredientRefus)){
     }
     $conditionWhere = substr($conditionWhere, 1);
     $conditionWhere = "(".$conditionWhere .")";
-
+}
+else {$conditionWhere = "('null')";}
     $recetteValide = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
     FROM RECETTE r
     JOIN CONTENIR c ON r.identifiant = c.recette_id  
@@ -386,13 +387,23 @@ if (isset($tabIngredientRefus)){
             }   
         }
     }
-}   
+ 
 
 $lRecettePoint = array();
 
 foreach ($listeRecette as $val){
-    //Verifier si une recette est salé A FAIRE
+    //Verifier si une recette est salé
+    $sql="SELECT cr.gout
+    FROM categorierecette cr 
+    JOIN appartenirrc rc ON cr.identifiant = rc.identifiantC
+    JOIN recette r ON rc.identifiantR = r.identifiant
+    WHERE cr.gout = 'sale'
+    AND r.identifiant =" .$val->getIdentifiant().";";
 
+    $resultS = $conn->query($sql);
+    if ($resultS && $resultS->num_rows > 0 && $sale == 0) {
+        $nbPointRecette = -1000;
+    }else {
     //Initialisation de nbPointRecette
     $nbPointRecette = 0;
     foreach ($val->getMesIngredients() as $ing){
@@ -406,16 +417,7 @@ foreach ($listeRecette as $val){
         echo "<br>";
         foreach ($tabIngredientPref as $nomIngredient => $valeur){
             if ($nomIngredient == $ing[0]->getNom()){
-                echo "nom ing :";
-                echo $nomIngredient;
-                echo "<br>";
-                echo "valeur :";
-                echo $valeur;
-                echo "<br>";
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
-                echo "point RE 2:";
-                echo $nbPointRecette;
-                echo "<br>";
             }
         }
     }
@@ -436,16 +438,10 @@ foreach ($listeRecette as $val){
         //On ajoute un bonus de points à la recette
         $nbPointRecette +=25;
     }
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo $nbPointRecette;
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
 
     //création d'un array avec un recette et ses points
     $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $nbPointRecette);
+    }
 }
 
 //trier les recette en fonction de la correspondance dans l'ordre decroissant
@@ -466,6 +462,8 @@ do {
 echo "<br>";
 echo "recette :";
 foreach ($lRecettePoint as $rec) {
-    echo "</br>";
-    echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
+    if ($rec['point']>0) {
+        echo "</br>";
+        echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
+    }
 }
