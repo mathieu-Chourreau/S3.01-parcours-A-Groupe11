@@ -342,9 +342,8 @@ $budget = $_SESSION['ingredientsPreferencesPageSale']['zone_prix'];
 // Récupérer toutes les recettes qui comportent seulement des ingredients que l'utilisateur souhaite
 
 $listeRecette = array();
-
+$conditionWhere = '';
 if (isset($pileIngredientRefus)){
-    $conditionWhere = '';
     // Creer et excecuter la requete
 
     foreach ($pileIngredientRefus as $nomIngredient => $valeur) {
@@ -352,7 +351,7 @@ if (isset($pileIngredientRefus)){
     }
     $conditionWhere = substr($conditionWhere, 1);
     $conditionWhere = "(".$conditionWhere .")";
-
+}else {$conditionWhere = "('null')";}
     $sql = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
     FROM RECETTE r
     JOIN CONTENIR c ON r.identifiant = c.recette_id  
@@ -399,13 +398,23 @@ if (isset($pileIngredientRefus)){
         }
     }
     $recette1->afficherDetails();
-}   
+   
 
 $lRecettePoint = array();
 
 foreach ($listeRecette as $val){
-    //Verifier si une recette est salé A FAIRE
+    //Verifier si une recette est salé
+    $sql="SELECT cr.gout
+    FROM categorierecette cr 
+    JOIN appartenirrc rc ON cr.identifiant = rc.identifiantC
+    JOIN recette r ON rc.identifiantR = r.identifiant
+    WHERE cr.gout = 'sale'
+    AND r.identifiant =" .$val->getIdentifiant().";";
 
+    $resultS = $conn->query($sql);
+    if ($resultS && $resultS->num_rows > 0 && $sale == 0) {
+        $nbPointRecette = -1000;
+    }else {
     //Initialisation de nbPointRecette
     $nbPointRecette = 0;
     foreach ($val->getMesIngredients() as $ing){
@@ -416,6 +425,8 @@ foreach ($listeRecette as $val){
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
             }
         }
+
+    }
     //ajuster en fonction du prix
     if ($val->getPrix()>$budget) {
         //On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur
@@ -434,10 +445,9 @@ foreach ($listeRecette as $val){
         $nbPointRecette +=25;
     }
 
-    }
-
     //création d'un array avec un recette et ses points
     $lRecettePoint[] = array('recette' => $val->getNom(), 'point' => $nbPointRecette);
+    }
 }
 
 //trier les recette en fonction de la correspondance dans l'ordre decroissant
@@ -458,7 +468,8 @@ do {
 echo "<br>";
 echo "recette :";
 foreach ($lRecettePoint as $rec) {
-    echo "</br>";
-    echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
+    if ($rec['point']>0) {
+        echo "</br>";
+        echo "Recette: " . $rec['recette'] . ", Point: " . $rec['point'];
+    }
 }
-echo $budget;
