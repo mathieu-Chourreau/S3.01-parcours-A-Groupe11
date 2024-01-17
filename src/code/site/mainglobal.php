@@ -10,16 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_POST as $nomIngredient => $valeur) {
         $_SESSION['ingredientsPreferencesPageSale'][$nomIngredient] = $valeur;
     }
-
-    echo "<h2>Préférences des ingrédients (depuis la session) :</h2>";
-    echo "<ul>";
-    echo "<h2>Préférences des ingrédients (Page Sale) :</h2>";
-    echo "<ul>";
-    foreach ($_SESSION['ingredientsPreferencesPageSale'] as $nomIngredient => $valeur) {
-        echo "<li>$nomIngredient : $valeur</li>";
-    }
-    echo "</ul>";
-} else {
+} 
+else {
     echo "Le formulaire n'a pas été soumis.";
 }
 
@@ -407,14 +399,7 @@ foreach ($listeRecette as $val){
     //Initialisation de nbPointRecette
     $nbPointRecette = 0;
     foreach ($val->getMesIngredients() as $ing){
-
         $proportion = ($ing[1]/$val->getGrammage())*100;
-        echo "prop :";
-        echo $proportion;
-        echo "<br>";
-        echo "pointRE 1:";
-        echo $nbPointRecette;
-        echo "<br>";
         foreach ($tabIngredientPref as $nomIngredient => $valeur){
             if ($nomIngredient == $ing[0]->getNom()){
                 $nbPointRecette = $nbPointRecette + $proportion * $valeur;
