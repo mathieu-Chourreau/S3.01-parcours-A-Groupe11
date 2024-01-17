@@ -1,0 +1,135 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>recuperer le resultat du formulaire</nom>
+  <date_creation>17/1/2024 01:25</date_creation>
+  <Elements>
+    <Action>
+      <Position>579;51</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>ingredientsPref,
+ingredientsPrefPageSale</PreAssertion>
+      <PostAssertion>lIngredientPref ,piquant, budget,tempsMax
+pileIngredientRefus </PostAssertion>
+      <Titre>recuperer le resultat du formulaire</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>62;222</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>ingredientsPref,
+ingredientsPrefPageSale</PreAssertion>
+          <PostAssertion>tabIngredientPref,
+tabIngredientRefus</PostAssertion>
+          <Titre>Récuperer les préférences de l'utilisateur</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Iteration>
+              <Position>335.5;302.5</Position>
+              <StyleLien>1</StyleLien>
+              <Titre>Pour tous les éléments dans ingredientPref</Titre>
+              <IterationFixe>1</IterationFixe>
+              <Enfants>
+                <Action>
+                  <Position>290;387</Position>
+                  <StyleLien>2</StyleLien>
+                  <PreAssertion>?</PreAssertion>
+                  <PostAssertion>?</PostAssertion>
+                  <Titre>trier l'ingredient</Titre>
+                  <DetailsVisible>1</DetailsVisible>
+                  <DetailsVideVisible>0</DetailsVideVisible>
+                  <Enfants>
+                    <Action>
+                      <Position>502;532</Position>
+                      <StyleLien>1</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>passer à l'élément suivant</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants/>
+                    </Action>
+                    <Action>
+                      <Position>117;529</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>?</PreAssertion>
+                      <PostAssertion>?</PostAssertion>
+                      <Titre>Stocker l'ingredient en fonction de la preference de l'utilisateur</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>0</DetailsVideVisible>
+                      <Enfants>
+                        <Condition>
+                          <Position>116;615</Position>
+                          <StyleLien>0</StyleLien>
+                          <estUnique>0</estUnique>
+                          <operationsLogiques>
+                            <operation>
+                              <Titre>preference = 0</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>-116;877</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>ingredientsPrefPageSale</PreAssertion>
+                                  <PostAssertion>tabIngredientRefus</PostAssertion>
+                                  <Titre>mettre l'ingrédient dans une 
+pile contenant les ingredients 
+qu'il ne veut pas</Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                            <operation>
+                              <Titre>Sinon</Titre>
+                              <Enfants>
+                                <Action>
+                                  <Position>221;765</Position>
+                                  <StyleLien>1</StyleLien>
+                                  <PreAssertion>ingredientsPref</PreAssertion>
+                                  <PostAssertion>tabIngredientPref</PostAssertion>
+                                  <Titre>mettre les ingredients dans une liste de paire&lt;Ingredient, preference></Titre>
+                                  <DetailsVisible>1</DetailsVisible>
+                                  <DetailsVideVisible>1</DetailsVideVisible>
+                                  <Enfants/>
+                                </Action>
+                              </Enfants>
+                            </operation>
+                          </operationsLogiques>
+                        </Condition>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </Action>
+              </Enfants>
+            </Iteration>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>996;202</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>resultatFormulaire</PreAssertion>
+          <PostAssertion>sale, temps,
+budget</PostAssertion>
+          <Titre>Recuperer la préférence du salé, le temps et le budget</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Action>
+              <Position>1202;298</Position>
+              <StyleLien>1</StyleLien>
+              <PreAssertion>?</PreAssertion>
+              <PostAssertion>?</PostAssertion>
+              <Titre>Saisie Verif erreur</Titre>
+              <DetailsVisible>1</DetailsVisible>
+              <DetailsVideVisible>0</DetailsVideVisible>
+              <Enfants/>
+            </Action>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>

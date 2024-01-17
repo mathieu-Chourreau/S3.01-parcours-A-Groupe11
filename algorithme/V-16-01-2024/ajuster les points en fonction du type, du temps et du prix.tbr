@@ -1,0 +1,163 @@
+<?xml version="1.1"?>
+<!DOCTYPE Tabula_Rasa>
+<Algorithme>
+  <nom>ajuster les points en fonction du type, du temps et du prix</nom>
+  <date_creation>17/1/2024 01:25</date_creation>
+  <Elements>
+    <Action>
+      <Position>556;75</Position>
+      <StyleLien>2</StyleLien>
+      <PreAssertion>nbPointRecette,
+temps,budget, piquant</PreAssertion>
+      <PostAssertion>nbPointRecette</PostAssertion>
+      <Titre>ajuster les points en fonction  du temps et du prix, piquant</Titre>
+      <DetailsVisible>1</DetailsVisible>
+      <DetailsVideVisible>1</DetailsVideVisible>
+      <Enfants>
+        <Action>
+          <Position>190;187</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>budget
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuster en fonction du prix</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>348.5;269</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>1</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>Si le prix de la recette est superieur au budget</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>156;349</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>nbPointRecette</PreAssertion>
+                      <PostAssertion>nbPointRecette</PostAssertion>
+                      <Titre>On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>309;424</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>nbPointRecette</PostAssertion>
+                          <Titre>nbPointRecette ← nbPointRecette - (listeRecette[i].budget - budget)/(budget*0.1)*40</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants/>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>719;190</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>temps
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuste en fontion du temps</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>836.5;283</Position>
+              <StyleLien>1</StyleLien>
+              <estUnique>1</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>Si le temps de la recette est superieur au temps de l'utilisateur</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>720;358</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>nbPointRecette</PreAssertion>
+                      <PostAssertion>nbPointRecette</PostAssertion>
+                      <Titre>On enleve des points à cette recette car elle ne rentre pas dans les critères de l'utilisateur</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>849;449</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>nbPointRecette</PostAssertion>
+                          <Titre>nbPointRecette ← nbPointRecette - (listeRecette[i].temps - temps)/(temps*0.5)*40</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </operation>
+                <operation>
+                  <Titre>Sinon</Titre>
+                  <Enfants/>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+        <Action>
+          <Position>1286;196</Position>
+          <StyleLien>2</StyleLien>
+          <PreAssertion>piquant
+nbPointRecette</PreAssertion>
+          <PostAssertion>nbPointRecette</PostAssertion>
+          <Titre>ajuster en fonction du piquant</Titre>
+          <DetailsVisible>1</DetailsVisible>
+          <DetailsVideVisible>1</DetailsVideVisible>
+          <Enfants>
+            <Condition>
+              <Position>1451;274</Position>
+              <StyleLien>0</StyleLien>
+              <estUnique>0</estUnique>
+              <operationsLogiques>
+                <operation>
+                  <Titre>Si l'utilisateur a defini piquant sur "oui"</Titre>
+                  <Enfants>
+                    <Action>
+                      <Position>1272;344</Position>
+                      <StyleLien>2</StyleLien>
+                      <PreAssertion>nbPointRecette</PreAssertion>
+                      <PostAssertion>nbPointRecette</PostAssertion>
+                      <Titre>On ajoute un bonus de points à la recette</Titre>
+                      <DetailsVisible>1</DetailsVisible>
+                      <DetailsVideVisible>1</DetailsVideVisible>
+                      <Enfants>
+                        <Action>
+                          <Position>1401;420</Position>
+                          <StyleLien>1</StyleLien>
+                          <PreAssertion>?</PreAssertion>
+                          <PostAssertion>nbPointRecette</PostAssertion>
+                          <Titre>nbPointRecette ← nbPointRecette + 25</Titre>
+                          <DetailsVisible>1</DetailsVisible>
+                          <DetailsVideVisible>0</DetailsVideVisible>
+                          <Enfants/>
+                        </Action>
+                      </Enfants>
+                    </Action>
+                  </Enfants>
+                </operation>
+              </operationsLogiques>
+            </Condition>
+          </Enfants>
+        </Action>
+      </Enfants>
+    </Action>
+  </Elements>
+</Algorithme>
