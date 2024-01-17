@@ -159,7 +159,7 @@ class Recette {
      *
      * @param string $nvInstruction Nouvelle instruction de la recette
      */
-    public function setDifficulte($nvInstruction) {
+    public function setInstrucion($nvInstruction) {
         $this->instruction = $nvInstruction;
     }
 

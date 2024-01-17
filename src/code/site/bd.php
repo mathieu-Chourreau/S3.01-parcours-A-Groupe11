@@ -13,25 +13,25 @@
  * @brief   Nom du serveur MySQL
  * @var string
  */
-$servername = "lakartxela.iutbayonne.univ-pau.fr";
+$servername = "localhost:3306/sae3.01";
 
 /**
  * @brief   Nom d'utilisateur pour la connexion MySQL
  * @var string
  */
-$username = "mchourreau_bd"; 
+$username = "root"; 
 
 /**
  * @brief   Mot de passe pour la connexion MySQL
  * @var string
  */
-$password = "mchourreau_bd";
+$password = "";
 
 /**
  * @brief   Nom de la base de données MySQL
  * @var string
  */
-$dbname = "mchourreau_bd";
+$dbname = "sae3.01";
 
 // Connexion à la base de données avec MySQLi
 
