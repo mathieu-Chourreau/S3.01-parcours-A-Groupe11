@@ -119,9 +119,6 @@ $precedentButtonClass = $currentIndex > 0 ? 'visible' : 'invisible';
             } else {
                 precedentButton.classList.remove("invisible");
             }
-            // Sauvegarder les préférences
-            savePreferences();
-
             // Afficher la catégorie suivante
             loadRecipes();
         } 
@@ -138,8 +135,6 @@ $precedentButtonClass = $currentIndex > 0 ? 'visible' : 'invisible';
                 precedentButton.classList.remove("invisible");
             }
 
-        // Sauvegarder les préférences
-        savePreferences();
 
         loadRecipes();
         };
