@@ -3,6 +3,22 @@
     margin-right: 20px; 
 }
 
+.accueil {
+    background-image: url(image/fond_page_accueil.jpg);
+}
+
+.fond {
+    background-image: url('image/fond_page_accueil.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+
+.barre_de_nav {
+    background-color: rgb(36, 24, 24);
+    padding: 10px; 
+    text-align: center; 
+}
 
 header {
     background-color: rgb(123,8,8);
