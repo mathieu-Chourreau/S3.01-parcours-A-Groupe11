@@ -1,24 +1,25 @@
+
+
 .logo {
     float: left;
     margin-right: 20px; 
 }
 
-.accueil {
-    background-image: url(image/fond_page_accueil.jpg);
+body{
+    margin: 0px;
 }
 
-.fond {
+.fond img{
     width: 100%;
     height: 100%;
-  }
-
-#img_background {
-    width: 1080px;
+    z-index: -2121212;
 }
 
-@media (max-width: 480px) {
+
+
+@media (max-width: 700px) {
     #img_background {
-        width: 100%;
+        width: 50px;
     }
 }
 
@@ -31,7 +32,8 @@
 header {
     background-color: rgb(123,8,8);
     color: #666;
-    padding: 10px; 
+    padding: 10px;
+    margin: 0px;
     text-align: center; 
 }
 

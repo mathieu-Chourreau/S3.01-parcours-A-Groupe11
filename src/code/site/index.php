@@ -17,6 +17,7 @@
 
     <section class="fond">
         <img id="img_background" src="image/fond_page_accueil.jpg">
+        <input type="text">
     </section>
 </body>
 </html>
