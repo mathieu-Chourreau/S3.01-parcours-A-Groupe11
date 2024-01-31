@@ -9,6 +9,24 @@ body{
     margin: 0px;
 }
 
+@font-face {
+    font-family: 'NomDeLaPolice';
+    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+}
+
+.titre {
+    top: 20%;
+    left: 50%; 
+    transform: translateX(-50%); 
+    position: absolute;
+    font-size: 95px;
+    font-family: 'NomDeLaPolice', sans-serif;
+    text-align: center; 
+    white-space: normal; 
+    color: white;
+}
+
+
 .fond img {
     top: 0;
     left: 0;
@@ -17,18 +35,15 @@ body{
     z-index: -1;
 }
 
-#loupe {
+.search-container {
     position: absolute;
     top: 50%;
-    right: 10px;
-
-    color: #f156e5; /* Couleur de l'icône */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
-.recherche{
-    position: absolute;
-    top: 50%;
-    left: 30%;
+.recherche {
     width: 750px;
     height: 70px;
     opacity: 80%;
@@ -36,10 +51,17 @@ body{
     border-color: #000;
     border-style: solid;
     font-size: 30px;
+    border-radius: 15px;
+    padding-right: 60px;
+    background-image: url('image/loupe.png');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 70px 70px;
+    color: #000;
 }
 
-.recherche::placeholder{
-    color: #000;
+.recherche::placeholder {
+    color: #000000; /* Changez la couleur du placeholder en blanc */
     padding-left: 15px;
 }
 
