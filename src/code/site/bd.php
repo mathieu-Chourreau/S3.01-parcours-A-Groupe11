@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données MySQL
-$servername = "lakartxela.iutbayonne.univ-pau.fr"; // Remplacez ceci par votre nom de serveur
+$servername = "http://lakartxela.iutbayonne.univ-pau.fr/phpmyadmin"; // Remplacez ceci par votre nom de serveur
 $username = "szaza001_bd"; // Remplacez ceci par votre nom d'utilisateur
 $password = "szaza001_bd"; // Remplacez ceci par votre mot de passe
 $dbname = "szaza001_bd"; // Remplacez ceci par le nom de votre base de données

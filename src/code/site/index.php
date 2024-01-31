@@ -14,9 +14,9 @@
         </div>
         <h1>Mon En-Tête</h1>
     </header>
-    <nav id="barre_de_nav">
 
-    </nav>
-
+    <section class="fond">
+        <img id="img_background" src="image/fond_page_accueil.jpg">
+    </section>
 </body>
 </html>

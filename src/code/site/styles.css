@@ -8,11 +8,19 @@
 }
 
 .fond {
-    background-image: url('image/fond_page_accueil.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
   }
+
+#img_background {
+    width: 1080px;
+}
+
+@media (max-width: 480px) {
+    #img_background {
+        width: 100%;
+    }
+}
 
 .barre_de_nav {
     background-color: rgb(36, 24, 24);
