@@ -86,6 +86,7 @@ input[type="submit"]:hover
 .wrapper{
     height: 100%;
     width: 100%;
+    margin: 0;
     background: url(image/fond_page_accueil.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -98,14 +99,14 @@ input[type="submit"]:hover
     position: fixed;
     top: 0;
     display: flex;
-    justify-content: space-between; /* Utiliser space-between pour espacer les éléments au maximum */
+    justify-content: space-between;
     align-items: center;
     height: 8%;
     width: 100%;
     line-height: 100px;
     background:  rgb(123, 8, 8);
     z-index: 100;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid rgb(255, 255, 255);
 }
 
 .nav-menu ul{
@@ -148,4 +149,13 @@ input[type="submit"]:hover
 }
 .nav-menu-btn{
     display: none;
+}
+
+.footer {
+    margin: 0;
+    border-top: 2px solid rgb(255, 255, 255);
+    background: rgb(123, 8, 8);
+    height: 5%;
+    width: 100%;
+
 }
