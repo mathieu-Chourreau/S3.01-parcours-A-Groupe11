@@ -3,14 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="connexion.css">
     <title>Page de connexion</title>
 </head>
 
 <body>
-
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="logo">
+                <a href="index.html">
+                    <img class="img_logo" src="image/logo.png">
+                </a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#" class="link active">Accueil</a></li>
+                    <li><a href="#" class="link">Rechercher</a></li>
+                    <li><a href="#" class="link">Formulaire</a></li>
+                    <li><a href="#" class="link">L'équipe</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form>
@@ -31,23 +45,8 @@
                 <button>Se connecter</button>
             </form>
         </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h1>Déjà inscrit ?</h1>
-                    <p>Saisissez vos données personnelles pour utiliser toutes les fonctionnalités du site</p>
-                    <button class="hidden" id="login">Se connecter</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <h1>Pas encore inscrit ?</h1>
-                    <p>Enregistrez-vous avec vos données personnelles pour utiliser toutes les fonctionnalités du site.</p>
-                    <button class="hidden" id="register">S'enregistrer</button>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <script src="connexion.js"></script>
+    
 </body>
 
 </html>
