@@ -10,6 +10,7 @@
 }
 
 .img_logo {
+  
     width: auto; 
     height: 100%; 
 }
@@ -35,6 +36,7 @@
 
 .nav-menu ul{
     display: flex;
+    visibility: hidden;
 }
 .nav-menu ul li{
     list-style-type: none;
