@@ -28,15 +28,14 @@
 </header>
 <body>
     <div class="container">
-    <form>
+    <form action="traitement_connexion.php" method="post">
         <h1>Se connecter</h1>        
         <div class="inputs">
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Mot de passe">
+          <input type="text" id="email" name="email" placeholder="Email" />
+          <input type="text" id="password" name="password" placeholder="Mot de passe">
         </div>
         
         <div align="center">
-          
           <button class="connecter" type="submit">Se connecter</button>
           <div class="compte"><a href="creeCompte.html">Creer mon compte</a></div>
         </div>

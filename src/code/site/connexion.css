@@ -87,7 +87,7 @@ body{
     display: flex;
     flex-direction: column;
   }
-  form .inputs input[type='email'], input[type='password'],input[type='text']{
+  form .inputs input[type='text']{
     padding: 15px;
     border:none;
     border-radius: 5px;
