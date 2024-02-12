@@ -1,7 +1,6 @@
 .logo {
     float: left;
-    margin: 1%;
-    height: 80%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
+    height: 70%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
 .logo a {
@@ -12,13 +11,6 @@
 .img_logo {
     width: auto; /* Ajuster la largeur automatiquement en fonction de la hauteur spécifiée */
     height: 100%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
-    display: block;
-}
-
-
-@font-face {
-    font-family: 'NomDeLaPolice';
-    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
 body {
@@ -27,6 +19,93 @@ body {
     width: 100%;
     height: 100vh;
 }
+
+.pageFormulaire{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background: url(image/fond_page_accueil.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #666;
+    background-position: center;
+    z-index: -1;
+}
+
+header{
+    position: fixed;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8%;
+    width: 100%;
+    line-height: 100px;
+    background:  rgb(123, 8, 8);
+    z-index: 100;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.nav-menu ul{
+    display: flex;
+}
+.nav-menu ul li{
+    list-style-type: none;
+}
+.nav-menu ul li .link{
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    padding-bottom: 15px;
+    margin: 0 25px;
+}
+.link:hover, .active{
+    border-bottom: 2px solid #fff;
+}
+.nav-button .btn{
+    width: 10vw;
+    height: 5.5vh;
+    font-weight: 500;
+    background: rgb(248, 208, 208);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.btn:hover{
+    background: rgba(226, 131, 131, 0.767);
+}
+#registerBtn{
+    margin-left: 15px;
+}
+.btn.white-btn{
+    background: rgb(255, 255, 255);
+}
+.btn.btn.white-btn:hover{
+    background: rgba(167, 112, 112, 0.836);
+}
+.nav-menu-btn{
+    display: none;
+}
+
+.footer {
+    margin: 0;
+    border-top: 2px solid rgb(255, 255, 255);
+    background: rgb(123, 8, 8);
+    height: 5%;
+    width: 100%;
+
+}
+
+@font-face {
+    font-family: 'NomDeLaPolice';
+    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+}
+
 
 .box{
     position: absolute;
@@ -95,71 +174,6 @@ input[type="submit"]:hover
     z-index: -1;
 }
 
-.nav {
-    position: fixed;
-    top: 0;
-    display: inline-block;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    line-height: 100px;
-    background:  rgb(123, 8, 8);
-    z-index: 100;
-    border-bottom: 2px solid rgb(255, 255, 255);
-}
-
-.nav-menu ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.nav-menu ul li{
-    list-style-type: none;
-}
-.nav-menu ul li .link{
-    text-decoration: none;
-    font-weight: 500;
-    color: #fff;
-    padding-bottom: 15px;
-    margin: 0 25px;
-}
-.link:hover, .active{
-    border-bottom: 2px solid #fff;
-}
-.nav-button .btn{
-    width: 10vw;
-    height: 5.5vh;
-    font-weight: 500;
-    background: rgb(248, 208, 208);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-.btn:hover{
-    background: rgba(226, 131, 131, 0.767);
-}
-#registerBtn{
-    margin-left: 15px;
-}
-.btn.white-btn{
-    background: rgb(255, 255, 255);
-}
-.btn.btn.white-btn:hover{
-    background: rgba(167, 112, 112, 0.836);
-}
-.nav-menu-btn{
-    display: none;
-}
-
-.footer {
-    margin: 0;
-    border-top: 2px solid rgb(255, 255, 255);
-    background: rgb(123, 8, 8);
-    height: 5%;
-    width: 100%;
-}
-
 header 
 {
     display: grid;
@@ -174,8 +188,6 @@ header
 section{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 10px;
     margin-right: auto;
     margin-left: auto;
     width: 80%;
@@ -198,4 +210,8 @@ section{
 
 #navMenu{
     float: center;
+}
+
+.section{
+    padding-top: 250px;
 }
