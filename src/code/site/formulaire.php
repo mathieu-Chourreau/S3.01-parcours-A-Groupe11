@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header>
+    <div class="wrapper">
         <nav class="nav">
             <div class="logo">
                 <a href="index.html">
@@ -31,7 +31,7 @@
                 <button class="btn" id="registerBtn" onclick="register()">S'enregistrer</button>
             </div>
         </nav>
-    </header>
+    </div>
 
     <?php
 
@@ -50,25 +50,29 @@
         }
     }
     ?>
-    <div class="pageFormulaire">
-        <label for="categories">Choisissez une catégorie :</label>
-        <select id="categories">
-            <option value="all">Toutes les catégories</option>
+    <div class="parametre_form">
+        <div id="choix_categorie">
+            <label for="categories">Choisissez une catégorie :</label>
+            <select id="select_categorie">
+                <option value="all">Toutes les catégories</option>
+                <?php
+                // Afficher les options de catégorie
+                foreach ($listeCategoriesStocks as $categorie) {
+                    echo '<option value="' . str_replace(" ", "-", $categorie) . '">' . $categorie . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+        <div class="recherche_aliment">
+            <label for="categories">Trouver votre aliment :</label>
+            <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
+        </div>
+    </div>
 
-
-            <?php
-            // Afficher les options de catégorie
-            foreach ($listeCategoriesStocks as $categorie) {
-                echo '<option value="' . str_replace(" ", "-", $categorie) . '">' . $categorie . '</option>';
-            }
-            ?>
-        </select>
-
-        <input type="button" value="Défaut" onclick="reinitialiserPref();" />
-        <input type="text" id="searchInput" placeholder="Recherche d'ingrédient...">
+    <div class="container">
 
         <form id="example" class="table table-striped">
-            <table>
+            <table id="table_formulaire">
                 <thead>
                     <tr>
                         <th>Ingredient</th>
@@ -81,6 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php
 
                     for ($i = 0; $i < count($listeCategoriesStocks); $i++) {
@@ -137,10 +142,14 @@
 
         </form>
     </div>
+
+    <input type="button" value="Réinitialiser vos préférences" onclick="reinitialiserPref();"
+        style="margin:1%; margin-left: 8.1vw;" />
+
     <script>
         $(document).ready(function () {
             // Filtrer le tableau lorsqu'une catégorie est sélectionnée
-            $("#categories").change(function () {
+            $("#select_categorie").change(function () {
                 var selectedCategory = $(this).val();
                 filterTable(selectedCategory);
             });
@@ -171,7 +180,7 @@
                 } else {
                     $(this).show();
                 }
-            });
+            }); F
         }
 
         function reinitialiserPref() {
