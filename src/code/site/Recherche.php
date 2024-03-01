@@ -10,80 +10,109 @@
     <title>Edu'Cook</title>
 </head>
 <body>
-    
-    <header>
-        <nav class="nav">
-            <div class="logo">
-                <a href="index.html">
-                    <img class="img_logo" src="image/logo.png">
-                </a>
-            </div>
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="#" class="link active">Accueil</a></li>
-                    <li><a href="#" class="link">Rechercher</a></li>
-                    <li><a href="#" class="link">Formulaire</a></li>
-                    <li><a href="#" class="link">L'équipe</a></li>
-                </ul>
-            </div>
-            <div class="nav-button">
-                <button class="btn white-btn" id="loginBtn" onclick="login()">Se connecter</button>
-                <button class="btn" id="registerBtn" onclick="register()">S'enregistrer</button>
-            </div>
-        </nav>
-    </header>
 
-    <div>
-        <section class="e"></section>
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                </div>
-                </div>
+
+    <nav id="nav">
+        <div id="divun">
+            <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+        </div>
+        <div class="divdeux">
+            <ul id="menu">
+                <li><a href="#" class="link active">Accueil</a></li>
+                <li><a href="#" class="link">Rechercher</a></li>
+                <li><a href="#" class="link">Formulaire</a></li>
+                <li><a href="#" class="link">L'équipe</a></li>
+            </ul>
+        </div>
+        <div class="ham">
+            <div class="line" id="un"></div>
+            <div class="line" id="deux"></div>
+            <div class="line" id="trois"></div>
+        </div>
+        <div id="rien"></div>
+        <img id="burger" src="image/fleur1.jpg">
+    </nav>
+
+    <div class="bouttonveg">
+        <h3>Afficher uniquement les recettes végétariennes</h3>
+        <label class="switch">
+            <input type="checkbox" onclick="veg()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <section class="">
+        <div class="grid">
+            <div class="secun">
+                <img src="image/fleur3.jpg" class="img-fluid rounded-start">
+            </div>
+            <div class="secdeux">
+                <h5 class="card-title">test</h5>
+                <p class="typeP">Acide</p>
+                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
             </div>
         </div>
-        <section>
-            <a href="couronne.php"><img class="section" src="1.jpg"></a>
-            <div class="texteSection">
-                <p>Un texte est une série orale ou écrite de mots perçus comme constituant un ensemble cohérent, porteur de sens et utilisant les structures propres à une langue (conjugaisons, construction et association des phrases…). Un texte n'a pas de longueur déterminée sauf dans le cas de poèmes à forme fixe comme le sonnet ou le haïku.</p>
-                <a href="couronne.php"><button>Voici nos couronnes</button></a>
-            </div>
-            <a href="couronne.php"><img class="section" src="1.jpg"></a>
-            <div class="texteSection">
-                <p>Un texte est une série orale ou écrite de mots perçus comme constituant un ensemble cohérent, porteur de sens et utilisant les structures propres à une langue (conjugaisons, construction et association des phrases…). Un texte n'a pas de longueur déterminée sauf dans le cas de poèmes à forme fixe comme le sonnet ou le haïku.</p>
-                <a href="couronne.php"><button>Voici nos couronnes</button></a>
-            </div>
-            <a href="couronne.php"><img class="section" src="1.jpg"></a>
-            <div class="texteSection">
-                <p>Un texte est une série orale ou écrite de mots perçus comme constituant un ensemble cohérent, porteur de sens et utilisant les structures propres à une langue (conjugaisons, construction et association des phrases…). Un texte n'a pas de longueur déterminée sauf dans le cas de poèmes à forme fixe comme le sonnet ou le haïku.</p>
-                <a href="couronne.php"><button>Voici nos couronnes</button></a>
-            </div>
-            <?php
-            /*
-            include 'bd.php';
 
-            $recetteValide = "SELECT identifiant, nom 
-            FROM RECETTE;";
+        <?php
+        include 'bd.php';
 
-            $resultRecette = $conn->query($recetteValide);
-            
-            foreach ($resultRecette as $rec) {
-                echo $rec["nom"];  
-            }
-            */
-            ?>
-        </section>
-    </div>
-    
+        $recetteValide = "SELECT identifiant, nom 
+        FROM RECETTE;";
+
+        $resultRecette = $conn->query($recetteValide);
+        
+        foreach ($resultRecette as $rec) {
+            echo '<div class="card" style="max-width: 50vw;">';
+            echo '<div class="row g-0">';
+            echo '<div class="col-md-4">';
+            echo '<img src="image/fleur3.jpg" class="img-fluid rounded-start" alt="...">';
+            echo '</div>';
+            echo '<div class="col-md-8">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' .$rec["nom"]. '</h5>';
+            echo '<p class="typeP">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>';
+            echo '<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
+
+<div class="card" style="max-width: 50vw;">
+            <div class="row g-0">
+            <div class="col-md-4">
+            <img src="image/fleur3.jpg" class="img-fluid rounded-start" alt="...">
+            </div>';
+            <div class="col-md-8">
+            <div class="card-body">
+            <h5 class="card-title">test</h5>
+            <p class="typeP">Acide</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div>
+            </div>
+            </div>
+            </div>
+    </section>
+
     <footer class="footer">
     </footer>
+
+    <script>
+        const menuHamburger = document.getElementById("burger");
+        const navLinks = document.querySelector(".divdeux");
+        menuHamburger.addEventListener('click',()=>{navLinks.classList.toggle('mobile-menu')});
+
+        var boutton = document.getElementsByClassName("bouttonveg");
+        function veg(){
+            var classCard = document.getElementsByClassName("card");
+            for(var i=0;i<classCard.length;i++){
+                if(document.getElementsByClassName("typeP")[i].textContent === "Acide"){
+                    document.querySelectorAll('.card')[i].classList.toggle('hidden');
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
