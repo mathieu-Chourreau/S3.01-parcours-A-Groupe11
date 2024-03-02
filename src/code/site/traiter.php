@@ -1,27 +1,36 @@
 <?php
-// Traitement des données du premier formulaire
-if(isset($_POST['name']) && isset($_POST['poid']) && isset($_POST['preparation'])) {
-    $nom_recette = $_POST['name'];
-    $poids = $_POST['poid'];
-    $temps_preparation = $_POST['preparation'];
-    
-    // Faire quelque chose avec les données du premier formulaire, par exemple :
-    echo "Nom de la recette : " . $nom_recette . "<br>";
-    echo "Poids : " . $poids . "<br>";
-    echo "Temps de préparation : " . $temps_preparation . "<br>";
-} else {
-    echo "Les données du premier formulaire ne sont pas complètes.";
-}
-
-// Traitement des données du deuxième formulaire
-if(isset($_POST['difficulte']) && isset($_POST['categorie'])) {
+include 'bd.php'; 
+if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description']) && isset($_POST['tpsPreparation']) && isset($_POST['difficulte']) && isset($_POST['categorie'])) {
+    $nom = $_POST['nom'];
+    $poids = intval($_POST['poid']);
+    $temps_preparation = intval($_POST['tpsPreparation']);
+    $description = $_POST['description'];
     $difficulte = $_POST['difficulte'];
     $categorie = $_POST['categorie'];
+
+    $resultat = $conn->query("SELECT MAX(id) AS max_id FROM recetteAValider");
+    $row = $resultat->fetch_assoc();
+    $prochain_id = $row['max_id'] + 1;  
     
-    // Faire quelque chose avec les données du deuxième formulaire, par exemple :
-    echo "Difficulté : " . $difficulte . "<br>";
-    echo "Catégorie : " . $categorie . "<br>";
+    $requete = $conn->prepare("INSERT INTO recetteAValider (id, nom, description, grammage, tempsPreparation, difficulte, categorie) VALUES (?, ?, ?, ?,?,?,?)");
+
+    if ($requete === false) {
+        die("Erreur de préparation de la requête : " . $conn->error);
+    }
+
+    $requete->bind_param("issiiss", $prochain_id, $nom, $description, $poid, $temps_preparation, $difficulte, $categorie);
+
+
+    $requete->execute();
+
+    if ($requete->affected_rows > 0) {
+        echo "Données insérées avec succès.";
+    } else {
+        echo "Erreur lors de l'insertion des données : " . $requete->error;
+    }
+    $conn->close();
+
 } else {
-    echo "Les données du deuxième formulaire ne sont pas complètes.";
+    echo "Les données du formulaire ne sont pas complètes.";
 }
 ?>

@@ -102,13 +102,21 @@ body {
     display: flex;
 }
 
+#formulaireUnique{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+
 .box{
     flex: 1;
 }
 
 .box2{
     flex: 1;
+    margin-left: 15vw;
 }
+
 
 input{
     position: relative;
@@ -125,11 +133,11 @@ input[type="text"]
     border:none;
     outline: none;
     padding: 0 1vw;
-    border-radius: 1vw 0 0 1vw;
+    border-radius: 1vw 1vw 1vw 1vw;
     margin-bottom: 5%;
 }
 
-input[type="textaera"]
+input[type="textarea"]
 {
     background: #fff;
     width: 30vw;
@@ -138,7 +146,20 @@ input[type="textaera"]
     border:none;
     outline: none;
     padding: 0 1vw;
-    border-radius: 1vw 0 0 1vw;
+    border-radius: 1vw 1vw 1vw 1vw;
+    margin-bottom: 5%;
+}
+
+input[type="number"]
+{
+    background: #fff;
+    width: 30vw;
+    height: 5vh;
+    font-size: 2.5vh;
+    border:none;
+    outline: none;
+    padding: 0 1vw;
+    border-radius: 1vw 1vw 1vw 1vw;
     margin-bottom: 5%;
 }
 
@@ -146,24 +167,6 @@ input[type="textaera"]
     height: 200px;
 }
 
-input[type="submit"]
-{
-    position: relative;
-    border-radius: 0 1vw 1vw 0;
-    font-size: 2.5vh;
-    width: 10vw;
-    height: 5vh;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: rgb(123, 8, 8);
-    color : white
-}
-
-input[type="submit"]:hover
-{
-    background: rgb(110, 65, 65) ;
-}
 
 .phraseProp {
     top: 15%;
@@ -207,4 +210,9 @@ input[type="submit"]:hover
     cursor: pointer;
     background: rgb(123, 8, 8);
     color : white   
+}
+
+.valid:hover
+{
+    background: rgb(110, 65, 65) ;
 }

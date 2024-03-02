@@ -35,29 +35,26 @@
     <h1 class="phraseProp">Proposer votre recette !</h1>
 
     <div class="bigbox">
+    <form id="formulaireUnique" action="traiter.php" method="post">
         <div class="box">
-            <form id= "form1" action = "traiter.php" method ="post">
-                <input id = "nom" type="text" name="nom" placeholder="Nom de la recette">
-                <input id = "description" type="textaera" rows="5" cols="33" name="description" placeholder="description">
-                <input id = "poid" type="text" name="poid" placeholder="poids">
-                <input id = "nom" type="text" name="preparation" placeholder="temps de preparation">
-            </form>
+            <input id="nom" type="text" name="nom" placeholder="Nom de la recette" required>
+            <input id="description" type="textarea" rows="5" cols="33" name="description" placeholder="Description" required>
+            <input id="poid" type="number" name="poid" placeholder="Poids">
+            <input id="preparation" type="number" name="tpsPreparation" placeholder="Temps de préparation">
         </div>
         <div class="box2">
-            <form id= "form2" action = "traiter.php" method = "post">
-                <select class="difficulte" name="difficulte" id="niveau">
-                    <option value="0">Choisir la difficulte :</option>
-                    <option value="Facile">Facile</option>
-                    <option value="Moyen">Moyen</option>
-                    <option value="Difficile">Difficile</option>
-                </select>
-                <input id = "categorie" type="text" name="" placeholder="categorie de la recette">
-                <input type="submit" value="reinitialiser">
-            </form>
-            <button class = "valid" id="annulert" type="submit">Annuler</button>
-            <button class = "valid" id="validerTout" type="submit" form="form1 form2">Valider tout</button>
+            <select class="difficulte" name="difficulte" id="niveau">
+                <option value="0" selected disabled>Choisir la difficulté :</option>
+                <option value="Facile">Facile</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Difficile">Difficile</option>
+            </select>
+            <input id="categorie" type="text" name="categorie" placeholder="Catégorie de la recette">
+            <button class="valid annuler" id="annuler" type="button">Annuler</button>
+            <input class = "valid valider" type="submit" value = "valider" id = "validerTout">
         </div>
-    </div>
+    </form>
+</div>
     <script type="text/javascript" src="proposRecette.js"></script>
     <footer class="footer">
     </footer>
