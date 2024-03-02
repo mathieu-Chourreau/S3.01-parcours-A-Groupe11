@@ -62,8 +62,16 @@ input[type="radio"] {
     background-color: #fff;
     color: rgb(123, 8, 8);
     border-radius: 50%;
+    margin: auto;
+    display: block;
     transition: border-color 0.3s;
 }
+.boutons_form{
+    justify-content: space-between;
+    display: flex;
+    margin-right: 8.1vw;
+}
+
 
 .parametre_form{
     margin:2%;

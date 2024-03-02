@@ -68,10 +68,10 @@
             <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
         </div>
     </div>
+    <form id="example" class="table table-striped">
+        <div class="container">
 
-    <div class="container">
 
-        <form id="example" class="table table-striped">
             <table id="table_formulaire">
                 <thead>
                     <tr>
@@ -138,13 +138,24 @@
 
             </table>
 
-            <button type="submit" value="Valider">
+        </div>
+        <div class="boutons_form">
+            <button onclick="reinitialiserPref()" style="margin:1%; margin-left: 8.1vw;">Réinitialiser vos
+                préférences</button>
 
-        </form>
+            <div>
+                <button onclick="openModal()">Annuler</button>
+                <button type="submit">Valider</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Contenu de votre boîte modale ici...</p>
+        </div>
     </div>
-
-    <input type="button" value="Réinitialiser vos préférences" onclick="reinitialiserPref();"
-        style="margin:1%; margin-left: 8.1vw;" />
 
     <script>
         $(document).ready(function () {
@@ -180,7 +191,7 @@
                 } else {
                     $(this).show();
                 }
-            }); F
+            });
         }
 
         function reinitialiserPref() {
@@ -193,6 +204,38 @@
                     bouton.checked = false;
                 }
             });
+        }
+
+        // Obtenez la référence du bouton "Annuler"
+        var cancelButton = document.querySelector('button[onclick="openModal()"]');
+
+        // Obtenez la référence de la boîte modale
+        var modal = document.getElementById("myModal");
+
+        // Obtenez le bouton pour fermer la boîte modale
+        var closeButton = document.getElementsByClassName("close")[0];
+
+        // Ajoutez un gestionnaire d'événements au bouton "Annuler" pour afficher la boîte modale
+        cancelButton.addEventListener('click', function () {
+            modal.style.display = "block";
+        });
+
+        // Ajoutez un gestionnaire d'événements pour le bouton de fermeture pour fermer la boîte modale
+        closeButton.addEventListener('click', function () {
+            modal.style.display = "none";
+        });
+
+        // Ajoutez un gestionnaire d'événements pour fermer la boîte modale lorsque l'utilisateur clique en dehors de celle-ci
+        window.addEventListener('click', function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Fonction pour afficher la boîte modale
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
         }
     </script>
 </body>
