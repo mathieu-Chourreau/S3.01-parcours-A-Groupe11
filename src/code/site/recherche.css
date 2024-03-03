@@ -1,3 +1,76 @@
+.card-grid {
+    display: flex; /* Remplacer display: grid; par display: flex; */
+    flex-wrap: wrap; /* Assurez-vous que les cartes s'enroulent sur plusieurs lignes si nécessaire */
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px; /* Espacement en bas des cartes */
+}
+
+.card-content {
+    display: flex;
+}
+
+.image-container {
+    flex: 0 0 auto;
+}
+
+.imageCard {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.text-container {
+    margin-left: 10px;
+    flex: 1;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.typeP, .card-text {
+    margin-bottom: 0.5rem;
+}
+
+h3{
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #nav{
     display: flex;
     justify-content: space-between;
@@ -28,9 +101,16 @@ nav #menu li a{
     color: #fff;
 }
 
-.card.hidden{
+.hidden{
     display: none;
 }
+
+.imageCard{
+    height: 250px;
+    width: 250px;
+}
+
+
 
 
 @media(max-width: 768px){
@@ -101,15 +181,9 @@ section{
     width: 80%;
     max-width: 1000px;
     height: auto;
-    background-color: gray;
     margin-top: 25px;
 }
 
-.card{
-    align-items: center;
-
-
-}
 
 .bouttonveg{
     display: flex;
@@ -279,6 +353,8 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
+    background-image: url('image/2x-2x-fond.png');
+    background-size: cover;
 }
 
 .pageFormulaire{
@@ -350,6 +426,30 @@ input{
     font-size: 2vw;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
 input[type="text"]
 {
     background: #fff;
@@ -359,7 +459,7 @@ input[type="text"]
     border:none;
     outline: none;
     padding: 0 1vw;
-    border-radius: 1vw 0 0 1vw;
+    border-radius: 1vw 1vw 1vw 1vw;
 }
 
 input[type="submit"]
@@ -406,4 +506,19 @@ input[type="submit"]:hover
 }
 
 
+
+
+
+
+
+
+
+
+
+.recipe-image{
+    border-top-left-radius: 15px;
+    margin-bottom: 10px;
+    height: 350px;
+    width: 350px;
+}
 

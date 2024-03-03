@@ -10,8 +10,6 @@
     <title>Edu'Cook</title>
 </head>
 <body>
-
-
     <nav id="nav">
         <div id="divun">
             <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
@@ -33,6 +31,10 @@
         <img id="burger" src="image/fleur1.jpg">
     </nav>
 
+    <div class="search">
+        <input type="text" id="searchInput" placeholder="Rechercher une recette...">
+    </div>
+    
     <div class="bouttonveg">
         <h3>Afficher uniquement les recettes végétariennes</h3>
         <label class="switch">
@@ -42,36 +44,30 @@
     </div>
 
     <section class="">
-        <div class="grid">
-            <div class="secun">
-                <img src="image/fleur3.jpg" class="img-fluid rounded-start">
-            </div>
-            <div class="secdeux">
-                <h5 class="card-title">test</h5>
-                <p class="typeP">Acide</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-
         <?php
         include 'bd.php';
 
-        $recetteValide = "SELECT identifiant, nom 
-        FROM RECETTE;";
+        $recetteValide = "SELECT r.nom AS nom_recette, r.image AS imageR, r.instruction as instruction, cr.gout AS categorie_recette
+        FROM recette r
+        INNER JOIN categorierecette cr ON r.identifiant = cr.identifiant
+        ORDER BY categorie_recette;";
 
         $resultRecette = $conn->query($recetteValide);
         
         foreach ($resultRecette as $rec) {
-            echo '<div class="card" style="max-width: 50vw;">';
-            echo '<div class="row g-0">';
-            echo '<div class="col-md-4">';
-            echo '<img src="image/fleur3.jpg" class="img-fluid rounded-start" alt="...">';
+            echo '<div class="card-grid">';
+            echo '<div class="card">';
+            echo '<div class="card-content">';
+            echo '<div class="image-container">';
+            echo '<img src="' . $rec['imageR'] . '" class="imageCard">';
             echo '</div>';
-            echo '<div class="col-md-8">';
+            echo '<div class="text-container">';
             echo '<div class="card-body">';
-            echo '<h5 class="card-title">' .$rec["nom"]. '</h5>';
-            echo '<p class="typeP">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>';
-            echo '<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>';
+            echo '<h4 class="card-title">' . $rec['nom_recette'] . '</h4>';
+            echo '<p class="typeP"><b>Catégorie : </b>' . $rec['categorie_recette'] . '</p>';
+            echo '<p class="card-text"><b>Description : </b>' . $rec['instruction'] . '</p>';
+            echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '" class="btn-details">Voir les détails</a>';
+            echo '</div>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -79,20 +75,6 @@
         }
         ?>
 
-<div class="card" style="max-width: 50vw;">
-            <div class="row g-0">
-            <div class="col-md-4">
-            <img src="image/fleur3.jpg" class="img-fluid rounded-start" alt="...">
-            </div>';
-            <div class="col-md-8">
-            <div class="card-body">
-            <h5 class="card-title">test</h5>
-            <p class="typeP">Acide</p>
-            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-            </div>
-            </div>
-            </div>
-            </div>
     </section>
 
     <footer class="footer">
@@ -103,16 +85,40 @@
         const navLinks = document.querySelector(".divdeux");
         menuHamburger.addEventListener('click',()=>{navLinks.classList.toggle('mobile-menu')});
 
+        
+
         var boutton = document.getElementsByClassName("bouttonveg");
         function veg(){
-            var classCard = document.getElementsByClassName("card");
-            for(var i=0;i<classCard.length;i++){
-                if(document.getElementsByClassName("typeP")[i].textContent === "Acide"){
-                    document.querySelectorAll('.card')[i].classList.toggle('hidden');
+            var classCard = document.querySelectorAll(".card");
+            for(var cards of classCard){
+                if(!(cards.querySelector(".typeP").textContent.includes("Végétarien"))){
+                    cards.classList.toggle('hidden');
                 }
             }
         }
-    </script>
 
+        // Fonction pour filtrer les recettes en fonction du texte de recherche
+        function filterRecipes() {
+            var input, filter, cards, cardTitle, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            cards = document.querySelectorAll(".card");
+
+            for (i = 0; i < cards.length; i++) {
+                cardTitle = cards[i].querySelector(".card-title");
+                txtValue = cardTitle.textContent || cardTitle.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+
+        // Ajouter un écouteur d'événements pour détecter les changements dans la barre de recherche
+
+
+    </script>
 </body>
 </html>
