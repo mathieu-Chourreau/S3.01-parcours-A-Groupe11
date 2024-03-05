@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="recherche.css">
     <title>Edu'Cook</title>
 </head>
+
 <body>
     <nav id="nav">
         <div id="divun">
@@ -34,11 +37,11 @@
     <div class="search">
         <input type="text" id="searchInput" placeholder="Rechercher une recette...">
     </div>
-    
+
     <div class="bouttonveg">
         <h3>Afficher uniquement les recettes végétariennes</h3>
         <label class="switch">
-            <input type="checkbox" onclick="veg()">
+            <input type="checkbox" id="vegBouton" onclick="veg()">
             <span class="slider"></span>
         </label>
     </div>
@@ -49,11 +52,12 @@
 
         $recetteValide = "SELECT r.nom AS nom_recette, r.image AS imageR, r.instruction as instruction, cr.gout AS categorie_recette
         FROM recette r
-        INNER JOIN categorierecette cr ON r.identifiant = cr.identifiant
-        ORDER BY categorie_recette;";
+        JOIN appartenirrc a ON a.identifiantR = r.identifiant
+        JOIN categorierecette cr ON a.identifiantC = cr.identifiant
+        ORDER BY nom_recette;";
 
         $resultRecette = $conn->query($recetteValide);
-        
+
         foreach ($resultRecette as $rec) {
             echo '<div class="card-grid">';
             echo '<div class="card">';
@@ -83,41 +87,45 @@
     <script>
         const menuHamburger = document.getElementById("burger");
         const navLinks = document.querySelector(".divdeux");
-        menuHamburger.addEventListener('click',()=>{navLinks.classList.toggle('mobile-menu')});
-
-        
+        menuHamburger.addEventListener('click', () => { navLinks.classList.toggle('mobile-menu') });
 
         var boutton = document.getElementsByClassName("bouttonveg");
-        function veg(){
+        function veg() {
+            var checkbox = document.getElementById("vegBouton");
             var classCard = document.querySelectorAll(".card");
-            for(var cards of classCard){
-                if(!(cards.querySelector(".typeP").textContent.includes("Végétarien"))){
-                    cards.classList.toggle('hidden');
+
+            if (checkbox.checked) {
+                for (var cards of classCard) {
+                    if (!(cards.querySelector(".typeP").textContent.includes("Végétarien"))) {
+                        cards.style.display = 'none';
+                    }
+                    if (cards.querySelector(".typeP").textContent.includes("Végétarien")) {
+                        cards.style.display = 'block';
+                    }
+                }
+            } else {
+                for (var cards of classCard) {
+                    cards.style.display = 'block';
                 }
             }
         }
 
-        // Fonction pour filtrer les recettes en fonction du texte de recherche
         function filterRecipes() {
-            var input, filter, cards, cardTitle, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            cards = document.querySelectorAll(".card");
+            var searchText = document.getElementById('searchInput').value.toLowerCase();
+            var recipes = document.querySelectorAll('.card');
 
-            for (i = 0; i < cards.length; i++) {
-                cardTitle = cards[i].querySelector(".card-title");
-                txtValue = cardTitle.textContent || cardTitle.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    cards[i].style.display = "";
+            recipes.forEach(function (recipe) {
+                var recipeName = recipe.querySelector('.card-title').textContent.toLowerCase();
+
+                if (recipeName.includes(searchText)) {
+                    recipe.style.display = 'block';
                 } else {
-                    cards[i].style.display = "none";
+                    recipe.style.display = 'none';
                 }
-            }
+            });
         }
 
-
-        // Ajouter un écouteur d'événements pour détecter les changements dans la barre de recherche
-
+        document.getElementById('searchInput').addEventListener('input', filterRecipes);
 
     </script>
 </body>
