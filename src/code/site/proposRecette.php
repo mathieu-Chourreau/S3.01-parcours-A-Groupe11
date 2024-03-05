@@ -1,5 +1,5 @@
 <?php
-session_start();    
+session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,16 +16,17 @@ session_start();
     <div class="wrapper">
         <nav class="nav">
             <div class="logo">
-                <a href="index.html">
+                <a href="index.php">
                     <img class="img_logo" src="image/logo.png">
                 </a>
             </div>
             <div class="nav-menu" id="navMenu">
                 <ul>
-                    <li><a href="#" class="link active">Accueil</a></li>
+                    <li><a href="index.php" class="link">Accueil</a></li>
                     <li><a href="#" class="link">Rechercher</a></li>
                     <li><a href="#" class="link">Formulaire</a></li>
                     <li><a href="#" class="link">L'équipe</a></li>
+                    <li><a href="proposRecette.php" class="link active">Proposer votre recette</a></li>
                 </ul>
             </div>
             <div class="nav-button">
@@ -35,7 +36,10 @@ session_start();
             </div>
         </nav>
     </div>
-
+    <?php
+    if ($_SESSION['connecter'] == true) {
+    ?>
+    <div class="flou"></div>
     <h1 class="phraseProp">Proposer votre recette !</h1>
 
     <div class="bigbox">
@@ -58,8 +62,12 @@ session_start();
             <input class = "valid valider" type="submit" value = "valider" id = "validerTout">
         </div>
     </form>
-</div>
+    </div>
     <script type="text/javascript" src="proposRecette.js"></script>
+    <?php }else {
+        header("Location: connexion.php");
+        exit;
+    } ?>
     <footer class="footer">
     </footer>
 

@@ -19,7 +19,7 @@ if (!isset($_SESSION['connecter'])) {
     <div class="wrapper">
         <nav class="nav">
             <div class="logo">
-                <a href="index.html">
+                <a href="index.php">
                     <img class="img_logo" src="image/logo.png">
                 </a>
             </div>
@@ -27,8 +27,9 @@ if (!isset($_SESSION['connecter'])) {
                 <ul>
                     <li><a href="#" class="link active">Accueil</a></li>
                     <li><a href="#" class="link">Rechercher</a></li>
-                    <li><a href="#" class="link">Formulaire</a></li>
+                    <li><a href="formulaire.php" class="link">Formulaire</a></li>
                     <li><a href="#" class="link">L'équipe</a></li>
+                    <li><a href="proposRecette.php" class="link">Proposer votre recette</a></li>
                 </ul>
             </div>
             <div class="nav-button">
@@ -39,7 +40,7 @@ if (!isset($_SESSION['connecter'])) {
         </nav>
     </div>
 
-
+    <div class="flou"></div>
     <h1 class="titre">C'est l'heure de manger mieux pour très peu !</h1>
 
     <div class="box">

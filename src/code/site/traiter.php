@@ -25,11 +25,14 @@ if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description'])
     $requete->execute();
 
     if ($requete->affected_rows > 0) {
-        echo "Données insérées avec succès.";
+        echo '<body onLoad="alert(\'Donnee enregistrer\')">';
+        echo '<meta http-equiv="refresh" content="0;URL=index.php">';
     } else {
         echo "Erreur lors de l'insertion des données : " . $requete->error;
+        deconnexionBd($conn);
     }
     deconnexionBd($conn);
+
 
 } else {
     echo "Les données du formulaire ne sont pas complètes.";
