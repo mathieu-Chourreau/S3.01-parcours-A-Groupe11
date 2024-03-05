@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <link rel="stylesheet" href="formulaire.css">
+
     <title>Edu'Cook</title>
 </head>
 
@@ -144,19 +145,50 @@
                 préférences</button>
 
             <div>
-                <button onclick="openModal()">Annuler</button>
-                <button type="submit">Valider</button>
+                <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
+                <button class="modal-btn modal-trigger" id="validerBtn" type="button">Valider</button>
+
             </div>
         </div>
     </form>
+    <div class="modal-container modal modal-annuler">
+        <div class="modal-container">
+            <div class="overlay modal-trigger"></div>
+            <div class="modal">
+                <button class="close-modal modal-trigger">X</button>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Contenu de votre boîte modale ici...</p>
+                <h1 class="modal-title"> Vous êtes sûr de vouloir annuler ?</h1>
+                <p>Vous vous appretez à annuler toutes vos modification et vous serez redirigé vers la page d'accueil.
+                </p>
+                <p>Etes vous sûr de vouloir annuler ?</p>
+                <div class="close-modal2">
+                    <button class="btn-retour-modal modal-trigger">Retour</button>
+                    <a href="index.html" class="btn-annuler-modal">Annuler</a>
+                </div>
+
+            </div>
         </div>
     </div>
 
+    <div class="modal-container modal modal-valider">
+        <div class="modal-container">
+            <div class="overlay modal-trigger"></div>
+            <div class="modal">
+                <button class="close-modal modal-trigger">X</button>
+
+                <h1 class="modal-title"> Etes-vous prêt à voir votre sélection ?</h1>
+                <p>Vous vous appretez à votre formulaire et vous allez être redirigé vers la page contenant notre
+                    sélection de recettes.
+                </p>
+                <p>Etes vous sûr de vouloir continuer ?</p>
+                <div class="close-modal2">
+                    <button class="btn-retour-modal modal-trigger">Retour</button>
+                    <a href="index.html" class="btn-annuler-modal">Continuer</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <script>
         $(document).ready(function () {
             // Filtrer le tableau lorsqu'une catégorie est sélectionnée
@@ -166,7 +198,7 @@
             });
 
             // Filtrer le tableau lorsqu'un texte est saisi dans la barre de recherche
-            $("#searchInput").on("keyup", function () {
+            $("#input_recherche").on("keyup", function () {
                 var searchText = $(this).val().toLowerCase();
                 filterTableBySearch(searchText);
             });
@@ -206,38 +238,23 @@
             });
         }
 
-        // Obtenez la référence du bouton "Annuler"
-        var cancelButton = document.querySelector('button[onclick="openModal()"]');
+        const annulerBtn = document.getElementById("annulerBtn");
+        const validerBtn = document.getElementById("validerBtn");
 
-        // Obtenez la référence de la boîte modale
-        var modal = document.getElementById("myModal");
-
-        // Obtenez le bouton pour fermer la boîte modale
-        var closeButton = document.getElementsByClassName("close")[0];
-
-        // Ajoutez un gestionnaire d'événements au bouton "Annuler" pour afficher la boîte modale
-        cancelButton.addEventListener('click', function () {
-            modal.style.display = "block";
+        annulerBtn.addEventListener("click", function () {
+            toggleModal("modal-annuler");
         });
 
-        // Ajoutez un gestionnaire d'événements pour le bouton de fermeture pour fermer la boîte modale
-        closeButton.addEventListener('click', function () {
-            modal.style.display = "none";
+        validerBtn.addEventListener("click", function () {
+            toggleModal("modal-valider");
         });
 
-        // Ajoutez un gestionnaire d'événements pour fermer la boîte modale lorsque l'utilisateur clique en dehors de celle-ci
-        window.addEventListener('click', function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        // Fonction pour afficher la boîte modale
-        function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
+        function toggleModal(modalId) {
+            const modal = document.querySelector("." + modalId);
+            modal.classList.toggle("active");
         }
     </script>
+
 </body>
 
 </html>
