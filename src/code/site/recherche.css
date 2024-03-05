@@ -12,7 +12,7 @@
     border-bottom-right-radius: 15px;
     width: 100%;
     background-color: #f3dbdb;
-    margin-bottom: 20px; /* Espacement en bas des cartes */
+    margin-bottom: 20px;
 }
 
 .card-content {
@@ -171,9 +171,7 @@ nav #menu li a{
     font-weight: 50px;
 }
 
-section{
-    display: grid;
-    grid-template-columns: 1fr;
+.s_recherche{
     justify-content: center;
     align-items: center;
     margin-right: auto;
@@ -513,12 +511,66 @@ input[type="submit"]:hover
 
 
 
+.s_details{
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    max-width: 1200px;
+    height: auto;
+    margin-top: 25px;
+}
 
+
+.imgCard{
+    grid-column: 1;
+    margin: 15px;
+}
+
+.detail_recette{
+    grid-column: 2;
+    margin-top: 15px;
+}
+
+.ingredients{
+    grid-column: 3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f0e8e8;
+}
+
+.ingredients p{
+    margin-left: 10px;
+}
+
+.ul{
+    margin-left: 100px;
+}
 
 .recipe-image{
-    border-top-left-radius: 15px;
-    margin-bottom: 10px;
     height: 350px;
     width: 350px;
 }
 
+.card_detail{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+}

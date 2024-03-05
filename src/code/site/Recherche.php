@@ -46,7 +46,7 @@
         </label>
     </div>
 
-    <section class="">
+    <section class="s_recherche">
         <?php
         include 'bd.php';
 
