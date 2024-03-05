@@ -38,7 +38,7 @@ session_start();
                                                             tabindex="1"
                                                             type="text"
                                                             required="required"
-                                                            autocomplete="off" name="username" value="<?php echo isset($_SESSION['login_username']) ? htmlspecialchars($_SESSION['login_username'], ENT_QUOTES, 'UTF-8') : ''; ?>"/></div>
+                                                            autocomplete="off" name="username" value="<?php echo isset($_SESSION['login_username_deco']) ? htmlspecialchars($_SESSION['login_username_deco'], ENT_QUOTES, 'UTF-8') : ''; ?>"/></div>
                                             </section>
                                             <section class="form-group">
                                                 <label for="mail">Mail:
@@ -96,7 +96,7 @@ session_start();
         </div>
 </body>
 <?php
-    unset($_SESSION['login_username']);
+    unset($_SESSION['login_username_deco']);
     unset($_SESSION['login_mail']);
 ?>
 </html>

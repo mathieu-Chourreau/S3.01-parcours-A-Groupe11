@@ -1,6 +1,7 @@
 <?php
     session_start();
     include 'bd.php';
+    $_SESSION['connecter'] = false;
 
     $errors = array();
     if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['passwordVerif']) && isset($_POST['mail'])) {
@@ -36,14 +37,15 @@
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '', '', '')";
             if (mysqli_query($conn, $sql)) {
-                header("Location: index.html");
+                $_SESSION['connecter'] = true;
+                header("Location: index.php");
                 exit;
             } else {
                 echo "Insertion pas réussie".PHP_EOL;
             }
         } 
         else {
-            $_SESSION['login_username'] = $username;
+            $_SESSION['login_username_deco'] = $username;
             $_SESSION['login_mail'] = $mail;
             $errorString = implode("<br>", $errors); 
             header("Location: creeCompte.php?erreur=1&message=" . urlencode($errorString));
