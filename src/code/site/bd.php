@@ -1,5 +1,12 @@
 <?php
 // Connexion à la base de données MySQL
+<<<<<<< HEAD
+=======
+$servername = "localhost:3306/sae3.01"; // Remplacez ceci par votre nom de serveur
+$username = "root"; // Remplacez ceci par votre nom d'utilisateur
+$password = ""; // Remplacez ceci par votre mot de passe
+$dbname = "sae3.01"; // Remplacez ceci par le nom de votre base de données
+>>>>>>> proposRecette
 
 $servername = "localhost:3306/sae3.01"; // Remplacez ceci par votre nom de serveur
 $username = "root"; // Remplacez ceci par votre nom d'utilisateur
@@ -14,6 +21,7 @@ if ($conn->connect_error) {
 }
 
 
+<<<<<<< HEAD
 /*
 // Connexion à la base de données MySQL
 $servername = "http://lakartxela.iutbayonne.univ-pau.fr/phpmyadmin"; // Remplacez ceci par votre nom de serveur
@@ -22,4 +30,6 @@ $password = "szaza001_bd"; // Remplacez ceci par votre mot de passe
 $dbname = "szaza001_bd"; // Remplacez ceci par le nom de votre base de données
 */
 
+=======
+>>>>>>> proposRecette
 ?>
