@@ -13,6 +13,7 @@
 
 
         // Si l'utilisateur existe déjà
+        $conn = connexionBd();
         $sql = "SELECT pseudo FROM utilisateur WHERE pseudo = '$username';";
         $result = $conn->query($sql);
         if ($result && $result->num_rows > 0) {
@@ -38,6 +39,7 @@
             $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '', '', '')";
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['connecter'] = true;
+                deconnexionBd($conn);
                 header("Location: index.php");
                 exit;
             } else {
@@ -48,10 +50,10 @@
             $_SESSION['login_username_deco'] = $username;
             $_SESSION['login_mail'] = $mail;
             $errorString = implode("<br>", $errors); 
+            deconnexionBd($conn);
             header("Location: creeCompte.php?erreur=1&message=" . urlencode($errorString));
             exit;
         }
-        $conn->close();
     }
 
     

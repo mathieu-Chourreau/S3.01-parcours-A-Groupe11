@@ -8,6 +8,7 @@ if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description'])
     $difficulte = $_POST['difficulte'];
     $categorie = $_POST['categorie'];
 
+    $conn = connexionBd();
     $resultat = $conn->query("SELECT MAX(id) AS max_id FROM recetteAValider");
     $row = $resultat->fetch_assoc();
     $prochain_id = $row['max_id'] + 1;  
@@ -28,7 +29,7 @@ if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description'])
     } else {
         echo "Erreur lors de l'insertion des données : " . $requete->error;
     }
-    $conn->close();
+    deconnexionBd($conn);
 
 } else {
     echo "Les données du formulaire ne sont pas complètes.";
