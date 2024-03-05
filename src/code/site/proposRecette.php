@@ -1,3 +1,6 @@
+<?php
+session_start();    
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,8 +29,9 @@
                 </ul>
             </div>
             <div class="nav-button">
-                <button class="btn white-btn" id="loginBtn" onclick="login()">Se connecter</button>
-                <button class="btn" id="registerBtn" onclick="register()">S'enregistrer</button>
+                <?php if($_SESSION['connecter'] == false){ ?>
+                <button class="btn white-btn" id="loginBtn"><a href="connexion.php" id="lien_se_connecter">Se connecter</a></button>
+                <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
             </div>
         </nav>
     </div>

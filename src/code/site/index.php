@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['connecter'])) {
+    $_SESSION['connecter'] = false;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
