@@ -10,25 +10,31 @@
     <link rel="stylesheet" href="recherche.css">
 </head>
 <body>
-    <nav id="nav">
+<nav id="nav">
         <div id="divun">
             <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+            <div class="hame">
+                <label class="burger" id="burger" for="burger">
+                    <input type="checkbox" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
         </div>
         <div class="divdeux">
             <ul id="menu">
-                <li><a href="#" class="link active">Accueil</a></li>
-                <li><a href="#" class="link">Rechercher</a></li>
+                <li><a href="#" class="link">Accueil</a></li>
+                <li><a href="#" class="link active">Rechercher</a></li>
                 <li><a href="#" class="link">Formulaire</a></li>
                 <li><a href="#" class="link">L'équipe</a></li>
+                <li><a href="#" class="link">Proposer votre recette</a></li>
+                <li><a href="#" class="link">Se connecter</a></li>
             </ul>
         </div>
-        <div class="ham">
-            <div class="line" id="un"></div>
-            <div class="line" id="deux"></div>
-            <div class="line" id="trois"></div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="loginBtn">Se connecter</button>
         </div>
-        <div id="rien"></div>
-        <img id="burger" src="image/fleur1.jpg">
     </nav>
 
     <section class="s_details">
@@ -73,7 +79,7 @@
                         echo '<div class="ingredients">';
                         echo '<p><b>Ingrédients nécessaires :</b></p>';
 
-                        $ingredient = "SELECT i.nom AS nom_ingredient
+                        $ingredient = "SELECT i.nom AS nom_ingredient, c.quantite AS quantite
                         FROM ingredient i
                         JOIN contenir c ON i.nom = c.Ingredient_id
                         JOIN recette r ON c.Recette_id = r.identifiant
@@ -83,7 +89,7 @@
 
                         echo '<ul>';
                         foreach ($resultIng as $ing) {
-                            echo '<li>' . $ing['nom_ingredient'] . '</li>';
+                            echo '<li>' . $ing['nom_ingredient'] . ' : ' . $ing['quantite'] . ' g</li>';
                         }
                         echo '</ul>';
                     ?>
@@ -108,6 +114,11 @@
             document.getElementById('recipe-description').innerHTML = "<b>Description : </b>" + recipeDescription;
             document.getElementById('recipe-image').src = recipeImageSrc;
         });
+
+        const menuHamburger = document.getElementById("burger");
+        const navLinks = document.querySelector(".divdeux");
+        menuHamburger.addEventListener('click', () => { navLinks.classList.toggle('mobile-menu') });
+
     </script>
 </body>
 </html>
