@@ -9,33 +9,41 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="equipe.css">
+    <link rel="stylesheet" href="css_commun/commun.css">
     <title>Edu'Cook</title>
 </head>
 <body>
-    
-    <div class="wrapper">
-        <nav class="na">
-            <div class="log">
-                <a href="index.php">
-                    <img class="img_log" src="image/logo.png">
-                </a>
+<nav id="nav">
+        <div id="imgLogoNav">
+            <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+            <div class="boutonHamburger">
+                <label class="burger" id="burger" for="burger">
+                    <input type="checkbox" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
             </div>
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="index.php" class="link">Accueil</a></li>
-                    <li><a href="#" class="link">Rechercher</a></li>
-                    <li><a href="#" class="link">Formulaire</a></li>
-                    <li><a href="#" class="link">L'équipe</a></li>
-                    <li><a href="proposRecette.php" class="link active">Proposer votre recette</a></li>
-                </ul>
-            </div>
-            <div class="nav-button">
-                <?php if($_SESSION['connecter'] == false){ ?>
-                <button class="btn white-btn" id="loginBtn"><a href="connexion.php" id="lien_se_connecter">Se connecter</a></button>
+        </div>
+        <div class="titreMenu">
+            <ul id="menu">
+                <li><a href="#" class="link">Accueil</a></li>
+                <li><a href="#" class="link active">Rechercher</a></li>
+                <li><a href="#" class="link">Formulaire</a></li>
+                <li><a href="#" class="link">L'équipe</a></li>
+                <li><a href="#" class="link">Proposer votre recette</a></li>
+                <li><a href="#" class="link">Se connecter</a></li>
+            </ul>
+        </div>
+        <div class="boutonConnexion">
+        <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
                 <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
-            </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+
+
+    
     <h1 class="phraseProp">Présentation de l'équipe Edu'Cook</h1>
 
     <div class="bigbox row">

@@ -94,7 +94,6 @@ input[type="submit"]:hover
     background-size: cover;
     background-color: #666;
     background-position: center;
-    z-index: -1;
 }
 
 .nav {

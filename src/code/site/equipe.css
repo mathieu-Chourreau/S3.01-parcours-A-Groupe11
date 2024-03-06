@@ -31,61 +31,6 @@ body {
 }
 
 
-.na {
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 8%;
-    width: 100%;
-    line-height: 100px;
-    background:  rgb(123, 8, 8);
-    z-index: 100;
-    border-bottom: 2px solid rgb(255, 255, 255);
-}
-
-.nav-menu ul{
-    display: flex;
-}
-.nav-menu ul li{
-    list-style-type: none;
-}
-.nav-menu ul li .link{
-    text-decoration: none;
-    font-weight: 500;
-    color: #fff;
-    padding-bottom: 15px;
-    margin: 0 25px;
-}
-.link:hover, .active{
-    border-bottom: 2px solid #fff;
-}
-.nav-button .btn{
-    width: 10vw;
-    height: 5.5vh;
-    font-weight: 500;
-    background: rgb(248, 208, 208);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: .3s ease;
-}
-.btn:hover{
-    background: rgba(226, 131, 131, 0.767);
-}
-#registerBtn{
-    margin-left: 15px;
-}
-.btn.white-btn{
-    background: rgb(255, 255, 255);
-}
-.btn.btn.white-btn:hover{
-    background: rgba(167, 112, 112, 0.836);
-}
-.nav-menu-btn{
-    display: none;
-}   
 
 
 .card-img-top{
