@@ -16,22 +16,28 @@
     <nav id="nav">
         <div id="divun">
             <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+            <div class="hame">
+                <label class="burger" id="burger" for="burger">
+                    <input type="checkbox" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
         </div>
         <div class="divdeux">
             <ul id="menu">
-                <li><a href="#" class="link active">Accueil</a></li>
-                <li><a href="#" class="link">Rechercher</a></li>
+                <li><a href="#" class="link">Accueil</a></li>
+                <li><a href="#" class="link active">Rechercher</a></li>
                 <li><a href="#" class="link">Formulaire</a></li>
                 <li><a href="#" class="link">L'équipe</a></li>
+                <li><a href="#" class="link">Proposer votre recette</a></li>
+                <li><a href="#" class="link">Se connecter</a></li>
             </ul>
         </div>
-        <div class="ham">
-            <div class="line" id="un"></div>
-            <div class="line" id="deux"></div>
-            <div class="line" id="trois"></div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="loginBtn">Se connecter</button>
         </div>
-        <div id="rien"></div>
-        <img id="burger" src="image/fleur1.jpg">
     </nav>
 
     <div class="search">
@@ -50,11 +56,11 @@
         <?php
         include 'bd.php';
 
-        $recetteValide = "SELECT r.nom AS nom_recette, r.image AS imageR, r.instruction as instruction, cr.gout AS categorie_recette
+        $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction as instruction, cr.gout AS categorie_recette
         FROM recette r
         JOIN appartenirrc a ON a.identifiantR = r.identifiant
         JOIN categorierecette cr ON a.identifiantC = cr.identifiant
-        ORDER BY nom_recette;";
+        ORDER BY r.identifiant;";
 
         $resultRecette = $conn->query($recetteValide);
 
