@@ -1,15 +1,15 @@
-.logo {
+.log {
     float: left;
     margin: 1%;
     height: 80%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
-.logo a {
+.log a {
     display: block;
     height: 100%;
 }
 
-.img_logo {
+.img_log {
     width: auto; /* Ajuster la largeur automatiquement en fonction de la hauteur spécifiée */
     height: 100%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
@@ -28,7 +28,7 @@ body {
 }
 
 
-.nav {
+.na {
     position: fixed;
     top: 0;
     display: flex;

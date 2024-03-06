@@ -14,10 +14,10 @@ session_start();
 <body>
     
     <div class="wrapper">
-        <nav class="nav">
-            <div class="logo">
+        <nav class="na">
+            <div class="log">
                 <a href="index.php">
-                    <img class="img_logo" src="image/logo.png">
+                    <img class="img_log" src="image/logo.png">
                 </a>
             </div>
             <div class="nav-menu" id="navMenu">
@@ -68,14 +68,8 @@ session_start();
                     <p class="card-text">J’ai 19 ans, je suis un étudiant du BUT informatique à l’IUT d’Anglet. J’ai un profil plus scientifique que littéraire ce qui m’a poussé à continuer mes études dans l’informatique car c’est la spécialité que je préférais. Le fait que je ne sois pas très scolaire me pose problème dans certaines matières mais malgré ça je m’en sors plutôt bien. </p>
                 </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="image/chatgpt.png" alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-        </div>
     </div>
-    <footer class="footer">
+    <footer class="footer"> 
     </footer>
 
 </body>
