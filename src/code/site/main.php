@@ -4,7 +4,7 @@ session_start();
 
 if (!isset($_SESSION['ingredientsPreferencesPageSale'])) {
     $_SESSION['ingredientsPreferencesPageSale'] = array();
-}
+}    
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_POST as $nomIngredient => $valeur) {
@@ -15,8 +15,8 @@ else {
     echo "Le formulaire n'a pas été soumis.";
 }
 
-include 'bd.php';
 include 'Ingredient.php';
+include 'bd.php';
 include 'Recette.php';
 Include 'Utilisateur.php';
 
@@ -28,13 +28,26 @@ Include 'Utilisateur.php';
 
     // Récuperer les préférences de l'utilisateur
     foreach ($lIngredientsPref as $nomIngredient => $preferenceIngPourUtilisateur) {
-        
         //Stocker l'ingredient en fonction de la preference
         if ($preferenceIngPourUtilisateur == 0){
             $tabIngredientRefus[$nomIngredient] = $preferenceIngPourUtilisateur;
         }
         else{
             $tabIngredientPref[$nomIngredient] = $preferenceIngPourUtilisateur;
+        }
+
+    }
+
+    function afficherIngredientsPref($tabIngredientPref) {
+        foreach ($tabIngredientPref as $nomIngredient => $preference) {
+            echo "TableauPref: $nomIngredient, Préférence: $preference <br>";
+        }
+        echo "<br> <br> <br>";
+    }
+
+    function afficherIngredientsRefus($tabIngredientRefus) {
+        foreach ($tabIngredientRefus as $nomIngredient => $refus) {
+            echo "TableauRefus: $nomIngredient, Préférence: $refus <br>";
         }
     }
 
@@ -75,19 +88,24 @@ Include 'Utilisateur.php';
 
         //Création et execution d'une requete pour réupérer les recette
         $recetteValide = "SELECT DISTINCT(r.identifiant) as identifiant_recette,r.nom as nom_recette, r.instruction as instruction_recette, r.temps_min_ as temps_recette, r.niveau_difficulte as niveauDif_recette, r.grammage as grammage_recette, r.identifiantVideo as identifiantVid_recette 
-        FROM RECETTE r
-        JOIN CONTENIR c ON r.identifiant = c.recette_id  
-        JOIN INGREDIENT i ON c.ingredient_id = i.nom
+        FROM recette r
+        JOIN contenir c ON r.identifiant = c.recette_id  
+        JOIN ingredient i ON c.ingredient_id = i.nom
         WHERE r.IDENTIFIANT NOT IN (SELECT rt.IDENTIFIANT
-                                    FROM RECETTE rt
-                                    JOIN CONTENIR ct ON rt.identifiant = ct.recette_id  
-                                    JOIN INGREDIENT ig ON ct.ingredient_id = ig.nom
+                                    FROM recette rt
+                                    JOIN contenir ct ON rt.identifiant = ct.recette_id  
+                                    JOIN ingredient ig ON ct.ingredient_id = ig.nom
                                     WHERE ig.NOM IN $conditionRequete)
         ORDER BY r.identifiant;";
         
         // executer la requete avec la condition
         $resultRecette = $conn->query($recetteValide);
 
+        // Vérifier si la requête s'est bien exécutée
+        if (!$resultRecette) {
+            echo "Erreur lors de l'exécution de la requête : " . $conn->error;
+            // Vous pouvez ajouter d'autres actions à prendre en cas d'erreur ici
+        }
         // Transformer le resultat de la requete en une liste d'objet recette
         if ($resultRecette && $resultRecette->num_rows > 0) {
 
@@ -208,3 +226,4 @@ do {
         }
     }
 } while ($bchanger);
+?>

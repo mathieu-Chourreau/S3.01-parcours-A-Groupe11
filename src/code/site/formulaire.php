@@ -69,7 +69,7 @@
             <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
         </div>
     </div>
-    <form id="example" class="table table-striped">
+    <form id="example" method="POST" class="table table-striped" action="sale.php">
         <div class="container">
 
 
@@ -146,19 +146,20 @@
 
             <div>
                 <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
-                <button class="modal-btn modal-trigger" id="validerBtn" type="button">Valider</button>
+                <button class="modal-btn modal-trigger2" id="validerBtn" type="button">Valider</button>
 
             </div>
         </div>
     </form>
-    <div class="modal-container modal modal-annuler">
+    
+
         <div class="modal-container">
             <div class="overlay modal-trigger"></div>
             <div class="modal">
                 <button class="close-modal modal-trigger">X</button>
 
                 <h1 class="modal-title"> Vous êtes sûr de vouloir annuler ?</h1>
-                <p>Vous vous appretez à annuler toutes vos modification et vous serez redirigé vers la page d'accueil.
+                <p>Vous vous apprêtez à annuler toutes vos modifications, et vous serez redirigé vers la page d'accueil.
                 </p>
                 <p>Etes vous sûr de vouloir annuler ?</p>
                 <div class="close-modal2">
@@ -168,27 +169,26 @@
 
             </div>
         </div>
-    </div>
+    
 
-    <div class="modal-container modal modal-valider">
-        <div class="modal-container">
-            <div class="overlay modal-trigger"></div>
+        <div class="modal-container2">
+            <div class="overlay modal-trigger2"></div>
             <div class="modal">
-                <button class="close-modal modal-trigger">X</button>
+                <button class="close-modal modal-trigger2">X</button>
 
                 <h1 class="modal-title"> Etes-vous prêt à voir votre sélection ?</h1>
-                <p>Vous vous appretez à votre formulaire et vous allez être redirigé vers la page contenant notre
+                <p>Vous vous appretez à valider votre formulaire et vous allez être redirigé vers la page contenant notre
                     sélection de recettes.
                 </p>
                 <p>Etes vous sûr de vouloir continuer ?</p>
                 <div class="close-modal2">
-                    <button class="btn-retour-modal modal-trigger">Retour</button>
-                    <a href="index.html" class="btn-annuler-modal">Continuer</a>
+                    <button class="btn-retour-modal modal-trigger2">Retour</button>
+                    <a href="#" class="btn-annuler-modal" onclick="submitForm()">Continuer</a>
                 </div>
 
             </div>
         </div>
-    </div>
+
     <script>
         $(document).ready(function () {
             // Filtrer le tableau lorsqu'une catégorie est sélectionnée
@@ -238,21 +238,32 @@
             });
         }
 
-        const annulerBtn = document.getElementById("annulerBtn");
-        const validerBtn = document.getElementById("validerBtn");
+        const modalContainer = document.querySelector(".modal-container");
+        const modalContainer2 = document.querySelector(".modal-container2");
+        const modalTriggers = document.querySelectorAll(".modal-trigger");
+        const modalTriggers2 = document.querySelectorAll(".modal-trigger2");
 
-        annulerBtn.addEventListener("click", function () {
-            toggleModal("modal-annuler");
-        });
+        modalTriggers.forEach(trigger =>  trigger.addEventListener("click", toggleModal))
+        modalTriggers2.forEach(trigger =>  trigger.addEventListener("click", toggleModal2))
 
-        validerBtn.addEventListener("click", function () {
-            toggleModal("modal-valider");
-        });
-
-        function toggleModal(modalId) {
-            const modal = document.querySelector("." + modalId);
-            modal.classList.toggle("active");
+        function toggleModal(){
+            modalContainer.classList.toggle("active")
         }
+
+        function toggleModal2(){
+            modalContainer2.classList.toggle("active")
+        }
+
+        function submitForm() {
+        // Sélectionner le formulaire par son ID
+        var form = document.getElementById("example");
+
+        console.log(form)
+
+        // Soumettre le formulaire
+        form.submit();
+}
+
     </script>
 
 </body>
