@@ -10,6 +10,8 @@
         $passwordverif = trim($_POST['passwordVerif']);
         $mail = trim($_POST['mail']);
 
+        date_default_timezone_set('UTC');
+        $dateCreation = date('y-m-d h:i:s');
 
 
         // Si l'utilisateur existe déjà
@@ -35,8 +37,8 @@
         
 
         if(empty($errors)) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '', '', '')";
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '$dateCreation', '$dateCreation', '')";
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['connecter'] = true;
                 deconnexionBd($conn);

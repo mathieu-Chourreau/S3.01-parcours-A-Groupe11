@@ -8,6 +8,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
+    date_default_timezone_set('UTC');
+    $dateCreation = date('y-m-d h:i:s');
+
     $conn = connexionBd();
     $sql = "SELECT mdp FROM utilisateur WHERE pseudo = ?";
     $stmt = $conn->prepare($sql);
@@ -18,6 +21,11 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 
     // Vérification du mdp
     if(password_verify($password, $hashedPassword)) {
+        deconnexionBd($stmt);
+        $sql = "UPDATE utilisateur SET date_connexion = ? WHERE pseudo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss",$dateCreation, $username);
+        $stmt->execute();
         $_SESSION['login_username'] = $username;
         $_SESSION['connecter'] = true;
         deconnexionBd($stmt);
