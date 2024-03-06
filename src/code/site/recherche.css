@@ -343,7 +343,7 @@ nav #menu li a{
 
 .img_logo {
     width: auto; /* Ajuster la largeur automatiquement en fonction de la hauteur spécifiée */
-    height: 70%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
+    height: 100%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
 body {

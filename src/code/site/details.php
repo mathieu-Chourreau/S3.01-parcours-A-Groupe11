@@ -35,11 +35,8 @@
         <div class="recettes">
             <div class="card_detail">
                 <div class="imgCard">
-                    <img id="recipe-image" class="recipe-image" src="" alt="Image de la recette">
-                    <br>
-                    <br>
                     <h5>Vidéo explicative :</h5>
-                    <img id="recipe-image" class="recipe-image" src="image/bouton-play.jpg" alt="Image de la recette">
+                    <img id="recipe-image" class="recipe-image" src="" alt="Image de la recette">
                 </div>
                 
                 <div class="detail_recette">
