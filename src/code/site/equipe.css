@@ -87,24 +87,12 @@ body {
     display: none;
 }   
 
-.bigbox {
-    margin-top: 300px;
-    display: flex;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-between;
-    
-}
 
 .card-img-top{
     margin-top: 10px;
 }
 .phraseProp {
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
+    padding-top: 200px;
     font-size: 5vw;
     font-family: 'NomDeLaPolice', sans-serif;
     text-align: center;
@@ -112,6 +100,21 @@ body {
     color: rgb(248, 233, 233);
     z-index: 1; 
 }
+
+.bigbox {
+    margin-top: 100px;
+    display: flex;
+    max-width: calc(1200px + 15px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    width: calc(25% - 5px);
+    margin-right: 5px;
+}
+
+
 
 
 #lien_se_connecter{
