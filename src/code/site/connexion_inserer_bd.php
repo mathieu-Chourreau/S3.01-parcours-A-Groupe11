@@ -35,7 +35,7 @@
         
 
         if(empty($errors)) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '', '', '')";
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['connecter'] = true;
