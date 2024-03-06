@@ -25,8 +25,8 @@ session_start();
                     <li><a href="index.php" class="link">Accueil</a></li>
                     <li><a href="#" class="link">Rechercher</a></li>
                     <li><a href="#" class="link">Formulaire</a></li>
-                    <li><a href="#" class="link">L'équipe</a></li>
-                    <li><a href="proposRecette.php" class="link active">Proposer votre recette</a></li>
+                    <li><a href="#" class="link active">L'équipe</a></li>
+                    <li><a href="proposRecette.php" class="link">Proposer votre recette</a></li>
                 </ul>
             </div>
             <div class="nav-button">

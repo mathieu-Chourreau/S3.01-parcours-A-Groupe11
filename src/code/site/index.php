@@ -25,10 +25,10 @@ if (!isset($_SESSION['connecter'])) {
             </div>
             <div class="nav-menu" id="navMenu">
                 <ul>
-                    <li><a href="#" class="link active">Accueil</a></li>
-                    <li><a href="#" class="link">Rechercher</a></li>
+                    <li><a href="" class="link">Accueil</a></li>
+                    <li><a href="" class="link">Rechercher</a></li>
                     <li><a href="formulaire.php" class="link">Formulaire</a></li>
-                    <li><a href="#" class="link">L'équipe</a></li>
+                    <li><a href="equipe.php" class="link">L'équipe</a></li>
                     <li><a href="proposRecette.php" class="link">Proposer votre recette</a></li>
                 </ul>
             </div>
