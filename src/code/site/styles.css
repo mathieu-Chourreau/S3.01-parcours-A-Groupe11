@@ -1,0 +1,67 @@
+
+
+.logo {
+    float: left;
+    margin-right: 20px; 
+}
+
+.barre_de_nav {
+    background-color: rgb(36, 24, 24);
+    padding: 10px; 
+    text-align: center; 
+}
+
+header {
+    background-color: rgb(123,8,8);
+    color: #666;
+    padding: 10px;
+    margin: 0px;
+    text-align: center; 
+    position: fixed;
+    height: 80px;
+    width: 100%;
+}
+
+.section{
+    background-color:rgb(202,201,207);
+    color: #000000; 
+    padding: 20px;
+    text-align: left; 
+    font-size: 18px;
+
+}
+.recherche_default{
+    border: 1px solid #000;
+    background-color: white;
+
+}
+.recherche_default li{
+    margin: 0.2%;
+}
+.formulaire{
+    border: 1px solid #000;
+    background-color:rgb(182,178,178) ;
+    margin: 0.5%;
+}
+#type_pref{
+    display: inline-block;
+    padding-left: 2%;
+}
+.ingredient input[type="radio"] {
+    margin-right: 80px; 
+}
+
+.ingredient label {
+    display: inline-block; 
+    width: 100px; 
+    margin-bottom: 10px; 
+}
+.prixTempsSale input[type="radio"] {
+    margin-right: 10px; 
+}
+
+.prixTempsSale label {
+    display: inline-block; 
+    width: 100px; 
+    margin-bottom: 10px;  
+}

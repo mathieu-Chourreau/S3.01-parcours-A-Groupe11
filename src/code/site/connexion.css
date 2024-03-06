@@ -1,0 +1,79 @@
+/* debut du contenu*/
+
+body{
+    background: url(image/fond_connexion.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+
+}
+.container{
+  padding-top: 84px;
+  
+}
+main {
+  display: block;
+}
+
+.seConnecter{
+  width: 100%;
+  margin-top: 7%;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 5px 15px;
+}
+.seConnecter:hover{
+  background-color: rgb(123, 8, 8);
+  color: white;
+}
+.creeCompte{
+  width: 100%;
+  margin-top: 7%;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 5px 15px;
+}
+.creeCompte:hover{
+  background-color: rgb(123, 8, 8);
+  color: white;
+}
+
+
+
+label{
+  margin-top: 7%;
+  margin-bottom: 3%;
+}
+.card{
+  min-width:400px;
+  min-height: 500px;
+
+}
+form{
+  padding: 20px;
+}
+.pwd-forget{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+.creer_compte{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+a:hover {
+  color: rgb(151, 10, 10);
+  text-decoration: underline;
+}
+a{
+  text-decoration: none;
+}
+.mauvais_identifiant_mdp{
+    position: relative;
+    margin-top: 20px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    color: #721c24;
+    background-color: #f8d7da;
+}
