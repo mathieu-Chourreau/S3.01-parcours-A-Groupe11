@@ -47,8 +47,8 @@ session_start();
         <div class="box">
             <input id="nom" type="text" name="nom" placeholder="Nom de la recette" required>
             <input id="description" type="textarea" rows="5" cols="33" name="description" placeholder="Description" required>
-            <input id="poid" type="number" name="poid" placeholder="Poids">
-            <input id="preparation" type="number" name="tpsPreparation" placeholder="Temps de préparation">
+            <input id="poid" type="number" name="poid" placeholder="Poids" min ="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+            <input id="preparation" type="number" name="tpsPreparation" placeholder="Temps de préparation" min ="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
         </div>
         <div class="box2">
             <select class="difficulte" name="difficulte" id="niveau">
