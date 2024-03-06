@@ -55,6 +55,7 @@
     <section class="s_recherche">
         <?php
         include 'bd.php';
+        $conn = connexionBd();
 
         $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
         FROM recette r
