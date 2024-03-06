@@ -12,15 +12,20 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $dateCreation = date('y-m-d h:i:s');
 
     $conn = connexionBd();
-    $sql = "SELECT mdp FROM utilisateur WHERE pseudo = ?";
+    $sql = "SELECT mdp, role FROM utilisateur WHERE pseudo = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
-    $stmt->bind_result($hashedPassword);
+    $stmt->bind_result($hashedPassword, $role);
     $stmt->fetch();
 
     // Vérification du mdp
     if(password_verify($password, $hashedPassword)) {
+        if ($role == 1) {
+            $_SESSION['admin'] = true;
+        }else {
+            $_SESSION['admin'] = false;
+        }
         deconnexionBd($stmt);
         $sql = "UPDATE utilisateur SET date_connexion = ? WHERE pseudo = ?";
         $stmt = $conn->prepare($sql);
