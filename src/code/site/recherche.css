@@ -1,0 +1,263 @@
+.card-grid {
+    display: flex; /* Remplacer display: grid; par display: flex; */
+    flex-wrap: wrap; /* Assurez-vous que les cartes s'enroulent sur plusieurs lignes si nécessaire */
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+}
+
+.card-content {
+    display: flex;
+}
+
+.image-container {
+    flex: 0 0 auto;
+}
+
+.imageCard {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.text-container {
+    margin-left: 10px;
+    flex: 1;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.typeP, .card-text {
+    margin-bottom: 0.5rem;
+}
+
+h3{
+    color: white;
+}
+
+
+.s_recherche{
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    max-width: 1000px;
+    height: auto;
+    margin-top: 25px;
+}
+
+
+.bouttonveg{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.bouttonveg h3{
+    margin-right: 25px;
+}
+
+.switch {
+--secondary-container: #3a4b39;
+--primary: #84da89;
+font-size: 17px;
+position: relative;
+display: inline-block;
+width: 3.7em;
+height: 1.8em;
+}
+
+.switch input {
+display: none;
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #313033;
+transition: .2s;
+border-radius: 30px;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 1.4em;
+width: 1.4em;
+border-radius: 20px;
+left: 0.2em;
+bottom: 0.2em;
+background-color: #aeaaae;
+transition: .4s;
+}
+
+input:checked + .slider::before {
+background-color: var(--primary);
+}
+
+input:checked + .slider {
+background-color: var(--secondary-container);
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px var(--secondary-container);
+}
+
+input:checked + .slider:before {
+transform: translateX(1.9em);
+}
+
+.img_logo {
+    width: auto; /* Ajuster la largeur automatiquement en fonction de la hauteur spécifiée */
+    height: 90%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('image/2x-2x-fond.png');
+    background-size: cover;
+}
+
+
+@font-face {
+    font-family: 'NomDeLaPolice';
+    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+}
+
+
+input{
+    position: relative;
+    display: inline-block;
+    font-size: 2vw;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+input[type="text"]
+{
+    background: #fff;
+    width: 30vw;
+    height: 5vh;
+    font-size: 2.5vh;
+    border:none;
+    outline: none;
+    padding: 0 1vw;
+    border-radius: 1vw 1vw 1vw 1vw;
+}
+
+input[type="submit"]
+{
+    position: relative;
+    border-radius: 1vw 1vw 1vw 1vw;
+    font-size: 2.5vh;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgb(123, 8, 8);
+    color : white
+}
+
+input[type="submit"]:hover
+{
+    background: rgb(110, 65, 65) ;
+}
+
+.s_details{
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    max-width: 1200px;
+    height: auto;
+    margin-top: 25px;
+}
+
+
+.imgCard{
+    grid-column: 1;
+    margin: 15px;
+}
+
+.detail_recette{
+    grid-column: 2;
+    margin-top: 15px;
+}
+
+.ingredients{
+    grid-column: 3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f0e8e8;
+}
+
+.ingredients p{
+    margin-left: 10px;
+}
+
+.ul{
+    margin-left: 100px;
+}
+
+.recipe-image{
+    height: 350px;
+    width: 350px;
+}
+
+.card_detail{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+}
