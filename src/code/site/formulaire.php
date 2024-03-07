@@ -12,6 +12,8 @@
 </head>
 
 <body>
+
+    <div class="background"></div>
     <div class="wrapper">
         <nav class="nav">
             <div class="logo">
@@ -43,11 +45,14 @@
     $result = $conn->query($sql);
 
     $listeCategoriesStocks = [];
+    $lCategorieAvecTous = [];
+    $lCategorieAvecTous[] = "Toutes les catégories";
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Ajoute chaque catégorie au tableau
             $listeCategoriesStocks[] = $row["categorie"];
+            $lCategorieAvecTous[] = $row["categorie"];
         }
     }
     ?>
@@ -71,8 +76,18 @@
     </div>
     <form id="example" method="POST" class="table table-striped" action="sale.php">
         <div class="container">
-
-
+            <div id="choix_categorie">
+                <div class="custom-select" id="custom-select">
+                    <div class="selected-option" id="selected-option">Toutes les catégories</div>
+                    <div class="options" id="options">
+                        <?php
+                        foreach ($lCategorieAvecTous as $categorie) {
+                            echo '<div class="option" onclick="selectOption(\'' . $categorie . '\')">' . $categorie . '</div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
             <table id="table_formulaire">
                 <thead>
                     <tr>
@@ -151,51 +166,46 @@
             </div>
         </div>
     </form>
-    
 
-        <div class="modal-container">
-            <div class="overlay modal-trigger"></div>
-            <div class="modal">
-                <button class="close-modal modal-trigger">X</button>
 
-                <h1 class="modal-title"> Vous êtes sûr de vouloir annuler ?</h1>
-                <p>Vous vous apprêtez à annuler toutes vos modifications, et vous serez redirigé vers la page d'accueil.
-                </p>
-                <p>Etes vous sûr de vouloir annuler ?</p>
-                <div class="close-modal2">
-                    <button class="btn-retour-modal modal-trigger">Retour</button>
-                    <a href="index.html" class="btn-annuler-modal">Annuler</a>
-                </div>
+    <div class="modal-container">
+        <div class="overlay modal-trigger"></div>
+        <div class="modal">
+            <button class="close-modal modal-trigger">X</button>
 
+            <h1 class="modal-title"> Vous êtes sûr de vouloir annuler ?</h1>
+            <p>Vous vous apprêtez à annuler toutes vos modifications, et vous serez redirigé vers la page d'accueil.
+            </p>
+            <p>Etes vous sûr de vouloir annuler ?</p>
+            <div class="close-modal2">
+                <button class="btn-retour-modal modal-trigger">Retour</button>
+                <a href="index.html" class="btn-annuler-modal">Annuler</a>
             </div>
+
         </div>
-    
+    </div>
 
-        <div class="modal-container2">
-            <div class="overlay modal-trigger2"></div>
-            <div class="modal">
-                <button class="close-modal modal-trigger2">X</button>
 
-                <h1 class="modal-title"> Etes-vous prêt à voir votre sélection ?</h1>
-                <p>Vous vous appretez à valider votre formulaire et vous allez être redirigé vers la page contenant notre
-                    sélection de recettes.
-                </p>
-                <p>Etes vous sûr de vouloir continuer ?</p>
-                <div class="close-modal2">
-                    <button class="btn-retour-modal modal-trigger2">Retour</button>
-                    <a href="#" class="btn-annuler-modal" onclick="submitForm()">Continuer</a>
-                </div>
+    <div class="modal-container2">
+        <div class="overlay modal-trigger2"></div>
+        <div class="modal">
+            <button class="close-modal modal-trigger2">X</button>
 
+            <h1 class="modal-title"> Etes-vous prêt à voir votre sélection ?</h1>
+            <p>Vous vous appretez à valider votre formulaire et vous allez être redirigé vers la page contenant notre
+                sélection de recettes.
+            </p>
+            <p>Etes vous sûr de vouloir continuer ?</p>
+            <div class="close-modal2">
+                <button class="btn-retour-modal modal-trigger2">Retour</button>
+                <a href="#" class="btn-annuler-modal" onclick="submitForm()">Continuer</a>
             </div>
+
         </div>
+    </div>
 
     <script>
         $(document).ready(function () {
-            // Filtrer le tableau lorsqu'une catégorie est sélectionnée
-            $("#select_categorie").change(function () {
-                var selectedCategory = $(this).val();
-                filterTable(selectedCategory);
-            });
 
             // Filtrer le tableau lorsqu'un texte est saisi dans la barre de recherche
             $("#input_recherche").on("keyup", function () {
@@ -203,17 +213,6 @@
                 filterTableBySearch(searchText);
             });
         });
-
-        function filterTable(category) {
-            if (category === "all") {
-                // Afficher toutes les lignes si "Toutes les catégories" est sélectionné
-                $("#example tbody tr").show();
-            } else {
-                // Masquer toutes les lignes, puis afficher uniquement celles de la catégorie sélectionnée
-                $("#example tbody tr").hide();
-                $("." + category).show();
-            }
-        }
 
         function filterTableBySearch(searchText) {
             $("#example tbody tr").each(function () {
@@ -243,27 +242,65 @@
         const modalTriggers = document.querySelectorAll(".modal-trigger");
         const modalTriggers2 = document.querySelectorAll(".modal-trigger2");
 
-        modalTriggers.forEach(trigger =>  trigger.addEventListener("click", toggleModal))
-        modalTriggers2.forEach(trigger =>  trigger.addEventListener("click", toggleModal2))
+        modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
+        modalTriggers2.forEach(trigger => trigger.addEventListener("click", toggleModal2))
 
-        function toggleModal(){
+        function toggleModal() {
             modalContainer.classList.toggle("active")
         }
 
-        function toggleModal2(){
+        function toggleModal2() {
             modalContainer2.classList.toggle("active")
         }
 
         function submitForm() {
-        // Sélectionner le formulaire par son ID
-        var form = document.getElementById("example");
+            // Sélectionner le formulaire par son ID
+            var form = document.getElementById("example");
 
-        console.log(form)
+            console.log(form)
 
-        // Soumettre le formulaire
-        form.submit();
-}
+            // Soumettre le formulaire
+            form.submit();
+        }
 
+
+        function selectOption(option) {
+            document.getElementById('selected-option').textContent = option;
+            closeOptions();
+        }
+
+        function toggleOptions() {
+            var options = document.getElementById('options');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeOptions() {
+            document.getElementById('options').style.display = 'none';
+        }
+
+        document.getElementById('selected-option').addEventListener('click', toggleOptions);
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.custom-select')) {
+                closeOptions();
+            }
+        });
+
+        $(document).ready(function () {
+            // Lorsque la valeur du select est modifiée
+            $("#select_categorie").change(function () {
+                checkSelectedCategory();
+            });
+        });
+
+        function checkSelectedCategory() {
+            var selectedCategory = $("#select_categorie").val();
+
+            if (selectedCategory !== "all") {
+                console.log("Catégorie sélectionnée : " + selectedCategory);
+            } else {
+                console.log("Aucune catégorie sélectionnée.");
+            }
+        }
     </script>
 
 </body>

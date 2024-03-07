@@ -3,7 +3,8 @@
 .logo {
     float: left;
     margin: 1%;
-    height: 80%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
+    height: 80%;
+    /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
 
@@ -12,7 +13,6 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
-    background-image: url(image/fond_ardoise.png);
 }
 
 .container {
@@ -20,20 +20,73 @@ body {
     margin: 5% auto;
     margin-bottom: 0;
     margin-top: 0;
-    background-color: #ccc;
     padding: 2%;
-    border: 3px solid rgb(123, 8, 8);
+    border: 3px solid rgb(255, 255, 255);
     border-radius: 10px;
     overflow-y: auto;
     height: 65vh;
+    color: #fff;
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+}
+
+.selected-option {
+    background-color: transparent;
+    padding: 8px;
+    font-size: 5vh;
+    cursor: pointer;
+    width: 35vw;
+}
+
+#choix_categorie{
+    text-align: center;
+    border: solid 2px green;
+    margin-bottom: 20px;
+}
+
+.options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    background-color: rgb(71, 69, 69);
+    border: 1px solid #ccc;
+    z-index: 10;
+}
+
+.option {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.custom-select.open .options {
+    display: block;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('image/fond_ardoise.png');
+    -webkit-filter: blur(6px);
+    background-size: cover;
+    z-index: -1;
 }
 
 input[type="radio"]:checked::before {
     opacity: 1;
 }
+
 input[type="radio"]:nth-of-type(1)::before {
     content: "🟣";
 }
+
 input[type="radio"]::before {
     font-family: "Noto Emoji", sans-serif;
     position: absolute;
@@ -46,12 +99,16 @@ input[type="radio"]::before {
     opacity: 0;
     transition: opacity 0.3s;
 }
-input, input::before, label {
+
+input,
+input::before,
+label {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
+
 input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -66,25 +123,26 @@ input[type="radio"] {
     display: block;
     transition: border-color 0.3s;
 }
-.boutons_form{
+
+.boutons_form {
     justify-content: space-between;
     display: flex;
     margin-right: 8.1vw;
 }
 
 
-.parametre_form{
-    margin:2%;
+.parametre_form {
+    margin: 2%;
     margin-left: 8.1vw;
     margin-right: 8.1vw;
     color: white;
     justify-content: space-between;
     display: flex;
     font-size: 1.5vw;
-    
+
 }
 
-.select_categorie{
+.select_categorie {
     font-size: 3vw;
 }
 
@@ -93,7 +151,8 @@ table {
     width: 100%;
 }
 
-td, th {
+td,
+th {
     border: 1px solid #dddddd;
     padding: 8px;
     width: calc(100% / 7);
@@ -107,27 +166,32 @@ td, th {
     align-items: center;
     height: 4%;
     width: 100%;
-    background:  rgb(123, 8, 8);
+    background: rgb(123, 8, 8);
     border-bottom: 2px solid rgb(255, 255, 255);
 }
 
-.nav-menu ul{
+.nav-menu ul {
     display: flex;
 }
-.nav-menu ul li{
+
+.nav-menu ul li {
     list-style-type: none;
 }
-.nav-menu ul li .link{
+
+.nav-menu ul li .link {
     text-decoration: none;
     font-weight: 500;
     color: #fff;
     padding-bottom: 10px;
     margin: 0 25px;
 }
-.link:hover, .active{
+
+.link:hover,
+.active {
     border-bottom: 2px solid #fff;
 }
-.nav-button .btn{
+
+.nav-button .btn {
     width: 10vw;
     height: 5.5vh;
     font-weight: 500;
@@ -137,19 +201,24 @@ td, th {
     cursor: pointer;
     transition: .3s ease;
 }
-.btn:hover{
+
+.btn:hover {
     background: rgba(226, 131, 131, 0.767);
 }
-#registerBtn{
+
+#registerBtn {
     margin-left: 15px;
 }
-.btn.white-btn{
+
+.btn.white-btn {
     background: rgb(255, 255, 255);
 }
-.btn.btn.white-btn:hover{
+
+.btn.btn.white-btn:hover {
     background: rgba(167, 112, 112, 0.836);
 }
-.nav-menu-btn{
+
+.nav-menu-btn {
     display: none;
 }
 
@@ -162,37 +231,37 @@ td, th {
 
 }
 
-.modal-container{
+.modal-container {
     visibility: hidden;
     position: fixed;
-    top:0;
+    top: 0;
     width: 100vw;
     height: 100vh;
     transition: visibility 0.4s;
 }
 
-.modal-container2{
+.modal-container2 {
     visibility: hidden;
     position: fixed;
-    top:0;
+    top: 0;
     width: 100vw;
     height: 100vh;
     transition: visibility 0.4s;
 }
 
-.modal-container.active{
+.modal-container.active {
     transition: visibility 0s;
     visibility: visible;
 
 }
 
-.modal-container2.active{
+.modal-container2.active {
     transition: visibility 0s;
     visibility: visible;
 
 }
 
-.overlay{
+.overlay {
     opacity: 0;
     position: absolute;
     width: 100%;
@@ -201,7 +270,7 @@ td, th {
     transition: opacity 0.4s 0.2s ease-out;
 }
 
-.modal-container.active .overlay{
+.modal-container.active .overlay {
     opacity: 1;
     transition: opacity 0.4s ease-out;
 }
@@ -225,21 +294,21 @@ td, th {
     left: 50%;
     transform: translate(-50%, calc(-50% - 50px));
     transition: opacity 0.4s ease-out,
-    transform 0.4s ease-out;
+        transform 0.4s ease-out;
 }
 
 .modal-container.active .modal {
     opacity: 1;
     transform: translate(-50%, -50%);
     transition: opacity 0.4s 0.2s ease-out,
-    transform 0.4s 0.2s ease-out;
+        transform 0.4s 0.2s ease-out;
 }
 
 .modal-container2.active .modal {
     opacity: 1;
     transform: translate(-50%, -50%);
     transition: opacity 0.4s 0.2s ease-out,
-    transform 0.4s 0.2s ease-out;
+        transform 0.4s 0.2s ease-out;
 }
 
 .close-modal {
