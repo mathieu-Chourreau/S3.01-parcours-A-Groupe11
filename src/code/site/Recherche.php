@@ -87,6 +87,8 @@
             echo '</div>';
             echo '</div>';
         }
+
+        deconnexionBd($conn);
         ?>
 
     </section>

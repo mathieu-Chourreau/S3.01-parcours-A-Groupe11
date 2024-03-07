@@ -57,6 +57,7 @@
                     $recipeName = $_GET['recipeName'];
 
                     include 'bd.php';
+                    $conn=connexionBd();
 
                     $temps = "SELECT temps_min_ as temps
                         FROM recette
@@ -95,6 +96,8 @@
                         echo '<li>' . $ing['nom_ingredient'] . ' : ' . $ing['quantite'] . ' g</li>';
                     }
                     echo '</ul>';
+
+                    deconnexionBd($conn);
                     ?>
                 </div>
             </div>
