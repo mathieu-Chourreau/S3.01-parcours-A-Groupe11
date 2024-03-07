@@ -9,14 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="recherche.css">
+    <link rel="stylesheet" href="commun/commun.css">
     <title>Edu'Cook</title>
 </head>
 
 <body>
     <nav id="nav">
-        <div id="divun">
+        <div id="imgLogoNav">
             <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
-            <div class="hame">
+            <div class="boutonHamburger">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
                     <span></span>
@@ -25,7 +26,7 @@
                 </label>
             </div>
         </div>
-        <div class="divdeux">
+        <div class="titreMenu">
             <ul id="menu">
                 <li><a href="#" class="link">Accueil</a></li>
                 <li><a href="#" class="link active">Rechercher</a></li>
@@ -35,7 +36,7 @@
                 <li><a href="#" class="link">Se connecter</a></li>
             </ul>
         </div>
-        <div class="nav-button">
+        <div class="boutonConnexion">
             <button class="btn white-btn" id="loginBtn">Se connecter</button>
         </div>
     </nav>
@@ -89,14 +90,34 @@
 
     </section>
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="region region-footer1">
+                        <section id="block-block-1" class="block block-block clearfix">
+                            <p>@&nbsp;Equipe Edu'Cook<br />
+                                Tous droits réservés<br />
+                                <a class="lien" href="politique_confidentialite.html">Politique de confidentialité</a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 news">
+                    <div class="region region-footer2">
+                        <section id="block-block-2" class="block block-block clearfix">
+                            <p>Notre Newsletter : </p>
+                            <a class="btn_footer" href="newsletter.html">Accès au Newsletter</a>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        const menuHamburger = document.getElementById("burger");
-        const navLinks = document.querySelector(".divdeux");
-        menuHamburger.addEventListener('click', () => { navLinks.classList.toggle('mobile-menu') });
+    <script src="commun/commun.js"></script>
 
+    <script>
         var boutton = document.getElementsByClassName("bouttonveg");
         function veg() {
             var checkbox = document.getElementById("vegBouton");
@@ -137,4 +158,5 @@
 
     </script>
 </body>
+
 </html>
