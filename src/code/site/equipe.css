@@ -1,15 +1,15 @@
-.logo {
+.log {
     float: left;
     margin: 1%;
     height: 80%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
-.logo a {
+.log a {
     display: block;
     height: 100%;
 }
 
-.img_logo {
+.img_log {
     width: auto; /* Ajuster la largeur automatiquement en fonction de la hauteur spécifiée */
     height: 100%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
@@ -25,82 +25,16 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
-}
-
-.box{
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-
-input{
-    position: relative;
-    display: inline-block;
-    font-size: 2vw;
-}
-
-input[type="text"]
-{
-    background: #fff;
-    width: 30vw;
-    height: 5vh;
-    font-size: 2.5vh;
-    border:none;
-    outline: none;
-    padding: 0 1vw;
-    border-radius: 1vw 0 0 1vw;
-}
-
-input[type="submit"]
-{
-    position: relative;
-    border-radius: 0 1vw 1vw 0;
-    font-size: 2.5vh;
-    width: 10vw;
-    height: 5vh;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: rgb(123, 8, 8);
-    color : white
-}
-
-input[type="submit"]:hover
-{
-    background: rgb(110, 65, 65) ;
-}
-.titre {
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    font-size: 5vw;
-    font-family: 'NomDeLaPolice', sans-serif;
-    text-align: center;
-    white-space:normal ;
-    color: rgb(248, 233, 233);
-    z-index: 1; 
-}
-
-
-.flou{
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    background: url(image/fond_page_accueil.png);
-    -webkit-filter: blur(3.6px);
+    background: url(image/fond_connexion.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #666;
-    background-position: center;
-    z-index: -1;
 }
 
-.nav {
+
+.na {
     position: fixed;
     top: 0;
-    display: flex;      
+    display: flex;
     justify-content: space-between;
     align-items: center;
     height: 8%;
@@ -151,16 +85,38 @@ input[type="submit"]:hover
 }
 .nav-menu-btn{
     display: none;
+}   
+
+
+.card-img-top{
+    margin-top: 10px;
+}
+.phraseProp {
+    padding-top: 200px;
+    font-size: 5vw;
+    font-family: 'NomDeLaPolice', sans-serif;
+    text-align: center;
+    white-space:normal ;
+    color: rgb(248, 233, 233);
+    z-index: 1; 
 }
 
-.footer {
-    margin: 0;
-    border-top: 2px solid rgb(255, 255, 255);
-    background: rgb(123, 8, 8);
-    height: 5%;
-    width: 100%;
-
+.bigbox {
+    margin-top: 100px;
+    display: flex;
+    max-width: calc(1200px + 15px);
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.card {
+    width: calc(25% - 5px);
+    margin-right: 5px;
+}
+
+
+
+
 #lien_se_connecter{
     text-decoration: none;
     color: black;
