@@ -26,7 +26,7 @@ if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description'])
 
     if ($requete->affected_rows > 0) {
         echo '<body onLoad="alert(\'Donnee enregistrer\')">';
-        echo '<meta http-equiv="refresh" content="0;URL=index.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=../index.php">';
     } else {
         echo "Erreur lors de l'insertion des données : " . $requete->error;
         deconnexionBd($conn);

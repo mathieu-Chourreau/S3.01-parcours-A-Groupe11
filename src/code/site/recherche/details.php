@@ -1,10 +1,12 @@
+<?php
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="recherche.css">
@@ -15,7 +17,7 @@
 <body>
     <nav id="nav">
         <div id="imgLogoNav">
-            <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+            <a href="../index.php"><img class="img_logo" src="../image/logo.png"></a>
             <div class="boutonHamburger">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
@@ -27,16 +29,20 @@
         </div>
         <div class="titreMenu">
             <ul id="menu">
-                <li><a href="#" class="link">Accueil</a></li>
-                <li><a href="#" class="link active">Rechercher</a></li>
-                <li><a href="#" class="link">Formulaire</a></li>
-                <li><a href="#" class="link">L'équipe</a></li>
-                <li><a href="#" class="link">Proposer votre recette</a></li>
-                <li><a href="#" class="link">Se connecter</a></li>
+                <li><a href="../index.php" class="link">Accueil</a></li>
+                <li><a href="../recherche/recherche.php" class="link active">Rechercher</a></li>
+                <li><a href="../formulaire/formulaire.php" class="link">Formulaire</a></li>
+                <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
+                <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+                <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="../connexion/connexion.php" id="lien_se_connecter"><li class="link">Se connecter</li></a>
+                <?php }elseif ($_SESSION['connecter'] == true) {echo "<a href='../connexion/deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";} ?>
             </ul>
         </div>
         <div class="boutonConnexion">
-            <button class="btn white-btn" id="loginBtn">Se connecter</button>
+            <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="../connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
@@ -112,7 +118,7 @@
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -121,7 +127,7 @@
                     <div class="region region-footer2">
                         <section id="block-block-2" class="block block-block clearfix">
                             <p>Notre Newsletter : </p>
-                            <a class="btn_footer" href="newsletter.html">Accès au Newsletter</a>
+                            <a class="btn_footer" href="../newsletter/newsletter.html">Accès au Newsletter</a>
                         </section>
                     </div>
                 </div>
@@ -142,7 +148,7 @@
             document.getElementById('recipe-name').textContent = recipeName;
             document.getElementById('recipe-category').innerHTML = "<b>Catégorie : </b>" + recipeCategory;
             document.getElementById('recipe-description').innerHTML = "<b>Description : </b>" + recipeDescription;
-            document.getElementById('recipe-image').src = recipeImageSrc;
+            document.getElementById('recipe-image').src = "../" + recipeImageSrc;
         });
     </script>
 </body>

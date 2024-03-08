@@ -92,7 +92,7 @@ body {
     margin-top: 10px;
 }
 .phraseProp {
-    padding-top: 200px;
+    padding-top: 50px;
     font-size: 5vw;
     font-family: 'NomDeLaPolice', sans-serif;
     text-align: center;
@@ -102,7 +102,8 @@ body {
 }
 
 .bigbox {
-    margin-top: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
     display: flex;
     max-width: calc(1200px + 15px);
     margin-left: auto;

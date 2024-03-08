@@ -1,0 +1,80 @@
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background: url(image/fond_connexion.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    filter: blur(3.6px);
+}
+
+.container {
+    position: relative;
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color:rgb(123, 8, 8);
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+}
+
+form {
+    text-align: center;
+}
+
+input[type="email"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.checkboxes {
+    color: #fff;
+    margin: 30px;
+    padding-top: 20px;
+    text-align: left;
+}
+#pubs{
+    margin-top: 20px;
+}
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+p {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+}
+.lien{
+    color: #00f7ff;
+}
