@@ -46,7 +46,6 @@
 
     $listeCategoriesStocks = [];
     $lCategorieAvecTous = [];
-    $lCategorieAvecTous[] = "Toutes les catégories";
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -55,13 +54,17 @@
             $lCategorieAvecTous[] = $row["categorie"];
         }
     }
+
+    function trierSansSensibleCase($a, $b)
+    {
+        return strcasecmp(strtolower($a), strtolower($b));
+    }
+
+    usort($lCategorieAvecTous, "trierSansSensibleCase");
+    array_unshift($lCategorieAvecTous, "Toutes les catégories");
+
     ?>
-    <div class="parametre_form">
-        <div class="recherche_aliment">
-            <label for="categories">Trouver votre aliment :</label>
-            <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
-        </div>
-    </div>
+
     <form id="example" method="POST" class="table table-striped" action="sale.php">
         <div class="container">
             <div id="choix_categorie">
@@ -74,6 +77,13 @@
                         }
                         ?>
                     </div>
+                </div>
+            </div>
+
+            <div class="parametre_form">
+                <div class="recherche_aliment">
+                    <label for="categories">Trouver votre aliment :</label>
+                    <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
                 </div>
             </div>
             <table id="table_formulaire">
@@ -219,7 +229,7 @@
             });
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Définir la catégorie sélectionnée au démarrage de la page
             var selectedCategory = $("#selected-option").text();
             // Exécuter la fonction sortByCategory avec la catégorie sélectionnée
@@ -228,7 +238,7 @@
 
         // Ajouter un écouteur d'événements sur les clics des options
         document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function () {
                 var selectedCategory = this.textContent;
                 sortByCategory(selectedCategory);
             });
@@ -309,29 +319,49 @@
 
             // Récupérer toutes les lignes du tableau
             var rows = $("#table_formulaire tbody tr").get();
+            var colonne = $("#table_formulaire tbody td").get();
 
             // Parcourir toutes les lignes du tableau
-            rows.forEach(function(row) {
+            rows.forEach(function (row) {
 
                 // Récupérer la catégorie de chaque ligne
                 var category = $(row).find("td:nth-child(2)").text().trim();
                 var ingredient = $(row).find("td:nth-child(1)").text().trim();
-
+                var ingredientCells = document.querySelectorAll('#table_formulaire th:first-child, #table_formulaire td:first-child');
+                var categoryCells = document.querySelectorAll('#table_formulaire th:nth-child(2), #table_formulaire td:nth-child(2)');
                 // Vérifier si la catégorie correspond à la catégorie sélectionnée
                 if (selectedCategory === "Toutes les catégories") {
+
+                    ingredientCells.forEach(function (cell) {
+                        cell.style.display = 'none';
+                    });
+
+                    categoryCells.forEach(function (cell) {
+                        cell.style.display = 'table-cell';
+                    });
+
                     // Afficher la ligne si la catégorie correspond et que selectedCategory est "Toutes les catégories"
-                    if(category === ingredient){
+                    if (category === ingredient) {
                         $(row).show();
                     }
-                    else{
+                    else {
                         $(row).hide();
                     }
                 } else if (category === selectedCategory) {
+
+                    categoryCells.forEach(function (cell) {
+                        cell.style.display = 'none';
+                    });
+
+                    ingredientCells.forEach(function (cell) {
+                        cell.style.display = 'table-cell';
+                    });
+
                     // Afficher la ligne si la catégorie correspond
-                    if(category === ingredient){
+                    if (category === ingredient) {
                         $(row).hide();
                     }
-                    else{
+                    else {
                         $(row).show();
                     }
                 } else {
@@ -341,56 +371,58 @@
             });
         }
 
-        $(document).ready(function() {
-            $('#selected-option').on('click', function() {
+        $(document).ready(function () {
+            $('#selected-option').on('click', function () {
                 console.log("Click");
                 toggleOptions();
             });
         });
 
         $(document).ready(function () {
-    // Ajoutez un gestionnaire d'événements pour les changements de valeur des boutons radio
-    $('input[type="radio"]').change(function () {
-        // Obtenez la valeur sélectionnée du bouton radio
-        var selectedValue = $(this).val();
-        // Obtenez l'identifiant de l'ingrédient associé
-        var ingredientId = $(this).attr('name');
-        // Obtenez la catégorie de la ligne
-        var categoryBtnChange = $(this).closest('tr').find('td:nth-child(2)').text().trim();
-        // Obtenez l'ingrédient de la ligne
-        var ingredient = $(this).closest('tr').find('td:first').text().trim();
+            // Ajoutez un gestionnaire d'événements pour les changements de valeur des boutons radio
+            $('input[type="radio"]').change(function () {
+                // Obtenez la valeur sélectionnée du bouton radio
+                var selectedValue = $(this).val();
+                // Obtenez l'identifiant de l'ingrédient associé
+                var ingredientId = $(this).attr('name');
+                // Obtenez la catégorie de la ligne
+                var categoryBtnChange = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+                // Obtenez l'ingrédient de la ligne
+                var ingredient = $(this).closest('tr').find('td:first').text().trim();
 
-        // Affichez la valeur sélectionnée, l'identifiant de l'ingrédient et la catégorie de la ligne dans la console à des fins de débogage
-        console.log("Nouvelle valeur sélectionnée pour " + ingredientId + ": " + selectedValue);
-        console.log("Catégorie de la ligne: " + categoryBtnChange);
-        console.log("Ingrédient de la ligne: " + ingredient);
+                // Affichez la valeur sélectionnée, l'identifiant de l'ingrédient et la catégorie de la ligne dans la console à des fins de débogage
+                console.log("Nouvelle valeur sélectionnée pour " + ingredientId + ": " + selectedValue);
+                console.log("Catégorie de la ligne: " + categoryBtnChange);
+                console.log("Ingrédient de la ligne: " + ingredient);
 
-        // Si la catégorie et l'ingrédient de la ligne correspondent à celle de la ligne du bouton radio, appelez la fonction pour changer les autres boutons radio
-        if (ingredient === categoryBtnChange) {
-            changerValeurBoutons(selectedValue, categoryBtnChange);
+                // Si la catégorie et l'ingrédient de la ligne correspondent à celle de la ligne du bouton radio, appelez la fonction pour changer les autres boutons radio
+                if (ingredient === categoryBtnChange) {
+                    changerValeurBoutons(selectedValue, categoryBtnChange);
+                }
+            });
+        });
+
+        function changerValeurBoutons(selectedValue, categoryBtnChange) {
+            // Sélectionnez tous les boutons radio avec le même identifiant d'ingrédient
+            $('input[value="' + selectedValue + '"]').each(function () {
+
+                var category = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+                // Obtenez l'ingrédient de la ligne
+                var ingredient = $(this).closest('tr').find('td:first').text().trim();
+
+                if (ingredient != category) {
+                    if (categoryBtnChange === category) {
+                        if ($(this).val() === selectedValue) {
+                            $(this).prop('checked', true);
+                        } else {
+                            $(this).prop('checked', false);
+                        }
+                    }
+                }
+            });
         }
-    });
-});
 
-function changerValeurBoutons(selectedValue, categoryBtnChange) {
-    // Sélectionnez tous les boutons radio avec le même identifiant d'ingrédient
-    $('input[value="' + selectedValue + '"]').each(function () {
 
-        var category = $(this).closest('tr').find('td:nth-child(2)').text().trim();
-        // Obtenez l'ingrédient de la ligne
-        var ingredient = $(this).closest('tr').find('td:first').text().trim();
-
-        if(ingredient != category){
-            if(categoryBtnChange === category){
-                if ($(this).val() === selectedValue) {
-                $(this).prop('checked', true);
-            }else {
-            $(this).prop('checked', false);
-        }
-        }
-        } 
-    });
-}
 
     </script>
 

@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@700&family=Noto+Sans+Symbols+2&family=Spectral:wght@600&display=block");
+@font-face {
+    font-family: 'NomDeLaPolice';
+    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+}
 
 .logo {
     float: left;
@@ -31,6 +35,7 @@ body {
 .custom-select {
     position: relative;
     display: inline-block;
+    font-family: NomDeLaPolice, sans-serif;
 }
 
 .selected-option {
@@ -50,6 +55,7 @@ body {
 .options {
     position: absolute;
     top: 100%;
+    font-size: 3vh;
     left: 0;
     right: 0;
     display: none;
@@ -149,6 +155,7 @@ input[type="radio"] {
 table {
     border-collapse: collapse;
     width: 100%;
+    font-size: 2vh;
 }
 
 td,
@@ -158,6 +165,9 @@ th {
     width: calc(100% / 7);
 }
 
+th{
+    background: rgb(123, 8, 8);
+}
 
 .nav {
     top: 0;
