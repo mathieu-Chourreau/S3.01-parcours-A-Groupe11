@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="recherche.css">
-    <link rel="stylesheet" href="commun/commun.css">
+    <link rel="stylesheet" href="../commun/commun.css">
     <title>Edu'Cook</title>
 </head>
 
@@ -55,7 +55,7 @@
 
     <section class="s_recherche">
         <?php
-        include 'bd.php';
+        include '../bd.php';
         $conn = connexionBd();
 
         $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
@@ -118,7 +118,7 @@
         </div>
     </footer>
 
-    <script src="commun/commun.js"></script>
+    <script src="../commun/commun.js"></script>
 
     <script>
         var boutton = document.getElementsByClassName("bouttonveg");

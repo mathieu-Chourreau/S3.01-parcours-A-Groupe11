@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'bd.php';
+    include '../bd.php';
     $_SESSION['connecter'] = false;
 
     $errors = array();
@@ -42,7 +42,7 @@
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['connecter'] = true;
                 deconnexionBd($conn);
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             } else {
                 echo "Insertion pas réussie".PHP_EOL;

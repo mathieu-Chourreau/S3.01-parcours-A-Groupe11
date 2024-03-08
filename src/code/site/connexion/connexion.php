@@ -34,7 +34,7 @@ session_start();
                             <div class="card">
                                 <div class="card-body">
                                     <form method="post" id="fm1" action="connexion_verif.php">
-                                        <img src="image/logo.PNG" width="100%" height="100%">
+                                        <img src="../image/logo.PNG" width="100%" height="100%">
                                         <div class="mauvais_identifiant_mdp" style="display : none;">
                                                 <span>Mauvais identifiant / mot de passe.</span>
                                             </div>

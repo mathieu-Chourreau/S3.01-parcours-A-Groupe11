@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="equipe.css">
-    <link rel="stylesheet" href="commun/commun.css">
+    <link rel="stylesheet" href="../commun/commun.css">
     <title>Edu'Cook</title>
 </head>
 <body>
@@ -73,7 +73,7 @@ session_start();
             </div>
         </div>
     </div>
-    <script src="commun/commun.js"></script>
+    <script src="../commun/commun.js"></script>
     <footer class="footer" id="footer">
         <div class="container">
             <div class="row">

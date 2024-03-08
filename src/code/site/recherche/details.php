@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="recherche.css">
-    <link rel="stylesheet" href="commun/commun.css">
+    <link rel="stylesheet" href="../commun/commun.css">
     <title>Détails de la recette</title>
 </head>
 
@@ -56,7 +56,7 @@
                     <?php
                     $recipeName = $_GET['recipeName'];
 
-                    include 'bd.php';
+                    include '../bd.php';
                     $conn=connexionBd();
 
                     $temps = "SELECT temps_min_ as temps
@@ -129,7 +129,7 @@
         </div>
     </footer>
 
-    <script src="commun/commun.js"></script>
+    <script src="../commun/commun.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

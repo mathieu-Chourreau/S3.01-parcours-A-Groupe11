@@ -1,5 +1,5 @@
 <?php
-include 'bd.php'; 
+include '../bd.php'; 
 if(isset($_POST['nom']) && isset($_POST['poid']) && isset($_POST['description']) && isset($_POST['tpsPreparation']) && isset($_POST['difficulte']) && isset($_POST['categorie'])) {
     $nom = $_POST['nom'];
     $poids = intval($_POST['poid']);

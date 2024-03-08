@@ -35,7 +35,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         $_SESSION['connecter'] = true;
         deconnexionBd($stmt);
         deconnexionBd($conn);
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit;
     } else {
         $_SESSION['login_username_deco'] = $username;

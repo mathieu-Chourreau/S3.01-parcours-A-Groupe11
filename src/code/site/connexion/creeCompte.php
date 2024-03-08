@@ -21,7 +21,7 @@ session_start();
                             <div class="card">
                                 <div class="card-body">
                                     <form method="post" id="fm1" action="connexion_inserer_bd.php">
-                                        <img src="image/logo.PNG" width="100%" height="100%">
+                                        <img src="../image/logo.PNG" width="100%" height="100%">
                                             <?php
                                                 if(isset($_GET['message'])) {
                                                     $errorMessage = urldecode($_GET['message']);
