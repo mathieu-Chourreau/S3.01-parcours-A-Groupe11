@@ -115,11 +115,11 @@
                         echo '<tr class="' . str_replace(" ", "-", $categorie) . '">'; // Remplacer les espaces par des tirets pour éviter les problèmes de classe CSS
                         echo '<td>' . $categorie . '</td>'; // Cellule pour l'ingrédient
                         echo '<td>' . $categorie . '</td>'; // Cellule pour la catégorie
-                        echo '<td> <input type="radio" id="jamais" name="jamais" value ="0"> </td>'; // Radio bouton Je n'en veux pas
-                        echo '<td> <input type="radio" id="aimePas" name="aimePas" value ="0.5"> </td>'; // Radio bouton Je n'aime pas
-                        echo '<td> <input type="radio" id="sansPreference" name="sansPreference" value ="1" checked> </td>'; // Radio bouton Sans préférence
-                        echo '<td> <input type="radio" id="aime" name="aime" value ="1.5"> </td>'; // Radio bouton J'aime
-                        echo '<td> <input type="radio" id="adore" name="adore" value ="2"> </td>'; // Radio bouton J'adore
+                        echo '<td> <input type="radio" id="' . $categorie . 'jamais" name="' . $categorie . '" value ="0"> </td>';
+                        echo '<td> <input type="radio" id="' . $categorie . 'aimePas" name="' . $categorie . '" value ="0.5"> </td>';
+                        echo '<td> <input type="radio" id="' . $categorie . 'sansPreference" name="' . $categorie . '" value ="1" checked> </td>';
+                        echo '<td> <input type="radio" id="' . $categorie . 'aime" name="' . $categorie . '" value ="1.5"> </td>';
+                        echo '<td> <input type="radio" id="' . $categorie . 'adore" name="' . $categorie . '" value ="2"> </td>';
                         echo '</tr>';
                     }
 
@@ -158,7 +158,7 @@
 
         </div>
         <div class="boutons_form">
-            <button onclick="reinitialiserPref()" style="margin:1%; margin-left: 8.1vw;">Réinitialiser vos
+            <button type="button" onclick="reinitialiserPref()" style="margin:1%; margin-left: 8.1vw;">Réinitialiser vos
                 préférences</button>
 
             <div>
@@ -290,8 +290,8 @@
         }
 
         function toggleOptions() {
-            var options = document.getElementById('options');
-            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+            console.log("Fonction toggleModal appelée.");
+            $('#options').toggle();
         }
 
         function closeOptions() {
@@ -328,7 +328,12 @@
                     }
                 } else if (category === selectedCategory) {
                     // Afficher la ligne si la catégorie correspond
-                    $(row).show();
+                    if(category === ingredient){
+                        $(row).hide();
+                    }
+                    else{
+                        $(row).show();
+                    }
                 } else {
                     // Cacher la ligne si la catégorie ne correspond pas
                     $(row).hide();
@@ -343,7 +348,49 @@
             });
         });
 
+        $(document).ready(function () {
+    // Ajoutez un gestionnaire d'événements pour les changements de valeur des boutons radio
+    $('input[type="radio"]').change(function () {
+        // Obtenez la valeur sélectionnée du bouton radio
+        var selectedValue = $(this).val();
+        // Obtenez l'identifiant de l'ingrédient associé
+        var ingredientId = $(this).attr('name');
+        // Obtenez la catégorie de la ligne
+        var categoryBtnChange = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+        // Obtenez l'ingrédient de la ligne
+        var ingredient = $(this).closest('tr').find('td:first').text().trim();
 
+        // Affichez la valeur sélectionnée, l'identifiant de l'ingrédient et la catégorie de la ligne dans la console à des fins de débogage
+        console.log("Nouvelle valeur sélectionnée pour " + ingredientId + ": " + selectedValue);
+        console.log("Catégorie de la ligne: " + categoryBtnChange);
+        console.log("Ingrédient de la ligne: " + ingredient);
+
+        // Si la catégorie et l'ingrédient de la ligne correspondent à celle de la ligne du bouton radio, appelez la fonction pour changer les autres boutons radio
+        if (ingredient === categoryBtnChange) {
+            changerValeurBoutons(selectedValue, categoryBtnChange);
+        }
+    });
+});
+
+function changerValeurBoutons(selectedValue, categoryBtnChange) {
+    // Sélectionnez tous les boutons radio avec le même identifiant d'ingrédient
+    $('input[value="' + selectedValue + '"]').each(function () {
+
+        var category = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+        // Obtenez l'ingrédient de la ligne
+        var ingredient = $(this).closest('tr').find('td:first').text().trim();
+
+        if(ingredient != category){
+            if(categoryBtnChange === category){
+                if ($(this).val() === selectedValue) {
+                $(this).prop('checked', true);
+            }else {
+            $(this).prop('checked', false);
+        }
+        }
+        } 
+    });
+}
 
     </script>
 
