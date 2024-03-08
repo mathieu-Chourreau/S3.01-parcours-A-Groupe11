@@ -17,7 +17,7 @@
 
 @font-face {
     font-family: 'NomDeLaPolice';
-    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+    src: url('../police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
 body {
@@ -215,7 +215,7 @@ input[type="number"]
     height: 100%;
     width: 100%;
     margin: 0;
-    background: url(image/fond_page_accueil.png);
+    background: url(../image/fond_page_accueil.png);
     -webkit-filter: blur(3.6px);
     background-repeat: no-repeat;
     background-size: cover;

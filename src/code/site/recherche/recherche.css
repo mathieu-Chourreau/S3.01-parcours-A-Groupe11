@@ -142,14 +142,14 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
-    background-image: url('image/2x-2x-fond.png');
+    background-image: url('../image/2x-2x-fond.png');
     background-size: cover;
 }
 
 
 @font-face {
     font-family: 'NomDeLaPolice';
-    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+    src: url('../police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
 

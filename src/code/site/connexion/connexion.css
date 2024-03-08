@@ -1,7 +1,7 @@
 /* debut du contenu*/
 
 body{
-    background: url(image/fond_connexion.jpg);
+    background: url(../image/fond_connexion.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
