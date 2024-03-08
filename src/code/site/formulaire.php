@@ -57,18 +57,6 @@
     }
     ?>
     <div class="parametre_form">
-        <div id="choix_categorie">
-            <label for="categories">Choisissez une catégorie :</label>
-            <select id="select_categorie">
-                <option value="all">Toutes les catégories</option>
-                <?php
-                // Afficher les options de catégorie
-                foreach ($listeCategoriesStocks as $categorie) {
-                    echo '<option value="' . str_replace(" ", "-", $categorie) . '">' . $categorie . '</option>';
-                }
-                ?>
-            </select>
-        </div>
         <div class="recherche_aliment">
             <label for="categories">Trouver votre aliment :</label>
             <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
@@ -120,7 +108,21 @@
                                 echo '</tr>';
                             }
                         }
+
                     }
+
+                    foreach ($listeCategoriesStocks as $categorie) {
+                        echo '<tr class="' . str_replace(" ", "-", $categorie) . '">'; // Remplacer les espaces par des tirets pour éviter les problèmes de classe CSS
+                        echo '<td>' . $categorie . '</td>'; // Cellule pour l'ingrédient
+                        echo '<td>' . $categorie . '</td>'; // Cellule pour la catégorie
+                        echo '<td> <input type="radio" id="jamais" name="jamais" value ="0"> </td>'; // Radio bouton Je n'en veux pas
+                        echo '<td> <input type="radio" id="aimePas" name="aimePas" value ="0.5"> </td>'; // Radio bouton Je n'aime pas
+                        echo '<td> <input type="radio" id="sansPreference" name="sansPreference" value ="1" checked> </td>'; // Radio bouton Sans préférence
+                        echo '<td> <input type="radio" id="aime" name="aime" value ="1.5"> </td>'; // Radio bouton J'aime
+                        echo '<td> <input type="radio" id="adore" name="adore" value ="2"> </td>'; // Radio bouton J'adore
+                        echo '</tr>';
+                    }
+
                     $conn->close();
                     ?>
 
@@ -214,6 +216,15 @@
             });
         });
 
+// Ajouter un écouteur d'événements sur les clics des options
+document.querySelectorAll('.option').forEach(option => {
+    option.addEventListener('click', function() {
+        var selectedCategory = this.textContent;
+        sortByCategory(selectedCategory);
+    });
+});
+
+
         function filterTableBySearch(searchText) {
             $("#example tbody tr").each(function () {
                 var rowText = $(this).find("td:first").text().toLowerCase();
@@ -285,22 +296,29 @@
             }
         });
 
-        $(document).ready(function () {
-            // Lorsque la valeur du select est modifiée
-            $("#select_categorie").change(function () {
-                checkSelectedCategory();
-            });
-        });
+        function sortByCategory(selectedCategory) {
+    console.log("Catégorie sélectionnée :", selectedCategory);
 
-        function checkSelectedCategory() {
-            var selectedCategory = $("#select_categorie").val();
-
-            if (selectedCategory !== "all") {
-                console.log("Catégorie sélectionnée : " + selectedCategory);
-            } else {
-                console.log("Aucune catégorie sélectionnée.");
-            }
+    // Récupérer toutes les lignes du tableau
+    var rows = $("#table_formulaire tbody tr").get();
+    
+    // Parcourir toutes les lignes du tableau
+    rows.forEach(function(row) {
+        // Récupérer la catégorie de chaque ligne
+        var category = $(row).find("td:nth-child(2)").text().trim();
+        
+        // Vérifier si la catégorie correspond à la catégorie sélectionnée
+        if (selectedCategory === "Toutes les catégories" || category === selectedCategory) {
+            // Afficher la ligne si la catégorie correspond
+            $(row).show();
+        } else {
+            // Cacher la ligne si la catégorie ne correspond pas
+            $(row).hide();
         }
+    });
+}
+
+
     </script>
 
 </body>
