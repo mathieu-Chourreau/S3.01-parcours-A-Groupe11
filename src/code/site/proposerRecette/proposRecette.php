@@ -65,7 +65,7 @@ session_start();
     </div>
     <script type="text/javascript" src="proposRecette.js"></script>
     <?php }else {
-        header("Location: connexion.php");
+        header("Location: ../connexion/connexion.php");
         exit;
     } ?>
     <footer class="footer">
