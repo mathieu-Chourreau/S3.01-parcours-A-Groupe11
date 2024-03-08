@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="equipe.css">
-    <link rel="stylesheet" href="css_commun/commun.css">
+    <link rel="stylesheet" href="commun/commun.css">
     <title>Edu'Cook</title>
 </head>
 <body>
@@ -32,7 +32,10 @@ session_start();
                 <li><a href="#" class="link">Formulaire</a></li>
                 <li><a href="#" class="link">L'équipe</a></li>
                 <li><a href="#" class="link">Proposer votre recette</a></li>
-                <li><a href="#" class="link">Se connecter</a></li>
+                <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="connexion.php" id="lien_se_connecter"><li class="link">Se connecter</li></a>
+                <?php }elseif ($_SESSION['connecter'] == true) {echo "<a href='deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";} ?>
+                
             </ul>
         </div>
         <div class="boutonConnexion">
@@ -78,6 +81,8 @@ session_start();
     </div>
     <footer class="footer"> 
     </footer>
+
+    <script src="commun/commun.js"></script>
 
 </body>
 </html>
