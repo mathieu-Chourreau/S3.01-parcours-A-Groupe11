@@ -207,6 +207,9 @@
     </div>
 
     <script>
+
+        //document.addEventListener("DOMContentLoaded",(event)=>{sortByCategory(selectedCategory)})
+
         $(document).ready(function () {
 
             // Filtrer le tableau lorsqu'un texte est saisi dans la barre de recherche
@@ -216,14 +219,20 @@
             });
         });
 
-// Ajouter un écouteur d'événements sur les clics des options
-document.querySelectorAll('.option').forEach(option => {
-    option.addEventListener('click', function() {
-        var selectedCategory = this.textContent;
-        sortByCategory(selectedCategory);
-    });
-});
+        $(document).ready(function() {
+            // Définir la catégorie sélectionnée au démarrage de la page
+            var selectedCategory = $("#selected-option").text();
+            // Exécuter la fonction sortByCategory avec la catégorie sélectionnée
+            sortByCategory(selectedCategory);
+        });
 
+        // Ajouter un écouteur d'événements sur les clics des options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                var selectedCategory = this.textContent;
+                sortByCategory(selectedCategory);
+            });
+        });
 
         function filterTableBySearch(searchText) {
             $("#example tbody tr").each(function () {
@@ -289,7 +298,6 @@ document.querySelectorAll('.option').forEach(option => {
             document.getElementById('options').style.display = 'none';
         }
 
-        document.getElementById('selected-option').addEventListener('click', toggleOptions);
         document.addEventListener('click', function (event) {
             if (!event.target.closest('.custom-select')) {
                 closeOptions();
@@ -297,26 +305,44 @@ document.querySelectorAll('.option').forEach(option => {
         });
 
         function sortByCategory(selectedCategory) {
-    console.log("Catégorie sélectionnée :", selectedCategory);
+            console.log("Catégorie sélectionnée :", selectedCategory);
 
-    // Récupérer toutes les lignes du tableau
-    var rows = $("#table_formulaire tbody tr").get();
-    
-    // Parcourir toutes les lignes du tableau
-    rows.forEach(function(row) {
-        // Récupérer la catégorie de chaque ligne
-        var category = $(row).find("td:nth-child(2)").text().trim();
-        
-        // Vérifier si la catégorie correspond à la catégorie sélectionnée
-        if (selectedCategory === "Toutes les catégories" || category === selectedCategory) {
-            // Afficher la ligne si la catégorie correspond
-            $(row).show();
-        } else {
-            // Cacher la ligne si la catégorie ne correspond pas
-            $(row).hide();
+            // Récupérer toutes les lignes du tableau
+            var rows = $("#table_formulaire tbody tr").get();
+
+            // Parcourir toutes les lignes du tableau
+            rows.forEach(function(row) {
+
+                // Récupérer la catégorie de chaque ligne
+                var category = $(row).find("td:nth-child(2)").text().trim();
+                var ingredient = $(row).find("td:nth-child(1)").text().trim();
+
+                // Vérifier si la catégorie correspond à la catégorie sélectionnée
+                if (selectedCategory === "Toutes les catégories") {
+                    // Afficher la ligne si la catégorie correspond et que selectedCategory est "Toutes les catégories"
+                    if(category === ingredient){
+                        $(row).show();
+                    }
+                    else{
+                        $(row).hide();
+                    }
+                } else if (category === selectedCategory) {
+                    // Afficher la ligne si la catégorie correspond
+                    $(row).show();
+                } else {
+                    // Cacher la ligne si la catégorie ne correspond pas
+                    $(row).hide();
+                }
+            });
         }
-    });
-}
+
+        $(document).ready(function() {
+            $('#selected-option').on('click', function() {
+                console.log("Click");
+                toggleOptions();
+            });
+        });
+
 
 
     </script>
