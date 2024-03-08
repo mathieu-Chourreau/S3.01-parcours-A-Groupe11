@@ -29,7 +29,7 @@ session_start();
                                                 }
                                                 ?>
                                             <section class="form-group">
-                                                <label for="username">Identifiant:
+                                                <label for="username">Identifiant
                                                 </label>
                                                     <div>
                                                         <input class="form-control"
@@ -41,7 +41,7 @@ session_start();
                                                             autocomplete="off" name="username" value="<?php echo isset($_SESSION['login_username_deco']) ? htmlspecialchars($_SESSION['login_username_deco'], ENT_QUOTES, 'UTF-8') : ''; ?>"/></div>
                                             </section>
                                             <section class="form-group">
-                                                <label for="mail">Mail:
+                                                <label for="mail">Mail
                                                 </label>
                                                     <div>
                                                         <input class="form-control"
@@ -54,7 +54,7 @@ session_start();
                                             </section>
 
                                             <section class="form-group">
-                                                <label for="password">Mot de passe:</label>
+                                                <label for="password">Mot de passe</label>
                                                     <div>
                                                         <input class="form-control"
                                                         type="password"
@@ -66,7 +66,7 @@ session_start();
                                                     </div>
                                             </section>
                                             <section class="form-group">
-                                                <label for="password">Confirmation mot de passe:</label>
+                                                <label for="password">Confirmation mot de passe</label>
                                                     <div>
                                                         <input class="form-control"
                                                         type="password"

@@ -39,7 +39,7 @@ session_start();
                                                 <span>Mauvais identifiant / mot de passe.</span>
                                             </div>
                                             <section class="form-group">
-                                                <label for="username">Identifiant:
+                                                <label for="username">Identifiant
                                                 </label>
                                                     <div>
                                                         <input class="form-control "
@@ -52,7 +52,7 @@ session_start();
                                             </section>
 
                                             <section class="form-group">
-                                                <label for="password">Mot de passe:</label>
+                                                <label for="password">Mot de passe</label>
                                                     <div>
                                                         <input class="form-control"
                                                         type="password"
@@ -69,7 +69,7 @@ session_start();
                                                 accesskey="l"
                                                 tabindex="6"
                                                 type="submit"
-                                                value="SE CONNECTER"
+                                                value="Se connecter"
                                             />
                                     </form>
 

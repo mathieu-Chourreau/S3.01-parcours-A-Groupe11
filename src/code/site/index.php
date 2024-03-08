@@ -53,8 +53,8 @@ if (!isset($_SESSION['connecter'])) {
     <h1 class="titre">C'est l'heure de manger mieux pour très peu !</h1>
 
     <div class="box">
-        <form>
-            <input type="text" name="" placeholder="Ex: Pâtes à la carbonara">
+        <form action="recherche/recherche.php" method="GET">
+            <input type="text" name="barreDeRecherche" placeholder="Ex: Pâtes à la carbonara">
             <input type="submit" name="" value="Rechercher">
         </form>
     </div>

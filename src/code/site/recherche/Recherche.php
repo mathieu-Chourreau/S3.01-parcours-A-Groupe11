@@ -1,8 +1,11 @@
 <?php
-session_start(); 
+session_start();
+
+$searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,20 +38,27 @@ session_start();
                 <li><a href="../formulaire/formulaire.php" class="link">Formulaire</a></li>
                 <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
-                <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="../connexion/connexion.php" id="lien_se_connecter"><li class="link">Se connecter</li></a>
-                <?php }elseif ($_SESSION['connecter'] == true) {echo "<a href='../connexion/deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";} ?>
+                <?php if ($_SESSION['connecter'] == false) { ?>
+                    <a href="../connexion/connexion.php" id="lien_se_connecter">
+                        <li class="link">Se connecter</li>
+                    </a>
+                <?php } elseif ($_SESSION['connecter'] == true) {
+                    echo "<a href='../connexion/deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";
+                } ?>
             </ul>
         </div>
         <div class="boutonConnexion">
-            <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="../connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
+            <?php if ($_SESSION['connecter'] == false) { ?>
+                <a href="../connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se
+                        connecter</button></a>
+            <?php } elseif ($_SESSION['connecter'] == true) {
+                echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";
+            } ?>
         </div>
     </nav>
 
     <div class="search">
-        <input type="text" id="searchInput" placeholder="Rechercher une recette...">
+        <input type="text" id="searchInput" value="<?php echo htmlspecialchars($searchText); ?>" placeholder="Rechercher une recette...">
     </div>
 
     <div class="bouttonveg">
@@ -107,7 +117,8 @@ session_start();
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de
+                                    confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -162,6 +173,8 @@ session_start();
                 }
             });
         }
+
+        document.addEventListener("DOMContentLoaded", filterRecipes);
 
         document.getElementById('searchInput').addEventListener('input', filterRecipes);
 
