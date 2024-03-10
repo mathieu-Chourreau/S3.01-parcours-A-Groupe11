@@ -172,16 +172,18 @@
                     </script>
 
                 </table>
+
             </div>
-        </div>
-        <div class="boutons_form">
             <button class="modal-btn modal-trigger3" id="preferenceBtn" type="button">Réinitialiser vos
                 préférences</button>
+        </div>
+        <div class="boutons_form">
 
             <div>
                 <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
-                <button class="modal-btn modal-trigger2" id="validerBtn" type="button">Valider</button>
+                <button class="modal-btn modal-trigger2" id="validerBtn" type="submit">Valider</button>
             </div>
+
         </div>
     </form>
 
@@ -214,7 +216,8 @@
                 <h1>Êtes-vous sûr de vouloir Réinitialiser vos préférences ?</h1>
             </div>
             <div class="modal-text">
-                <p>Vous vous apprêtez à réinitialiser toutes vos préférences par défault, c'est-à-dire à "Sans préférence".</p>
+                <p>Vous vous apprêtez à réinitialiser toutes vos préférences par défault, c'est-à-dire à "Sans
+                    préférence".</p>
                 <p style="margin-top: 50px;">Etes vous sûr de vouloir réinitialiser ?</p>
             </div>
             <div class="modal-buttons">
@@ -226,7 +229,7 @@
     </div>
 
 
-    <div class="modal-valider">
+    <!-- <div class="modal-valider">
         <div class="overlay modal-trigger2"></div>
         <div class="modal">
             <button class="close-modal modal-trigger2">X</button>
@@ -234,7 +237,8 @@
                 <h1> Etes-vous prêt à voir votre sélection ?</h1>
             </div>
             <div class="modal-text">
-                <p style="margin-right: 40px;">Vous vous appretez à valider votre formulaire et vous allez être redirigé vers la page contenant
+                <p style="margin-right: 40px;">Vous vous appretez à valider votre formulaire et vous allez être redirigé
+                    vers la page contenant
                     notre
                     sélection de recettes.
                 </p>
@@ -246,7 +250,7 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
 
     <script>
 
@@ -401,35 +405,39 @@
         }
 
         const modalContainer = document.querySelector(".modal-annuler");
-        const modalContainer2 = document.querySelector(".modal-valider");
+        // const modalContainer2 = document.querySelector(".modal-valider");
         const modalContainer3 = document.querySelector(".modal-préférence");
         const modalTriggers = document.querySelectorAll(".modal-trigger");
-        const modalTriggers2 = document.querySelectorAll(".modal-trigger2");
+        // const modalTriggers2 = document.querySelectorAll(".modal-trigger2");
         const modalTriggers3 = document.querySelectorAll(".modal-trigger3");
 
         modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
-        modalTriggers2.forEach(trigger => trigger.addEventListener("click", toggleModal2))
+        // modalTriggers2.forEach(trigger => trigger.addEventListener("click", toggleModal2))
         modalTriggers3.forEach(trigger => trigger.addEventListener("click", toggleModal3))
 
         function toggleModal() {
             modalContainer.classList.toggle("active")
         }
 
-        function toggleModal2() {
-            modalContainer2.classList.toggle("active")
-        }
+        // function toggleModal2() {
+        //     modalContainer2.classList.toggle("active")
+        // }
 
         function toggleModal3() {
             modalContainer3.classList.toggle("active")
         }
 
         function submitForm() {
+
+            // modalContainer2.classList.toggle("active");
+
             // Sélectionner le formulaire par son ID
             var form = document.getElementById("example");
 
             console.log(form)
 
             // Soumettre le formulaire
+
             form.submit();
         }
 

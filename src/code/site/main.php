@@ -2,13 +2,13 @@
 
 session_start();
 
-if (!isset($_SESSION['ingredientsPreferencesPageSale'])) {
-    $_SESSION['ingredientsPreferencesPageSale'] = array();
+if (!isset($_SESSION['ingredientsPreferencesPageVege'])) {
+    $_SESSION['ingredientsPreferencesPageVege'] = array();
 }    
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_POST as $nomIngredient => $valeur) {
-        $_SESSION['ingredientsPreferencesPageSale'][$nomIngredient] = $valeur;
+        $_SESSION['ingredientsPreferencesPageVege'][$nomIngredient] = $valeur;
     }
 } 
 else {
@@ -24,7 +24,7 @@ Include 'Utilisateur.php';
 
     // Initialiser les variables
     $lIngredientsPref = $_SESSION['ingredientsPreferences'];
-    $ingredientsPrefPageSale = $_SESSION['ingredientsPreferencesPageSale'];
+    $ingredientsPrefPageVege = $_SESSION['ingredientsPreferencesPageVege'];
 
     // Récuperer les préférences de l'utilisateur
     foreach ($lIngredientsPref as $nomIngredient => $preferenceIngPourUtilisateur) {
@@ -53,9 +53,9 @@ Include 'Utilisateur.php';
 
     // Recuperer la préférence du salé, le temps et le budget
 
-    $sale = $ingredientsPrefPageSale['sale'];
-    $tempsCuisineMax = $ingredientsPrefPageSale['zone_temps'];
-    $budget = $ingredientsPrefPageSale['zone_prix'];
+    $vege = $ingredientsPrefPageVege['vege'];
+    $tempsCuisineMax = $ingredientsPrefPageVege['zone_temps'];
+    $budget = $ingredientsPrefPageVege['zone_prix'];
 
 // TRI DES RECETTES EN FONCTION DES PREFERENCES
     
@@ -147,7 +147,7 @@ Include 'Utilisateur.php';
     $lRecettePoint = array();
 
 foreach ($listeRecette as $val){
-    //Verifier si une recette est salé
+    //Verifier si une recette est végétarienne
     $sql="SELECT cr.gout as gout
     FROM categorierecette cr 
     JOIN appartenirrc rc ON cr.identifiant = rc.identifiantC
@@ -155,17 +155,17 @@ foreach ($listeRecette as $val){
     WHERE r.identifiant =" .$val->getIdentifiant().";";
 
     $resultS = $conn->query($sql);
-    $bSale = false;
+    $bvege = false;
     if ($resultS && $resultS->num_rows > 0) {
         while ($row = $resultS->fetch_assoc()) {
             $gout = "".$row['gout'];
-            if ($gout == 'Salé') {
-                $bSale = true;;
+            if ($gout == 'Végétarien') {
+                $bvege = true;
             }
         }
     }
 
-    if ($bSale && $sale == 0) {
+    if ($bvege && $vege == 0) {
         $nbPointRecette = -1000;
     }else {
     
@@ -200,7 +200,7 @@ foreach ($listeRecette as $val){
     $nbPointRecetteAjustTemps = intval($nbPointRecette);
 
     //ajuster en fonction de si la recette est salé
-    if ($sale==2 && $bSale) {
+    if ($vege==2 && $bvege) {
         //On ajoute un bonus de points à la recette
         $nbPointRecette +=25;
     }

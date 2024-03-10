@@ -113,7 +113,7 @@ input[type="radio"]:checked {
 }
 
 .boutons_form {
-    justify-content: space-between;
+    float: right;
     display: flex;
     margin-left: 10%;
     margin-right: 10%;
@@ -245,13 +245,16 @@ th {
 }
 
 #preferenceBtn {
+    margin-left: 30px;
+    margin-bottom: 15px;
     width: 15vw;
     height: 4vh;
     font-size: 1.1vw;
     font-weight: 500;
-    background: rgb(248, 208, 208);
+    background: rgb(123, 8, 8);
     border: none;
-    border-radius: 30px;
+    color:white;
+    border-radius: 5px;
     cursor: pointer;
     transition: .3s ease;
 }
@@ -329,7 +332,7 @@ th {
     background: #be5906;
 }
 
-.modal-annuler, .modal-valider, .modal-préférence  {
+.modal-annuler, .modal-préférence  {
     visibility: hidden;
     position: fixed;
     top: 0;
@@ -338,7 +341,7 @@ th {
     transition: visibility 0.4s;
 }
 
-.modal-annuler.active, .modal-valider.active, .modal-préférence.active  {
+.modal-annuler.active, .modal-préférence.active  {
     transition: visibility 0s;
     visibility: visible;
 
@@ -353,7 +356,7 @@ th {
     transition: opacity 0.4s 0.2s ease-out;
 }
 
-.modal-annuler.active .overlay, .modal-valider.active .overlay,.modal-préférence.active .overlay  {
+.modal-annuler.active .overlay, .modal-préférence.active .overlay  {
     opacity: 1;
     transition: opacity 0.4s ease-out;
 }
@@ -381,7 +384,7 @@ th {
     height: 350px;
 }
 
-.modal-annuler.active .modal, .modal-valider.active .modal, .modal-préférence.active .modalPref {
+.modal-annuler.active .modal, .modal-préférence.active .modalPref {
     opacity: 1;
     transform: translate(-50%, -50%);
     transition: opacity 0.4s 0.2s ease-out,
