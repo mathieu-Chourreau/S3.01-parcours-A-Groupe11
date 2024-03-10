@@ -22,9 +22,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     // Vérification du mdp
     if(password_verify($password, $hashedPassword)) {
         if ($role == 1) {
-            $_SESSION['admin'] = true;
-        }else {
-            $_SESSION['admin'] = false;
+            header("Location: ../backOffice/back_office.php");
+            deconnexionBd($stmt);
+            deconnexionBd($conn);
+            exit;
         }
         deconnexionBd($stmt);
         $sql = "UPDATE utilisateur SET date_connexion = ? WHERE pseudo = ?";
