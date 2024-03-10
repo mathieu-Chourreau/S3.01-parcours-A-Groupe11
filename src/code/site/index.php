@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['connecter'])) {
     $_SESSION['connecter'] = false;
+    $_SESSION['admin'] = false;
 }
 ?>
 <!DOCTYPE html>
@@ -37,9 +38,8 @@ if (!isset($_SESSION['connecter'])) {
                 <li><a href="formulaire/formulaire.php" class="link">Formulaire</a></li>
                 <li><a href="equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
-                <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="connexion/connexion.php" id="lien_se_connecter"><li class="link">Se connecter</li></a>
-                <?php }elseif ($_SESSION['connecter'] == true) {echo "<a href='connexion/deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";} ?>
+                <?php if($_SESSION['admin'] == false){ ?>
+                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
         </div>
         <div class="boutonConnexion">

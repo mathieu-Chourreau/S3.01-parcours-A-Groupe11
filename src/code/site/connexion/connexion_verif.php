@@ -3,6 +3,7 @@ session_start();
 include '../bd.php';
 
 $_SESSION['connecter'] = false;
+$_SESSION['admin'] = false;
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = trim($_POST['username']);
@@ -23,6 +24,8 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     if(password_verify($password, $hashedPassword)) {
         if ($role == 1) {
             header("Location: ../backOffice/back_office.php");
+            $_SESSION['admin'] = true;
+            $_SESSION['connecter'] = true;
             deconnexionBd($stmt);
             deconnexionBd($conn);
             exit;
