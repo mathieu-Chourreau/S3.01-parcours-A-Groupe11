@@ -10,6 +10,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <link rel="stylesheet" href="formulaire.css">
     <link rel="stylesheet" href="../commun/commun.css">
@@ -33,11 +34,11 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
         </div>
         <div class="titreMenu">
             <ul id="menu">
-                <li><a href="#" class="link active">Accueil</a></li>
-                <li><a href="recherche/recherche.php" class="link">Rechercher</a></li>
-                <li><a href="formulaire/formulaire.php" class="link">Formulaire</a></li>
-                <li><a href="equipe/equipe.php" class="link">L'équipe</a></li>
-                <li><a href="proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+                <li><a href="../index.php" class="link">Accueil</a></li>
+                <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
+                <li><a href="formulaire.php" class="link active">Formulaire</a></li>
+                <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
+                <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
                 <?php if($_SESSION['admin'] == false){ ?>
                 <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
@@ -80,7 +81,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
     ?>
 
-    <form id="example" method="POST" class="table table-striped" action="sale.php">
+    <form id="example" method="POST"  action="sale.php">
         <div class="container_form">
             <div id="choix_categorie">
                 <div class="custom-select" id="custom-select">
@@ -189,12 +190,8 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                 préférences</button>
         </div>
         <div class="boutons_form">
-
-            <div>
                 <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
                 <button class="modal-btn modal-trigger2" id="validerBtn" type="submit">Valider</button>
-            </div>
-
         </div>
     </form>
 

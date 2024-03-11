@@ -29,9 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <title>Edu'Cook</title>
     <link rel="stylesheet" href="sale.css">
-    <link rel="stylesheet" href="commun/commun.css">
+    <link rel="stylesheet" href="../commun/commun.css">
 </head>
 
 <body>
@@ -41,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <nav id="nav">
         <div id="imgLogoNav">
-            <a href="#"><img class="img_logo" src="image/logo.png"></a>
+            <a href="#"><img class="img_logo" src="../image/logo.png"></a>
             <div class="boutonHamburger">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
@@ -53,11 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="titreMenu">
             <ul id="menu">
-                <li><a href="#" class="link active">Accueil</a></li>
-                <li><a href="recherche/recherche.php" class="link">Rechercher</a></li>
-                <li><a href="formulaire/formulaire.php" class="link">Formulaire</a></li>
-                <li><a href="equipe/equipe.php" class="link">L'équipe</a></li>
-                <li><a href="proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+            <li><a href="../index.php" class="link">Accueil</a></li>
+                <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
+                <li><a href="formulaire.php" class="link active">Formulaire</a></li>
+                <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
+                <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
                 <?php if($_SESSION['admin'] == false){ ?>
                 <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
@@ -69,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <form id="example" method="POST" class="table table-striped" action="affichage_recette.php">
-        <div class="container">
+    <form id="example" method="POST" action="affichage_recette.php">
+        <div class="container_form">
             <div id="categorie">
                 <img class="etoile" src="../image/pngegg.png">
                 <div class="nom_categorie">Informations complémentaires</div>
@@ -189,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <footer class="footer" id="footer">
-        <div class="container_footer">
+        <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="region region-footer1">
