@@ -44,7 +44,9 @@
     <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
     <section class="s_recherche">
         <?php
-        include 'bd.php';
+        include '../bd.php';
+
+        $conn = connexionBd();
 
         $topIngredients = array_slice($lRecettePoint, 0, 5);
 
@@ -95,6 +97,8 @@
             $indice = $indice + 1;
 
         }
+
+        deconnexionBd($conn);
         ?>
 
     </section>

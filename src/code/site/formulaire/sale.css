@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'NomDeLaPolice';
-    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+    src: url('../police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
 
@@ -109,7 +109,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('image/fond_ardoise.png');
+    background-image: url('../image/fond_ardoise.png');
     -webkit-filter: blur(6px);
     background-size: cover;
     z-index: -1;

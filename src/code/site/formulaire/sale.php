@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Edu'Cook</title>
     <link rel="stylesheet" href="sale.css">
+    <link rel="stylesheet" href="commun/commun.css">
 </head>
 
 <body>
@@ -39,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="background"></div>
 
     <nav id="nav">
-        <div id="divun">
-            <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
-            <div class="hame">
+        <div id="imgLogoNav">
+            <a href="#"><img class="img_logo" src="image/logo.png"></a>
+            <div class="boutonHamburger">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
                     <span></span>
@@ -50,27 +51,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </label>
             </div>
         </div>
-        <div class="divdeux">
+        <div class="titreMenu">
             <ul id="menu">
-                <li><a href="#" class="link">Accueil</a></li>
-                <li><a href="#" class="link active">Rechercher</a></li>
-                <li><a href="#" class="link">Formulaire</a></li>
-                <li><a href="#" class="link">L'équipe</a></li>
-                <li><a href="#" class="link">Proposer votre recette</a></li>
-                <li><a href="#" class="link">Se connecter</a></li>
+                <li><a href="#" class="link active">Accueil</a></li>
+                <li><a href="recherche/recherche.php" class="link">Rechercher</a></li>
+                <li><a href="formulaire/formulaire.php" class="link">Formulaire</a></li>
+                <li><a href="equipe/equipe.php" class="link">L'équipe</a></li>
+                <li><a href="proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+                <?php if($_SESSION['admin'] == false){ ?>
+                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
         </div>
-        <div class="nav-button">
-            <button class="btn white-btn" id="loginBtn">Se connecter</button>
+        <div class="boutonConnexion">
+            <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
     <form id="example" method="POST" class="table table-striped" action="affichage_recette.php">
         <div class="container">
             <div id="categorie">
-                <img class="etoile" src="image/pngegg.png">
+                <img class="etoile" src="../image/pngegg.png">
                 <div class="nom_categorie">Informations complémentaires</div>
-                <img class="etoile" src="image/pngegg.png">
+                <img class="etoile" src="../image/pngegg.png">
             </div>
 
             <div class="formulaire">
@@ -183,6 +187,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
     </div>
+
+    <footer class="footer" id="footer">
+        <div class="container_footer">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="region region-footer1">
+                        <section id="block-block-1" class="block block-block clearfix">
+                            <p>@&nbsp;Equipe Edu'Cook<br />
+                                Tous droits réservés<br />
+                                <a class="lien" href="newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 news">
+                    <div class="region region-footer2">
+                        <section id="block-block-2" class="block block-block clearfix">
+                            <p>Notre Newsletter : </p>
+                            <a class="btn_footer" href="newsletter/newsletter.html">Accès au Newsletter</a>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="commun/commun.js"></script>
 
     <script>
         function reinitialiserPref() {
