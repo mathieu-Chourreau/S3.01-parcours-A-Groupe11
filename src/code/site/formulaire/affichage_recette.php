@@ -97,7 +97,7 @@
             $indice = $indice + 1;
 
         }
-
+        deconnexionBd($stmt);
         deconnexionBd($conn);
         ?>
 

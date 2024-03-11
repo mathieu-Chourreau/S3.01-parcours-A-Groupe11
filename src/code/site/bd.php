@@ -1,10 +1,10 @@
 <?php
 
 function connexionBd() {
-    $servername = "localhost:3306/sae3.01";
-    $username = "root";
-    $password = "";
-    $dbname = "sae3.01"; 
+    $servername = "lakartxela.iutbayonne.univ-pau.fr";
+    $username = "lferme001_bd";
+    $password = "lferme001_bd";
+    $dbname = "lferme001_bd"; 
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 

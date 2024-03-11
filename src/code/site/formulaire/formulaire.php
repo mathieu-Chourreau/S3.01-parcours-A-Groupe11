@@ -191,7 +191,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
         </div>
         <div class="boutons_form">
                 <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
-                <button class="modal-btn modal-trigger2" id="validerBtn" type="submit">Valider</button>
+                <button class="modal-btn modal-trigger2" id="validerBtn" type="submit">Suivant</button>
         </div>
     </form>
 

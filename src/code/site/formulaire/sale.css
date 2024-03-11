@@ -321,19 +321,14 @@ body {
 
 @font-face {
     font-family: 'NomDeLaPolice';
-    src: url('police/adlery-pro-blockletter-trial.ttf') format('truetype');
+    src: url('../police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
 
-input {
+#zone_prix, #zone_temps {
+    font-family: initial;
     position: relative;
     display: inline-block;
-    font-size: 2vw;
-}
-
-
-
-input[type="text"] {
     background: #fff;
     width: 30vw;
     height: 5vh;
@@ -343,24 +338,6 @@ input[type="text"] {
     padding: 0 1vw;
     border-radius: 1vw 1vw 1vw 1vw;
     margin-left: 3.2vw;
-}
-
-input[type="submit"] {
-    position: relative;
-    border-radius: 1vw 1vw 1vw 1vw;
-    font-size: 2.5vh;
-    width: auto;
-    height: auto;
-    padding: 10px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: rgb(123, 8, 8);
-    color: white
-}
-
-input[type="submit"]:hover {
-    background: rgb(110, 65, 65);
 }
 
 .modal-annuler,

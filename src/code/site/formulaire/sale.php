@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <title>Edu'Cook</title>
+
     <link rel="stylesheet" href="sale.css">
     <link rel="stylesheet" href="../commun/commun.css">
 </head>
@@ -88,8 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="radioBtn">
                             <input type="radio" id="VegeNon" name="vege" value="0">
                             <label>NON</label>
-                            <input type="radio" id="VegeSansPreference" name="vege" value="1" checked
-                                style="margin-left: 5vw">
+                            <input type="radio" id="VegeSansPreference" name="vege" value="1" checked style="margin-left: 5vw">
                             <label>Sans préférence</label>
                             <input type="radio" id="vegeOui" name="vege" value="2" style="margin-left: 5vw">
                             <label>OUI</label>
@@ -99,13 +99,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="prix">
                         <label for="prix" style="font-size:3vw">Budget (euros): </label>
-                        <input type="text" id="zone_prix" name="zone_prix" required>
+                        <input type="text" id="zone_prix" name="zone_prix">
                         <div id="prixError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
                     <div class="temps">
                         <label for="temps" style="font-size:3vw">Temps (minute): </label>
-                        <input type="text" id="zone_temps" name="zone_temps" required>
+                        <input type="text" id="zone_temps" name="zone_temps">
                         <div id="tempsError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
