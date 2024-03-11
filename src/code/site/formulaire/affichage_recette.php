@@ -1,4 +1,5 @@
-<?php include 'main.php'; ?>
+<?php include_once 'main.php';
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -15,7 +16,7 @@
 <body>
     <nav id="nav">
         <div id="divun">
-            <a href="index.html"><img class="img_logo" src="image/logo.png"></a>
+            <a href="index.html"><img class="img_logo" src="../image/logo.png"></a>
             <div class="hame">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
@@ -44,7 +45,7 @@
     <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
     <section class="s_recherche">
         <?php
-        include '../bd.php';
+        include_once '../bd.php';
 
         $conn = connexionBd();
 

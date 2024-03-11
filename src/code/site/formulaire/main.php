@@ -16,7 +16,7 @@ else {
 }
 
 include 'Ingredient.php';
-include '../bd.php';
+include_once '../bd.php';
 include 'Recette.php';
 Include 'Utilisateur.php';
 
