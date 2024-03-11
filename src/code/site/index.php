@@ -2,6 +2,8 @@
 session_start();
 if (!isset($_SESSION['connecter'])) {
     $_SESSION['connecter'] = false;
+}
+if (!isset($_SESSION['admin'])) {
     $_SESSION['admin'] = false;
 }
 ?>

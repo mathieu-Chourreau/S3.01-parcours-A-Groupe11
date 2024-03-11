@@ -40,6 +40,10 @@
         </div>
     </nav>
 
+    <?php
+    if ($_SESSION['connecter'] == true) {
+    ?>
+
     <div class="background"></div>
     <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
     <section class="s_recherche">
@@ -102,6 +106,10 @@
         ?>
 
     </section>
+    <?php }else {
+        header("Location: ../connexion/connexion.php");
+        exit;
+    } ?>
 
     <footer class="footer">
     </footer>

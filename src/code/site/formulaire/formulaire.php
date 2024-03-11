@@ -17,7 +17,9 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
     <title>Edu'Cook</title>
 </head>
-
+<?php
+    if ($_SESSION['connecter'] == true) {
+?>
 <body>
     <div class="background"></div>
     <nav id="nav">
@@ -46,11 +48,11 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
         <div class="boutonConnexion">
             <?php if($_SESSION['connecter'] == false){ ?>
                 <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
-    <?php
+    <?php 
 
     include '../bd.php';
 
@@ -259,6 +261,10 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
         </div>
     </div> -->
+    <?php }else {
+        header("Location: ../connexion/connexion.php");
+        exit;
+    } ?>
 
     <footer class="footer" id="footer">
         <div class="container">
@@ -268,7 +274,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -277,7 +283,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                     <div class="region region-footer2">
                         <section id="block-block-2" class="block block-block clearfix">
                             <p>Notre Newsletter : </p>
-                            <a class="btn_footer" href="newsletter/newsletter.html">Accès au Newsletter</a>
+                            <a class="btn_footer" href="../newsletter/newsletter.html">Accès au Newsletter</a>
                         </section>
                     </div>
                 </div>
