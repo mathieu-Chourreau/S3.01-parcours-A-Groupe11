@@ -61,13 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
                 <?php if($_SESSION['admin'] == false){ ?>
-                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
+                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='../backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
         </div>
         <div class="boutonConnexion">
             <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
+                <a href="../connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
