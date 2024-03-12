@@ -19,6 +19,8 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 </head>
 
 <body>
+    <div class="background"></div>
+
     <nav id="nav">
         <div id="imgLogoNav">
             <a href="../index.php"><img class="img_logo" src="../image/logo.png"></a>
@@ -66,10 +68,11 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
     <section class="s_recherche">
         <?php
-        include '../bd.php';
+        include 'touteRecette.php';
+
         $conn = connexionBd();
 
-        $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
+        $recetteValide = "SELECT r.identifiant AS ID, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
         FROM recette r
         JOIN appartenirrc a ON a.identifiantR = r.identifiant
         JOIN categorierecette cr ON a.identifiantC = cr.identifiant
@@ -90,8 +93,9 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
             echo '<p class="typeP"><b>Catégorie : </b>' . $rec['categorie_recette'] . '</p>';
             echo '<p class="card-text"><b>Description : </b>' . $rec['instruction'] . '</p>';
             echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $rec['dif'] . '</p>';
-            echo '<p class="card-text"><b>Temps : </b>' . $rec['temps'] . '</p>';
-            echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            echo '<p class="card-text"><b>Temps : </b>' . $rec['temps'] . ' min</p>';
+            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' euro</p>';
+            echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
