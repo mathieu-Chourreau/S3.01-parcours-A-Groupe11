@@ -34,7 +34,9 @@ foreach ($resultRecette as $rec) {
 
     if ($resultIngredient && $resultIngredient->num_rows > 0) {
         while ($row = $resultIngredient->fetch_assoc()) {
-            $prix += $row['prix'] * 0.01 * $row['quantite'];
+            $qte = "0." + $row['quantite'];
+            echo $qte;
+            $prix += $row['prix'] * (int)$qte;
             // $nomIngredient = "" . $row['nom_ingr'];
             // $nomIngredient = str_replace(' ', '_', $nomIngredient);
             // $listeIngr[$nomIngredient] = $row['quantite'];
