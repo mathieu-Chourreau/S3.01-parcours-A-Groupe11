@@ -70,7 +70,7 @@ session_start();
                     $resultTps = $conn->query($temps);
 
                     foreach ($resultTps as $tps) {
-                        echo '<p><b>Temps de préparation : </b>' . $tps['temps'] . '</p>';
+                        echo '<p><b>Temps de préparation : </b>' . $tps['temps'] . ' min</p>';
                     }
 
                     $dif = "SELECT niveau_difficulte as dif
@@ -150,7 +150,7 @@ session_start();
             document.getElementById('recipe-category').innerHTML = "<b>Catégorie : </b>" + recipeCategory;
             document.getElementById('recipe-description').innerHTML = "<b>Description : </b>" + recipeDescription;
             document.getElementById('recipe-image').src = "../" + recipeImageSrc;
-            document.getElementById('recipe-prix').innerHTML = "<b>Prix : </b>" + recipePrix;
+            document.getElementById('recipe-prix').innerHTML = "<b>Prix : </b>" + recipePrix + " €";
         });
     </script>
 </body>

@@ -94,7 +94,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
             echo '<p class="card-text"><b>Description : </b>' . $rec['instruction'] . '</p>';
             echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $rec['dif'] . '</p>';
             echo '<p class="card-text"><b>Temps : </b>' . $rec['temps'] . ' min</p>';
-            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' euro</p>';
+            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' €</p>';
             echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';

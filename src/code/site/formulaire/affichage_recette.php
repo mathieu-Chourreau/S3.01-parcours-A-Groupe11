@@ -94,8 +94,8 @@
             echo '<p class="typeP"><b>Catégorie : </b>' . $row['categorie_recette'] . '</p>';
             echo '<p class="card-text"><b>Description : </b>' . $row['instruction'] . '</p>';
             echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $row['dif'] . '</p>';
-            echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . '</p>';
-            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$row['nom_recette']] . ' euro</p>';
+            echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . ' min</p>';
+            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$row['nom_recette']] . ' €</p>';
             echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) .'" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';
