@@ -137,12 +137,15 @@ transform: translateX(1.9em);
     height: 90%; /* Définir la hauteur du logo en pourcentage de la hauteur du header */
 }
 
-body {
+.background{
+    position: fixed;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100vh;
     background-image: url('../image/2x-2x-fond.png');
+    -webkit-filter: blur(2px);
+    z-index: -1;
     background-size: cover;
 }
 

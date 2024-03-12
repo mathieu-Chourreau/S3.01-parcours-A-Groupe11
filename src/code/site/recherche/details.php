@@ -85,6 +85,8 @@ session_start();
                         echo '<p><b>Difficulté : </b>' . $dif['dif'] . '</p>';
                     }
 
+                    echo '<p id="recipe-prix" class="recipe-prix"></p>';
+
                     echo '</div>';
                     echo '<div class="ingredients">';
                     echo '<p><b>Ingrédients nécessaires :</b></p>';
@@ -144,11 +146,13 @@ session_start();
             const recipeCategory = urlParams.get('recipeCategory');
             const recipeDescription = urlParams.get('recipeDescription');
             const recipeImageSrc = urlParams.get('recipeImageSrc');
+            const recipePrix = urlParams.get('recipePrix');
 
             document.getElementById('recipe-name').textContent = recipeName;
             document.getElementById('recipe-category').innerHTML = "<b>Catégorie : </b>" + recipeCategory;
             document.getElementById('recipe-description').innerHTML = "<b>Description : </b>" + recipeDescription;
             document.getElementById('recipe-image').src = "../" + recipeImageSrc;
+            document.getElementById('recipe-prix').innerHTML = "<b>Prix : </b>" + recipePrix;
         });
     </script>
 </body>
