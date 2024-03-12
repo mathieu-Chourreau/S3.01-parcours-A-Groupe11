@@ -15,6 +15,7 @@ session_start();
 </head>
 
 <body>
+    <div class="background"></div>
     <nav id="nav">
         <div id="imgLogoNav">
             <a href="../index.php"><img class="img_logo" src="../image/logo.png"></a>

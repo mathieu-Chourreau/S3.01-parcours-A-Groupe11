@@ -52,7 +52,7 @@
     <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
     <section class="s_recherche">
         <?php
-        include_once '../bd.php';
+        include_once '../recherche/touteRecette.php';
 
         $conn = connexionBd();
 
@@ -95,7 +95,8 @@
             echo '<p class="card-text"><b>Description : </b>' . $row['instruction'] . '</p>';
             echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $row['dif'] . '</p>';
             echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . '</p>';
-            echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$row['nom_recette']] . ' euro</p>';
+            echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) .'" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -103,7 +104,6 @@
             echo '</div>';
 
             $indice = $indice + 1;
-
         }
         deconnexionBd($stmt);
         deconnexionBd($conn);

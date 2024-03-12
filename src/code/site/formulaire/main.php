@@ -231,5 +231,5 @@ do {
     }
 } while ($bchanger);
 
-    deconnexionBd($conn);
+deconnexionBd($conn);
 ?>

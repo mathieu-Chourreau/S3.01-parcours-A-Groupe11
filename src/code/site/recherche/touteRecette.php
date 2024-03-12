@@ -1,6 +1,6 @@
 <?php
 
-include '../bd.php';
+include_once '../bd.php';
 
 $conn = connexionBd();
 
@@ -43,5 +43,8 @@ foreach ($resultRecette as $rec) {
 
     $listeRecette[$rec['nom_recette']] = $prix;
 }
+
+deconnexionBd($conn);
+
 
 ?>
