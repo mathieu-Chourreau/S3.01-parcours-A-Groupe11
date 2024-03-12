@@ -198,7 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="region region-footer2">
                         <section id="block-block-2" class="block block-block clearfix">
                             <p>Notre Newsletter : </p>
-                            <a class="btn_footer" href="newsletter/newsletter.html">Accès au Newsletter</a>
+                            <a class="btn_footer" href="../newsletter/newsletter.html">Accès au Newsletter</a>
                         </section>
                     </div>
                 </div>
