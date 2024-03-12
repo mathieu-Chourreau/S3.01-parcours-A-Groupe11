@@ -1,7 +1,7 @@
 <?php
 
 function connexionBd() {
-    $servername = "localhost:3306/sae3.01";
+    $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "sae3.01"; 
