@@ -1,0 +1,54 @@
+body{
+    background: url(../image/fond_connexion.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+
+}
+.container_back_office{
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    max-width: 1000px;
+    height: auto;
+    margin-top: 25px;
+}
+.image-container {
+    flex: 0 0 auto;
+}
+.imageCard {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+}
+
+.card-content {
+    display: flex;
+}
+
+.contenu_back_office{
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.boutons_back_office{
+    margin: 15px;
+}

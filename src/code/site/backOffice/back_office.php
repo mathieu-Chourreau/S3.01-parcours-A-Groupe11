@@ -8,7 +8,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="equipe.css">
+    <link rel="stylesheet" href="back_office.css">
     <link rel="stylesheet" href="../commun/commun.css">
     <title>Edu'Cook</title>
 </head>
@@ -44,7 +44,7 @@ session_start();
             <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
-
+    <div class="container_back_office">
     <?php
     // Connexion à la base de données
     include '../bd.php';
@@ -58,31 +58,44 @@ session_start();
     if ($result->num_rows > 0) {
         // Afficher les données de chaque ligne
         while($row = $result->fetch_assoc()) {
-            echo "ID: " . $row["id"]. "<br>";
-            echo "Nom: " . $row["nom"]. "<br>";
-            echo "Description: " . $row["description"]. "<br>";
-            echo "Grammage: " . $row["grammage"]. "<br>";
-            echo "Temps de préparation: " . $row["tempsPreparation"]. "<br>";
-            echo "Difficulté: " . $row["difficulte"]. "<br>";
-            echo "Catégorie: " . $row["categorie"]. "<br>";
-            
-            echo '<form action="traiter_recette.php" method="post">';
-            echo '<input type="hidden" name="recette_id" value="' . $row["id"] . '">';
-            echo '<input type="hidden" name="nom_recette" value="' . $row["nom"] . '">';
-            echo '<input type="submit" name="action" value="Ajouter">';
-            echo '<input type="submit" name="action" value="Supprimer">';
-            echo '</form>';
-            
-            echo "<br><br>";
+            echo '<div class="card-grid">';
+                echo '<div class="card">';
+                    echo '<div class="card-content">';
+                        echo '<div class="image-container">';
+                            echo '<img src="../image/logo.png" class="imageCard" alt=une image>';
+                        echo '</div>';
+                        echo '<div class="contenu_back_office">';
+                            echo "<b>ID:</b> " . $row["id"]. "<br>";
+                            echo "<b>Nom: </b>" . $row["nom"]. "<br>";
+                            echo "<b>Description: </b>" . $row["description"]. "<br>";
+                            echo "<b>Grammage: </b>" . $row["grammage"]. "<br>";
+                            echo "<b>Temps de préparation:</b> " . $row["tempsPreparation"]. "<br>";
+                            echo "<b>Difficulté:</b> " . $row["difficulte"]. "<br>";
+                            echo "<b>Catégorie:</b> " . $row["categorie"]. "<br>";
+                            
+                            // Boutons Ajouter et Supprimer
+                            echo '<form action="traiter_recette.php" method="post">';
+                                echo '<div class="boutons_back_office">';
+                                    echo '<input type="hidden" name="recette_id" value="' . $row["id"] . '">';
+                                    echo '<input type="hidden" name="nom_recette" value="' . $row["nom"] . '">';
+                                    echo '<input type="submit" name="action" value="Ajouter">';
+                                    echo '<input type="submit" name="action" value="Supprimer">';
+                                echo '</div>';
+                            echo '</form>';
+                        echo '</div>';
+                        echo "<br><br>";
+                    echo '</div>';
+                echo '</div>';
+            echo '</div>';
         }
     } else {
-        echo "0 résultats";
+        echo "O recette dans la table recette a valider";
     }
 
     // Fermer la connexion à la base de données
     $conn->close();
     ?>
-
+    </div>
     <script src="../commun/commun.js"></script>
 
     <footer class="footer" id="footer">

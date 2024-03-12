@@ -194,6 +194,7 @@ left: 5px;
     font-size: 12px;
     background-color: rgb(123, 8, 8);
     color: #fff;
+    
 }
 
 .footer {
@@ -201,6 +202,7 @@ margin-top: 45px;
 padding-top: 35px;
 padding-bottom: 10px;
 border-top: 1px solid #e5e5e5;
+
 }
 .lien{
     color: #00f7ff;
