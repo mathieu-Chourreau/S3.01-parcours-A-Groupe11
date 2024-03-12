@@ -17,7 +17,9 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
     <title>Edu'Cook</title>
 </head>
-
+<?php
+    if ($_SESSION['connecter'] == true) {
+    ?>
 <body>
     <div class="background"></div>
     <nav id="nav">
@@ -40,13 +42,13 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                 <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
                 <?php if($_SESSION['admin'] == false){ ?>
-                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
+                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='../backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
         </div>
         <div class="boutonConnexion">
             <?php if($_SESSION['connecter'] == false){ ?>
                 <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
@@ -121,12 +123,21 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
                         <?php
 
+                        $sql = "SELECT nom, categorie FROM ingredient 
+                        JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant 
+                        WHERE categorie = ?";
+                        
+                        $stmt = $conn->prepare($sql);
+
                         for ($i = 0; $i < count($listeCategoriesStocks); $i++) {
-                            $sql = "SELECT nom, categorie FROM ingredient JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant WHERE categorie ='{$listeCategoriesStocks[$i]}'";
-                            $result = $conn->query($sql);
-                            if ($result && $result->num_rows > 0) {
+                            $stmt->bind_param("s", $categorie);
+                            $categorie = $listeCategoriesStocks[$i];
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+
+                            if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo '<tr class="' . str_replace(" ", "-", $row['categorie']) . '">'; // Remplacer les espaces par des tirets pour éviter les problèmes de classe CSS
+                                    echo '<tr class="' . str_replace(" ", "-", $row['categorie']) . '">'; 
                                     echo '<td>' . $row["nom"] . '</td>';
                                     echo '<td>' . $row['categorie'] . '</td>';
                                     echo '<td> <input type="radio" id="' . $row["nom"] . 'jamais" name="' . $row["nom"] . '" value ="0"> </td>';
@@ -137,13 +148,12 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                                     echo '</tr>';
                                 }
                             }
-
                         }
 
                         foreach ($listeCategoriesStocks as $categorie) {
-                            echo '<tr class="' . str_replace(" ", "-", $categorie) . '">'; // Remplacer les espaces par des tirets pour éviter les problèmes de classe CSS
-                            echo '<td>' . $categorie . '</td>'; // Cellule pour l'ingrédient
-                            echo '<td>' . $categorie . '</td>'; // Cellule pour la catégorie
+                            echo '<tr class="' . str_replace(" ", "-", $categorie) . '">';
+                            echo '<td>' . $categorie . '</td>';
+                            echo '<td>' . $categorie . '</td>';
                             echo '<td> <input type="radio" id="' . $categorie . 'jamais" name="' . $categorie . '" value ="0"> </td>';
                             echo '<td> <input type="radio" id="' . $categorie . 'aimePas" name="' . $categorie . '" value ="0.5"> </td>';
                             echo '<td> <input type="radio" id="' . $categorie . 'sansPreference" name="' . $categorie . '" value ="1" checked> </td>';
@@ -151,7 +161,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                             echo '<td> <input type="radio" id="' . $categorie . 'adore" name="' . $categorie . '" value ="2"> </td>';
                             echo '</tr>';
                         }
-
+                        deconnexionBd($stmt);
                         deconnexionBd($conn);
                         ?>
 
@@ -259,7 +269,10 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
         </div>
     </div> -->
-
+    <?php }else {
+        header("Location: ../connexion/connexion.php");
+        exit;
+    } ?>
     <footer class="footer" id="footer">
         <div class="container">
             <div class="row">
@@ -268,7 +281,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -277,14 +290,14 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                     <div class="region region-footer2">
                         <section id="block-block-2" class="block block-block clearfix">
                             <p>Notre Newsletter : </p>
-                            <a class="btn_footer" href="newsletter/newsletter.html">Accès au Newsletter</a>
+                            <a class="btn_footer" href="../newsletter/newsletter.html">Accès au Newsletter</a>
                         </section>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-
+        
     <script src="../commun/commun.js"></script>
 
     <script>

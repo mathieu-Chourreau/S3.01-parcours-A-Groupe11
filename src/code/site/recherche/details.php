@@ -34,9 +34,6 @@ session_start();
                 <li><a href="../formulaire/formulaire.php" class="link">Formulaire</a></li>
                 <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
-                <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="../connexion/connexion.php" id="lien_se_connecter"><li class="link">Se connecter</li></a>
-                <?php }elseif ($_SESSION['connecter'] == true) {echo "<a href='../connexion/deconnexion.php' id='lien_se_connecter'><li class='link'>Se déconnecter</li></button></a>";} ?>
             </ul>
         </div>
         <div class="boutonConnexion">

@@ -11,13 +11,17 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Détails de la recette</title>
     <link rel="stylesheet" href="resultat_formulaire.css">
-</head>
+    <link rel="stylesheet" href="../commun/commun.css">
 
+</head>
+<?php
+    if ($_SESSION['connecter'] == true) {
+    ?>
 <body>
-    <nav id="nav">
-        <div id="divun">
-            <a href="index.html"><img class="img_logo" src="../image/logo.png"></a>
-            <div class="hame">
+<nav id="nav">
+        <div id="imgLogoNav">
+            <a href="#"><img class="img_logo" src="../image/logo.png"></a>
+            <div class="boutonHamburger">
                 <label class="burger" id="burger" for="burger">
                     <input type="checkbox" id="burger">
                     <span></span>
@@ -26,18 +30,21 @@
                 </label>
             </div>
         </div>
-        <div class="divdeux">
+        <div class="titreMenu">
             <ul id="menu">
-                <li><a href="#" class="link">Accueil</a></li>
-                <li><a href="#" class="link active">Rechercher</a></li>
-                <li><a href="#" class="link">Formulaire</a></li>
-                <li><a href="#" class="link">L'équipe</a></li>
-                <li><a href="#" class="link">Proposer votre recette</a></li>
-                <li><a href="#" class="link">Se connecter</a></li>
+                <li><a href="../index.php" class="link">Accueil</a></li>
+                <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
+                <li><a href="formulaire.php" class="link active">Formulaire</a></li>
+                <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
+                <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+                <?php if($_SESSION['admin'] == false){ ?>
+                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='../backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
             </ul>
         </div>
-        <div class="nav-button">
-            <button class="btn white-btn" id="loginBtn">Se connecter</button>
+        <div class="boutonConnexion">
+            <?php if($_SESSION['connecter'] == false){ ?>
+                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
+            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
         </div>
     </nav>
 
@@ -78,7 +85,7 @@
             echo '<div class="card">';
             echo '<div class="card-content">';
             echo '<div class="image-container">';
-            echo '<img src="' . $row['imageR'] . '" class="imageCard">';
+            echo '<img src="../' . $row['imageR'] . '" class="imageCard">';
             echo '</div>';
             echo '<div class="text-container">';
             echo '<div class="card-body">';
@@ -88,7 +95,7 @@
             echo '<p class="card-text"><b>Description : </b>' . $row['instruction'] . '</p>';
             echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $row['dif'] . '</p>';
             echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . '</p>';
-            echo '<a href="details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -103,9 +110,35 @@
         ?>
 
     </section>
-
-    <footer class="footer">
+    <?php }else {
+        header("Location: ../connexion/connexion.php");
+        exit;
+    } ?>
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="region region-footer1">
+                        <section id="block-block-1" class="block block-block clearfix">
+                            <p>@&nbsp;Equipe Edu'Cook<br />
+                                Tous droits réservés<br />
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 news">
+                    <div class="region region-footer2">
+                        <section id="block-block-2" class="block block-block clearfix">
+                            <p>Notre Newsletter : </p>
+                            <a class="btn_footer" href="../newsletter/newsletter.html">Accès au Newsletter</a>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
+    <script src="../commun/commun.js"></script>
 
 </body>
 <script>

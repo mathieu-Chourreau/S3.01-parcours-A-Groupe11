@@ -115,7 +115,7 @@ input[type="radio"]:checked {
 }
 
 .recherche_aliment {
-    font-family: NomDeLaPolice, sans-serif;
+    font-family: sans-serif;
     color: white;
     display: flex;
     font-size: 1.5vw;
@@ -127,7 +127,7 @@ input[type="radio"]:checked {
 
 #input_recherche {
     margin-left: 5px;
-    font-family: NomDeLaPolice, sans-serif;
+    font-family: sans-serif;
     width: 350px;
     font-size: 1vw;
 }
