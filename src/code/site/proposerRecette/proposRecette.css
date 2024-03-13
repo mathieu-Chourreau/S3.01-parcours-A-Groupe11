@@ -12,6 +12,7 @@ body {
 
 .bigbox{
     position: absolute;
+    width: 100%;
     top: 35%;
     left: 5%;
     display: flex;
@@ -21,6 +22,16 @@ body {
     position: absolute;
     display: flex;
     flex-direction: row;
+}
+    
+#formulaireGram{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 450px;
+    width:100%;
+    overflow-y: auto;
+    align-items: center;
 }
 
 .box{
@@ -148,4 +159,41 @@ input[type="number"]
     background-color: #666;
     background-position: center;
     z-index: -1;
+}
+
+.ingredient-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+    display: inline-block;
+
+}
+
+.ingredient-checkbox label {
+    background-color: #fff; /* Couleur de fond blanche */
+    display: block; /* Permet de définir une hauteur et une largeur à l'élément */
+    padding: 5px; /* Espacement intérieur pour un meilleur aspect */
+    margin-bottom: 5px; /* Espacement entre chaque case à cocher */
+}
+
+/* Styles pour la barre de recherche */
+#searchInput {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#checkboxContainer {
+    max-height: 200px; /* Hauteur maximale */
+    overflow-y: auto; /* Activer le défilement vertical automatique */
+    background-color: #ffffff;
+    border-radius: 1vw 1vw 1vw 1vw;
+    padding: 10px;
+    display: block;
+}
+
+
+.ingre{
+    color: white;
 }

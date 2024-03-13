@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+include '../bd.php'
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,10 +54,12 @@ session_start();
     <div class="bigbox">
         <form id="formulaireUnique" action="traiter.php" method="post">
             <div class="box">
+                <label for="nom">Nom de la recette</label>
                 <input id="nom" type="text" name="nom" placeholder="Nom de la recette" required>
+                <label for="description">Nom de la recette</label>
                 <input id="description" type="textarea" rows="5" cols="33" name="description" placeholder="Description" required>
-                <input id="poid" type="number" name="poid" placeholder="Poids" min ="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
-                <input id="preparation" type="number" name="tpsPreparation" placeholder="Temps de préparation" min ="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                <label for="preparation">Nom de la recette</label>
+                <input id="preparation" type="number" name="tpsPreparation" placeholder="Temps de préparation(minute)" min ="0" onkeyup="if(this.value<0){this.value= this.value * -1}">
             </div>
             <div class="box2">
                 <select class="difficulte" name="difficulte" id="niveau">
@@ -65,7 +68,33 @@ session_start();
                     <option value="Moyen">Moyen</option>
                     <option value="Difficile">Difficile</option>
                 </select>
-                <input id="categorie" type="text" name="categorie" placeholder="Catégorie de la recette">
+                <div id="searchContainer">
+                    <input type="text" id="searchInput" placeholder="Rechercher un ingrédient...">
+                </div>
+                <div id="checkboxContainer">
+                <?php
+                    $conn = connexionBd();
+                    // Requête SQL pour récupérer les ingrédients
+                    $sql = "SELECT nom, prixKg FROM ingredient";
+                    $result = $conn->query($sql);
+
+                    // HTML des cases à cocher
+                    $checkboxesHTML = '';
+
+                    // Vérifier s'il y a des résultats
+                    if ($result->num_rows > 0) {
+                        // Récupérer chaque ligne de résultat
+                        while($row = $result->fetch_assoc()) {
+                            $checkboxesHTML .= '<label class="ingredient-checkbox"><input type="checkbox" name="ingredients[]" value="' . $row["nom"] . '">' . $row["nom"] . '</label><br>';
+                        }
+                    }
+
+                    // Fermer la connexion à la base de données
+                    $conn->close();
+
+                    echo $checkboxesHTML;
+                ?>
+                </div>
                 <button class="valid annuler" id="annuler" type="button">Annuler</button>
                 <input class = "valid valider" type="submit" value = "valider" id = "validerTout">
             </div>
