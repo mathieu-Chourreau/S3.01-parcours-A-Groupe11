@@ -14,6 +14,7 @@ body{
     max-width: 1000px;
     height: auto;
     margin-top: 25px;
+    height: 69.5vh;
 }
 .image-container {
     flex: 0 0 auto;
