@@ -83,7 +83,7 @@ if (isset($_POST['nom']) && isset($_POST['Instruction']) && isset($_POST['tpsPre
                         <div id="selectGrm">
                             <?php foreach ($ingredients as $ingredient) {
                                 $ingredient = str_replace(" ", "-", $ingredient);
-                                echo "<label class='ingre-label' for='grammage_" . $ingredient . "'>$ingredient (Exemple: 100g)</label><input id='grammage_" . $ingredient . "' type='number' name='grammage_" . $ingredient . "' class='grammage-input' placeholder='Grammage' min ='0' onkeyup='if(this.value<0){this.value= this.value * -1}'>";
+                                echo "<label class='ingre-label' for='grammage_" . $ingredient . "'>$ingredient (Exemple: 100g)</label><input id='grammage_" . $ingredient . "' type='number' name='grammage_" . $ingredient . "' class='grammage-input' placeholder='Grammage' min ='0' onkeyup='if(this.value<0){this.value= this.value * -1}'>g";
                             } ?>
                             <input class="valid valider" type="button" value="Retour" id="validergram" onclick=goBack()>
                             <input class="valid valider" type="submit" value="Valider" id="validergram">

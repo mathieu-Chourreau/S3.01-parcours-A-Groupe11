@@ -18,7 +18,7 @@ body {
 
 .orga{
     display: flex;
-    max-width: 65vh;
+    max-width: 68vh;
     border: 1px solid #ccc;
     border-radius: 5px;
     border-top-left-radius: 15px;
@@ -30,6 +30,7 @@ body {
     margin-bottom: 20px;
     margin: auto;
     padding: 15px;
+    font-size: 1.5em;
 }
 
 .selectGrm{
@@ -62,7 +63,7 @@ body {
 .tout{
     display: flex;
     grid-template-columns: 1fr 1fr;
-    max-width: 65vw;
+    max-width: 68vw;
     border: 1px solid #ccc;
     border-radius: 5px;
     border-top-left-radius: 15px;
@@ -73,6 +74,7 @@ body {
     background-color: #f3dbdb;
     margin-bottom: 20px;
     margin: auto;
+    font-size: 1.5em;
 }
 
 .box{

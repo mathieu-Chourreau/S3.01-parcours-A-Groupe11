@@ -64,7 +64,6 @@ include '../bd.php'
     if ($_SESSION['connecter'] == true) {
         ?>
         <h1 class="phraseProp">Proposer votre recette !</h1>
-        <div class="parent">
             <div class="bigbox">
                 <form id="formulaireUnique" action="traiter.php" method="post">
                     <div class="tout">
@@ -120,12 +119,11 @@ include '../bd.php'
                         </div>
                     </div>
                     <div class="boutons_form">
-                        <button class="valid annuler" id="annuler" type="button">Annuler</button>
+                        <a href="../index.php"><button class="valid annuler" id="annuler" type="button">Annuler</button></a>
                         <input class="valid valider" type="submit" value="valider" id="validerTout">
                     </div>
                 </form>
             </div>
-        </div>
 
         <script src="../commun/commun.js"></script>
 
