@@ -13,35 +13,36 @@ include_once '../bd.php';
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assurez-vous que les clés existent dans $_POST avant de les utiliser
-    if (isset($_POST['vege'], $_POST['zone_prix'], $_POST['zone_temps'])) {
-        // Connexion à la base de données
-        $conn = connexionBd();
+    if (isset($_POST['formulaire'])) {
+        $formulaire = $_POST['formulaire'];
+        // Vérifier si l'utilisateur est connecté
 
-        // Récupération des données du formulaire
-        $user_id = $_SESSION['login_username'];
-        $vege = $_POST['vege'];
-        $budget = $_POST['zone_prix'];
-        $temps = $_POST['zone_temps'];
+        if ($formulaire == 1) {
+            // Connexion à la base de données
+            $conn = connexionBd();
+            // Préparer la requête d'insertion
+            $sql = "INSERT INTO preferences_utilisateur (nom_utilisateur, nom_ingredient, preference) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
 
-        // Préparation de la requête d'insertion
-        $stmt = $conn->prepare("INSERT INTO preferencesComplementaires (user_id ,vege_pref, budget, tempsCuisine) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("iiii", $user_id, $vege, $budget, $temps);
+            // Récupérer l'identifiant de l'utilisateur connecté
+            $id_utilisateur = $_SESSION['login_username'];
 
-        // Exécution de la requête
-        if ($stmt->execute() === TRUE) {
-            echo "<script>alert('Enregistrement des préférences réussi.');</script>";
-        } else {
-            echo "<script>alert('Erreur lors de l\'enregistrement des préférences: " . $conn->error . "');</script>";
+            // Parcourir les données du formulaire
+
+            foreach ($_POST as $nom_ingredient => $preference) {
+                // Exécuter la requête d'insertion pour chaque ligne du formulaire
+                $stmt->bind_param("ssi", $id_utilisateur, $nom_ingredient, $preference);
+                $stmt->execute();
+            }
+
+            echo "<script>alert('Fin insertion prefIngr');</script>";
+
+            deconnexionBd($stmt);
+            deconnexionBd($conn);
         }
-
-        // Fermeture de la requête et de la connexion
-        $stmt->close();
-        $conn->close();
-    } else {
-
     }
 }
+
 
 // Vérification de l'ID de l'utilisateur dans la table des préférences complémentaires
 $conn = connexionBd();
@@ -58,8 +59,8 @@ if ($result->num_rows > 0) {
     $budgtPref = $row['budget'];
 
 }
-$stmt->close();
-$conn->close();
+deconnexionBd($stmt);
+deconnexionBd($conn);
 ?>
 
 
@@ -121,7 +122,8 @@ $conn->close();
         </div>
     </nav>
 
-    <form id="example" method="POST">
+    <form id="example" method="POST" action="affichage_recette.php">
+        <input type="hidden" name="formulaire" value="2">
         <div class="container_form">
             <div id="categorie">
                 <img class="etoile" src="../image/pngegg.png">

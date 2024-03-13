@@ -3,37 +3,6 @@ session_start();
 
 include '../bd.php';
 
-// Vérifier si le formulaire a été soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifier si l'utilisateur est connecté
-        echo "<script>alert('formulaire soumis');</script>";
-        // Connexion à la base de données
-        $conn = connexionBd();
-        echo "<script>alert('connexion');</script>";
-        // Préparer la requête d'insertion
-        $sql = "INSERT INTO preferences_utilisateur (nom_utilisateur, nom_ingredient, preference) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-
-        echo "<script>alert('Preparation');</script>";
-
-        // Récupérer l'identifiant de l'utilisateur connecté
-        $id_utilisateur =  $_SESSION['login_username'] ;
-
-        echo "<script>alert('utilisateur');</script>";
-        // Parcourir les données du formulaire
-
-        echo "<script>alert('debut parcours');</script>";
-        foreach ($_POST as $nom_ingredient => $preference) {
-            // Exécuter la requête d'insertion pour chaque ligne du formulaire
-            $stmt->bind_param("ssi", $id_utilisateur, $nom_ingredient, $preference);
-            $stmt->execute();
-        }
-
-        echo "<script>alert('Fin');</script>";
-
-        deconnexionBd($stmt);
-        deconnexionBd($conn);
-    }
 
 
 ?>
@@ -127,7 +96,8 @@ if ($_SESSION['connecter'] == true) {
 
         <h2 class="aide_categorie">Sélectionnez une catégorie parmi celles proposées :</h2>
 
-        <form id="form_pref" method="POST" onsubmit="submitForm()" action="sale.php">
+        <form id="form_pref" method="POST" action="sale.php">
+        <input type="hidden" name="formulaire" value="1">
             <div class="container_form">
                 <div id="choix_categorie">
                     <div id="navBar">
@@ -491,15 +461,6 @@ if ($_SESSION['connecter'] == true) {
 
         function toggleModal3() {
             modalContainer3.classList.toggle("active")
-        }
-
-        function submitForm() {
-
-            var form = document.getElementById("form_pref");
-
-            console.log(form)
-            alert("Soumission");
-            form.submit();
         }
 
         function sortByCategory(selectedCategory) {
