@@ -82,22 +82,59 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
                             echo "<b>ID:</b> " . $row["id"]. "<br>";
                             echo "<b>Nom: </b>" . $row["nom"]. "<br>";
                             echo "<b>Description: </b>" . $row["description"]. "<br>";
-                            echo "<b>Grammage: </b>" . $row["grammage"]. "<br>";
                             echo "<b>Temps de préparation:</b> " . $row["tempsPreparation"]. "<br>";
                             echo "<b>Difficulté:</b> " . $row["difficulte"]. "<br>";
-                            echo "<b>Catégorie:</b> " . $row["categorie"]. "<br>";
                             
                             // Boutons Ajouter et Supprimer
-                            echo '<form action="traiter_recette.php" method="post">';
+                            echo '<form action="traiter_recette.php" method="post" enctype="multipart/form-data">';
                                 echo '<div class="boutons_back_office">';
                                     echo '<input type="hidden" name="recette_id" value="' . $row["id"] . '">';
                                     echo '<input type="hidden" name="nom_recette" value="' . $row["nom"] . '">';
                                     echo '<input type="submit" name="action" value="Ajouter">';
                                     echo '<input type="submit" name="action" value="Supprimer">';
                                 echo '</div>';
-                            echo '</form>';
                         echo '</div>';
-                        echo "<br><br>";
+                        echo '<div class="ingredients">';
+                            $ingredient = "SELECT i.nom AS nom_ingredient, c.quantite AS quantite
+                                FROM ingredient i
+                                JOIN contenirAValider c ON i.nom = c.Ingredient_id
+                                JOIN recetteAValider r ON c.Recette_id = r.id
+                                WHERE r.id = '".$row["id"]."';";
+        
+                            $resultIng = $conn->query($ingredient);
+        
+                            echo '<ul>';
+                            foreach ($resultIng as $ing) {
+                                echo '<li>' . $ing['nom_ingredient'] . ' : ' . $ing['quantite'] . ' g</li>';
+                            }
+                            echo '</ul>';
+                            echo '</div>'; ?>
+                        <div class="bigone">
+                        <div class="categorie">
+                        <select class = "selectCat" name="categorie_recette" id="categorie_recette">
+                        <?php
+                        // Requête SQL pour sélectionner les catégories de recettes distinctes de la table recette
+                        $sql_categories = "SELECT gout FROM categorieRecette";
+                        $result_categories = $conn->query($sql_categories);
+
+                        // Vérifier s'il y a des résultats
+                        if ($result_categories->num_rows > 0) {
+                            // Afficher les catégories de recettes dans le menu déroulant
+                            while($row_category = $result_categories->fetch_assoc()) {
+                                echo "<option value='" . $row_category["gout"] . "'>" . $row_category["gout"] . "</option>";
+                            }
+                        } else {
+                            echo "<option value=''>Aucune catégorie disponible</option>";
+                        }
+                        ?>
+                        </select>
+                        </div> 
+                        <div class="upload">  
+                        <input type="file" name="<?php $row['nom'] ?>" id="">
+                        </div> 
+                        </div>
+                        </form>
+                        <?php echo "<br><br>";
                     echo '</div>';
                 echo '</div>';
             echo '</div>';
