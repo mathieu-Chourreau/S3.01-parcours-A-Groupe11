@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result_nom_recette = $stmt_nom_recette->get_result();
 
         if ($result_nom_recette->num_rows > 0) {
-            echo "Le nom de la recette existe déjà dans la table recette.";
+            echo '<script>alert("Le nom de la recette existe déjà dans la table recette."); window.location.href = "back_office.php";</script>';
+            exit;
         } else {
             // Récupérer l'identifiant maximum actuel dans la table recette
             $sql_max_id = "SELECT MAX(identifiant) AS max_id FROM recette";
@@ -44,20 +45,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt_insert_recette = $conn->prepare($sql_insert_recette);
                 $stmt_insert_recette->bind_param("issssi", $new_recette_id, $nom_recette, $row_recette_details['description'], $row_recette_details['tempsPreparation'], $row_recette_details['difficulte'], $grammage);
                 $stmt_insert_recette->execute();
-
-                echo "Recette ajoutée avec succès dans la table recette.<br>";
+                
+                echo '<script>alert("Recette ajoutée avec succès dans la table recette."); window.location.href = "back_office.php";</script>';
 
                 $sql = "DELETE FROM recetteavalider WHERE id = ?";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("i", $recette_id);
                 $stmt->execute();
 
-                echo "Recette avec l'ID $recette_id supprimée avec succès.";
-
+                echo '<script>alert("Recette avec l\'ID '.$recette_id.' supprimée avec succès."); window.location.href = "back_office.php";</script>';
 
                 $stmt_insert_recette->close();
+                exit;
             } else {
-                echo "La recette n'existe pas dans la table recetteavalider.";
+                echo '<script>alert("La recette n\'existe pas dans la table recetteavalider."); window.location.href = "back_office.php";</script>';
+                exit;
+                
+
             }
 
             // Fermer la connexion à la base de données
@@ -73,12 +77,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("i", $recette_id);
         $stmt->execute();
 
-        echo "Recette avec l'ID $recette_id supprimée avec succès.";
+        echo '<script>alert("Recette avec l\'ID '.$recette_id.' supprimée avec succès."); window.location.href = "back_office.php";</script>';
+        exit;
+
 
         $stmt->close();
         $conn->close();
     }
 } else {
-    echo "Aucune soumission de formulaire";
+    echo '<script>alert("Aucune soumission de formulaire."); window.location.href = "back_office.php";</script>';
+    exit;
 }
 ?>
