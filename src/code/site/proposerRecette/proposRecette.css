@@ -11,36 +11,101 @@ body {
 } 
 
 .bigbox{
-    position: absolute;
-    width: 100%;
-    top: 35%;
-    left: 5%;
     display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
-#formulaireUnique{
-    position: absolute;
+.orga{
     display: flex;
-    flex-direction: row;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+    margin: auto;
+    padding: 15px;
 }
-    
+
+.selectGrm{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Espacement entre chaque ligne */
+}
+
+.ingre-label {
+    flex: 1; /* Prend autant d'espace que possible */
+    margin-right: 10px; /* Espacement entre le label et l'input */
+}
+
+.grammage-input {
+    flex: 2; /* Prend deux fois moins d'espace que le label */
+    width: 100%; /* Remplit le reste de l'espace disponible */
+}
+
+
 #formulaireGram{
     position: relative;
     display: flex;
     flex-direction: column;
-    max-height: 450px;
+    height: auto;
     width:100%;
     overflow-y: auto;
     align-items: center;
 }
 
+.tout{
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1050px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%;
+    background-color: #f3dbdb;
+    margin-bottom: 20px;
+    margin: auto;
+}
+
 .box{
-    flex: 1;
+    grid-column: 1;
+    margin: 20px;
 }
 
 .box2{
-    flex: 1;
-    margin-left: 15vw;
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    margin: 20px;
+}
+
+
+.searchContainer_ingr{
+    margin-bottom: 20px;
+}
+
+.boutons_form{
+    margin-top: 10px;
+    margin-right: 20px;
+    float: right;
+}
+
+.parent{
+    display: flex;
+    justify-content: flex-end; /* Aligne le conteneur à droite */
+    margin: 20px; /* Ajoute une marge autour du conteneur */
+}
+
+.etape{
+    margin-left: 10px;
 }
 
 
@@ -89,22 +154,19 @@ input[type="number"]
     margin-bottom: 5%;
 }
 
-#description{
+#Instruction{
     height: 200px;
 }
 
 
 .phraseProp {
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
     font-size: 5vw;
     font-family: 'NomDeLaPolice', sans-serif;
     text-align: center;
     white-space:normal ;
     color: rgb(248, 233, 233);
     z-index: 1; 
+    margin-top: 20px;
 }
 
 .difficulte{
@@ -126,7 +188,6 @@ input[type="number"]
 }
 
 .valid{
-    position: relative;
     border-radius: 1vw 1vw 1vw 1vw;
     font-size: 2.5vh;
     width: 10vw;
@@ -149,16 +210,15 @@ input[type="number"]
 }
 
 .flou{
-    height: 100%;
-    width: 100%;
+    position: fixed;
     margin: 0;
-    background: url(../image/fond_page_accueil.png);
-    -webkit-filter: blur(3.6px);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #666;
-    background-position: center;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../image/2x-2x-fond.png');
+    -webkit-filter: blur(2px);
     z-index: -1;
+    background-size: cover;
 }
 
 .ingredient-checkbox input[type="checkbox"] {
@@ -189,6 +249,7 @@ input[type="number"]
     overflow-y: auto; /* Activer le défilement vertical automatique */
     background-color: #ffffff;
     border-radius: 1vw 1vw 1vw 1vw;
+    max-width: 220px;
     padding: 10px;
     display: block;
 }
@@ -197,3 +258,14 @@ input[type="number"]
 .ingre{
     color: white;
 }
+
+.hidden {
+    display: none;
+}
+
+.hidden-checkbox {
+    display: none;
+}
+
+
+

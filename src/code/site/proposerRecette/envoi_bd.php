@@ -1,10 +1,10 @@
 <?php
 session_start();
 include '../bd.php'; 
-if(isset($_SESSION['nom']) && isset($_SESSION['description']) && isset($_SESSION['tpsPreparation']) && isset($_SESSION['difficulte']) && isset($_SESSION['ingredients'])) {
+if(isset($_SESSION['nom']) && isset($_SESSION['Instruction']) && isset($_SESSION['tpsPreparation']) && isset($_SESSION['difficulte']) && isset($_SESSION['ingredients'])) {
     $nom = $_SESSION['nom'];
     $temps_preparation = $_SESSION['tpsPreparation'];
-    $description = $_SESSION['description'];
+    $description = $_SESSION['Instruction'];
     $difficulte = $_SESSION['difficulte'];
     $ingredients = $_SESSION['ingredients']; 
 
