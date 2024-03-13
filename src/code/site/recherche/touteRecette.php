@@ -30,7 +30,7 @@ foreach ($resultRecette as $rec) {
 
     $listeIngr = array();
 
-    $prix = 0;
+    $prix = 0; 
 
     if ($resultIngredient && $resultIngredient->num_rows > 0) {
         while ($row = $resultIngredient->fetch_assoc()) {
