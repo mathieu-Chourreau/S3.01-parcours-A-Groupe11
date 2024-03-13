@@ -200,6 +200,7 @@ left: 5px;
 margin-top: 45px;
 padding-top: 35px;
 padding-bottom: 10px;
+max-height: 100%;
 border-top: 1px solid #e5e5e5;
 }
 .lien{

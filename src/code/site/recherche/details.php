@@ -85,6 +85,8 @@ session_start();
 
                     echo '<p id="recipe-prix" class="recipe-prix"></p>';
 
+                    echo '<button class="btn white-btn" onclick="goBack()">Liste des recettes</button>';
+
                     echo '</div>';
                     echo '<div class="ingredients">';
                     echo '<p><b>Ingrédients nécessaires :</b></p>';
@@ -138,6 +140,10 @@ session_start();
     <script src="../commun/commun.js"></script>
 
     <script>
+        function goBack() {
+            window.history.back();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const recipeName = urlParams.get('recipeName');

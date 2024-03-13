@@ -52,6 +52,23 @@ h3{
     color: white;
 }
 
+.conditions {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    margin: auto;
+    margin-top: 40px;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.conditions select,
+.conditions input {
+    margin: 0 10px; /* Espacement entre les éléments */
+    height: 5vh;
+}
+
+
 
 .s_recherche{
     justify-content: center;

@@ -58,6 +58,23 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
         <input type="text" id="searchInput" value="<?php echo htmlspecialchars($searchText); ?>" placeholder="Rechercher une recette...">
     </div>
 
+    <div class="conditions">
+        <select id="timeDropdown" class="form-select">
+            <option value="0">Temps de préparation (min)</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+        <select id="difDropdown" class="form-select">
+            <option value="rien">Difficulté de la recette</option>
+            <option value="Facile">Facile</option>
+            <option value="Moyen">Moyen</option>
+            <option value="Difficile">Difficile</option>
+        </select>
+        <input type="text" id="inputPrix" placeholder="Prix maximum">
+    </div>
+
+
     <div class="bouttonveg">
         <h3>Afficher uniquement les recettes végétariennes</h3>
         <label class="switch">
@@ -92,9 +109,9 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
             echo '<h4 class="card-title">' . $rec['nom_recette'] . '</h4>';
             echo '<p class="typeP"><b>Catégorie : </b>' . $rec['categorie_recette'] . '</p>';
             echo '<p class="card-text"><b>Description : </b>' . $rec['instruction'] . '</p>';
-            echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $rec['dif'] . '</p>';
-            echo '<p class="card-text"><b>Temps : </b>' . $rec['temps'] . ' min</p>';
-            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' €</p>';
+            echo '<p class="dif"><b>Niveau de difficulté : </b>' . $rec['dif'] . '</p>';
+            echo '<p class="tempsP"><b>Temps : </b>' . $rec['temps'] . ' min</p>';
+            echo '<p class="prixP"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' €</p>';
             echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
             echo '</div>';
             echo '</div>';
@@ -138,44 +155,47 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
 
     <script>
         var boutton = document.getElementsByClassName("bouttonveg");
-        function veg() {
-            var checkbox = document.getElementById("vegBouton");
-            var classCard = document.querySelectorAll(".card");
-
-            if (checkbox.checked) {
-                for (var cards of classCard) {
-                    if (!(cards.querySelector(".typeP").textContent.includes("Végétarien"))) {
-                        cards.style.display = 'none';
-                    }
-                    if (cards.querySelector(".typeP").textContent.includes("Végétarien")) {
-                        cards.style.display = 'block';
-                    }
-                }
-            } else {
-                for (var cards of classCard) {
-                    cards.style.display = 'block';
-                }
-            }
-        }
-
         function filterRecipes() {
             var searchText = document.getElementById('searchInput').value.toLowerCase();
+            var isVegetarian = document.getElementById("vegBouton").checked;
+            var selectedTime = parseInt(document.getElementById('timeDropdown').value);
+            var inputPrix = document.getElementById('inputPrix').value;
+            var selectedDif = document.getElementById('difDropdown').value
+
+            console.log(selectedDif);
+
             var recipes = document.querySelectorAll('.card');
 
-            recipes.forEach(function (recipe) {
+            recipes.forEach(function(recipe) {    
                 var recipeName = recipe.querySelector('.card-title').textContent.toLowerCase();
+                var recipeType = recipe.querySelector('.typeP').textContent.toLowerCase();
+                var recipeTime = recipe.querySelector('.tempsP').textContent.substring(8, 10);
+                var recipeDif = recipe.querySelector('.dif').textContent.substring(23);
+                var recipePrixP = recipe.querySelector('.prixP').textContent;
+                var Prix = recipePrixP.substring(7, recipePrixP.length - 2);
 
-                if (recipeName.includes(searchText)) {
-                    recipe.style.display = 'block';
-                } else {
-                    recipe.style.display = 'none';
+                console.log(recipeDif);
+
+                var showRecipe = true;
+
+                if ((searchText !== '' && !recipeName.includes(searchText)) ||
+                    (isVegetarian && !recipeType.includes("végétarien")) ||
+                    (selectedTime !== 0 && recipeTime > selectedTime) ||
+                    (inputPrix !== '' && inputPrix < Prix) ||
+                    (selectedDif !== 'rien' && selectedDif !== recipeDif)) {
+                    showRecipe = false;
                 }
+
+                recipe.style.display = showRecipe ? 'block' : 'none';
             });
         }
 
         document.addEventListener("DOMContentLoaded", filterRecipes);
-
         document.getElementById('searchInput').addEventListener('input', filterRecipes);
+        document.getElementById('vegBouton').addEventListener('change', filterRecipes);
+        document.getElementById('timeDropdown').addEventListener('change', filterRecipes);
+        document.getElementById('inputPrix').addEventListener('input', filterRecipes);
+        document.getElementById('difDropdown').addEventListener('change', filterRecipes);
 
     </script>
 </body>
