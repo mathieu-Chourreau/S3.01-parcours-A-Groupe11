@@ -1,7 +1,41 @@
 <?php
 session_start();
 
-$searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
+include '../bd.php';
+
+// Vérifier si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérifier si l'utilisateur est connecté
+        echo "<script>alert('formulaire soumis');</script>";
+        // Connexion à la base de données
+        $conn = connexionBd();
+        echo "<script>alert('connexion');</script>";
+        // Préparer la requête d'insertion
+        $sql = "INSERT INTO preferences_utilisateur (nom_utilisateur, nom_ingredient, preference) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+
+        echo "<script>alert('Preparation');</script>";
+
+        // Récupérer l'identifiant de l'utilisateur connecté
+        $id_utilisateur =  $_SESSION['login_username'] ;
+
+        echo "<script>alert('utilisateur');</script>";
+        // Parcourir les données du formulaire
+
+        echo "<script>alert('debut parcours');</script>";
+        foreach ($_POST as $nom_ingredient => $preference) {
+            // Exécuter la requête d'insertion pour chaque ligne du formulaire
+            $stmt->bind_param("ssi", $id_utilisateur, $nom_ingredient, $preference);
+            $stmt->execute();
+        }
+
+        echo "<script>alert('Fin');</script>";
+
+        deconnexionBd($stmt);
+        deconnexionBd($conn);
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,7 +95,6 @@ if ($_SESSION['connecter'] == true) {
 
         <?php
 
-        include '../bd.php';
 
         $conn = connexionBd();
 
@@ -94,7 +127,7 @@ if ($_SESSION['connecter'] == true) {
 
         <h2 class="aide_categorie">Sélectionnez une catégorie parmi celles proposées :</h2>
 
-        <form id="form_pref" method="POST" action="sale.php">
+        <form id="form_pref" method="POST" onsubmit="submitForm()" action="sale.php">
             <div class="container_form">
                 <div id="choix_categorie">
                     <div id="navBar">
@@ -108,7 +141,7 @@ if ($_SESSION['connecter'] == true) {
                 <h2 class="aide_preference">Cochez vos préférences :</h2>
 
                 <div class="recherche_aliment">
-                    <label for="categories">Vous pouvez également recherchez votre aliment :</label>
+                    <label for="categories">Vous pouvez également rechercher votre aliment :</label>
                     <input type="text" id="input_recherche" placeholder="Recherche d'ingrédient...">
                 </div>
 
@@ -207,7 +240,7 @@ if ($_SESSION['connecter'] == true) {
             </div>
             <div class="boutons_form">
                 <button class="modal-btn modal-trigger" id="annulerBtn" type="button">Annuler</button>
-                <button class="modal-btn modal-trigger2" id="validerBtn" type="submit">Suivant</button>
+                <button id="validerBtn" type="submit">Suivant</button>
             </div>
         </form>
 
@@ -252,29 +285,6 @@ if ($_SESSION['connecter'] == true) {
             </div>
         </div>
 
-
-        <!-- <div class="modal-valider">
-        <div class="overlay modal-trigger2"></div>
-        <div class="modal">
-            <button class="close-modal modal-trigger2">X</button>
-            <div class="modal-title">
-                <h1> Etes-vous prêt à voir votre sélection ?</h1>
-            </div>
-            <div class="modal-text">
-                <p style="margin-right: 40px;">Vous vous appretez à valider votre formulaire et vous allez être redirigé
-                    vers la page contenant
-                    notre
-                    sélection de recettes.
-                </p>
-                <p style="margin-top: 50px;">Etes vous sûr de vouloir continuer ?</p>
-            </div>
-            <div class="modal-buttons">
-                <button class="btn-retour-modal modal-trigger2">Retour</button>
-                <a href="#" class="btn-annuler-modal" onclick="submitForm()">Continuer</a>
-            </div>
-
-        </div>
-    </div> -->
     <?php } else {
     header("Location: ../connexion/connexion.php");
     exit;
@@ -488,7 +498,7 @@ if ($_SESSION['connecter'] == true) {
             var form = document.getElementById("form_pref");
 
             console.log(form)
-
+            alert("Soumission");
             form.submit();
         }
 

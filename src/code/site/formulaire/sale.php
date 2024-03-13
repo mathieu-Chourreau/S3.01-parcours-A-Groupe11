@@ -6,19 +6,62 @@
  * @version 0.1
  * @date    17/01/2024
  */
+
 session_start();
 
-if (!isset($_SESSION['ingredientsPreferences'])) {
-    $_SESSION['ingredientsPreferences'] = array();
-}
+include_once '../bd.php';
 
+// Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach ($_POST as $nomIngredient => $valeur) {
-        $_SESSION['ingredientsPreferences'][$nomIngredient] = $valeur;
+    // Assurez-vous que les clés existent dans $_POST avant de les utiliser
+    if (isset($_POST['vege'], $_POST['zone_prix'], $_POST['zone_temps'])) {
+        // Connexion à la base de données
+        $conn = connexionBd();
+
+        // Récupération des données du formulaire
+        $user_id = $_SESSION['login_username'];
+        $vege = $_POST['vege'];
+        $budget = $_POST['zone_prix'];
+        $temps = $_POST['zone_temps'];
+
+        // Préparation de la requête d'insertion
+        $stmt = $conn->prepare("INSERT INTO preferencesComplementaires (user_id ,vege_pref, budget, tempsCuisine) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiii", $user_id, $vege, $budget, $temps);
+
+        // Exécution de la requête
+        if ($stmt->execute() === TRUE) {
+            echo "<script>alert('Enregistrement des préférences réussi.');</script>";
+        } else {
+            echo "<script>alert('Erreur lors de l\'enregistrement des préférences: " . $conn->error . "');</script>";
+        }
+
+        // Fermeture de la requête et de la connexion
+        $stmt->close();
+        $conn->close();
+    } else {
+
     }
 }
 
+// Vérification de l'ID de l'utilisateur dans la table des préférences complémentaires
+$conn = connexionBd();
+$user_id = $_SESSION['login_username'];
+$stmt = $conn->prepare("SELECT user_id, budget, vege_pref, tempsCuisine FROM preferencesComplementaires WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    // L'utilisateur a des préférences enregistrées, récupérons les valeurs et affichons-les dans un prompt
+    $row = $result->fetch_assoc();
+    $vege_pref = $row['vege_pref'];
+    $tempsCuisine = $row['tempsCuisine'];
+    $budgtPref = $row['budget'];
+
+}
+$stmt->close();
+$conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -29,7 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <title>Edu'Cook</title>
 
@@ -56,23 +100,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="titreMenu">
             <ul id="menu">
-            <li><a href="../index.php" class="link">Accueil</a></li>
+                <li><a href="../index.php" class="link">Accueil</a></li>
                 <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
                 <li><a href="formulaire.php" class="link active">Formulaire</a></li>
                 <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
                 <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
-                <?php if($_SESSION['admin'] == false){ ?>
-                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
+                <?php if ($_SESSION['admin'] == false) { ?>
+                <?php } elseif ($_SESSION['admin'] == true) {
+                    echo "<li><a href='backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";
+                } ?>
             </ul>
         </div>
         <div class="boutonConnexion">
-            <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
+            <?php if ($_SESSION['connecter'] == false) { ?>
+                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se
+                        connecter</button></a>
+            <?php } elseif ($_SESSION['connecter'] == true) {
+                echo "<button class='btn white-btn' id='loginBtn'><a href='connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";
+            } ?>
         </div>
     </nav>
 
-    <form id="example" method="POST" action="affichage_recette.php">
+    <form id="example" method="POST">
         <div class="container_form">
             <div id="categorie">
                 <img class="etoile" src="../image/pngegg.png">
@@ -87,11 +136,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label class="vege" for="vege" style="font-size:3vw">Végétarien : </label>
 
                         <div class="radioBtn">
-                            <input type="radio" id="VegeNon" name="vege" value="0">
+                            <input type="radio" id="VegeNon" name="vege" value="0" <?php if (isset($vege_pref) && $vege_pref == 0)
+                                echo "checked"; ?>>
                             <label>NON</label>
-                            <input type="radio" id="VegeSansPreference" name="vege" value="1" checked style="margin-left: 5vw">
+                            <input type="radio" id="VegeSansPreference" name="vege" value="1" <?php if (!isset($vege_pref) || $vege_pref == 1)
+                                echo "checked"; ?> style="margin-left: 5vw">
                             <label>Sans préférence</label>
-                            <input type="radio" id="vegeOui" name="vege" value="2" style="margin-left: 5vw">
+                            <input type="radio" id="vegeOui" name="vege" value="2" <?php if (isset($vege_pref) && $vege_pref == 2)
+                                echo "checked"; ?> style="margin-left: 5vw">
                             <label>OUI</label>
                         </div>
 
@@ -99,13 +151,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="prix">
                         <label for="prix" style="font-size:3vw">Budget (euros): </label>
-                        <input type="text" id="zone_prix" name="zone_prix">
+                        <input type="text" id="zone_prix" value="<?php if (isset($budgtPref))
+                            echo $budgtPref; ?>">
                         <div id="prixError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
                     <div class="temps">
                         <label for="temps" style="font-size:3vw">Temps (minute): </label>
-                        <input type="text" id="zone_temps" name="zone_temps">
+                        <input type="text" id="zone_temps" name="zone_temps" value="<?php if (isset($tempsCuisine))
+                            echo $tempsCuisine; ?>">
                         <div id="tempsError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
@@ -198,7 +252,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de
+                                    confidentialité</a>
                             </p>
                         </section>
                     </div>
@@ -215,7 +270,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 
-    <script src="commun/commun.js"></script>
+    <script src="../commun/commun.js"></script>
 
     <script>
         function reinitialiserPref() {
@@ -290,8 +345,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 modalContainer2.classList.toggle("active");
             }
         }
-
-
 
     </script>
 </body>
