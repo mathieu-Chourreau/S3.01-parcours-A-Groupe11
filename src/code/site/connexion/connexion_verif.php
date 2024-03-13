@@ -26,6 +26,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
             header("Location: ../backOffice/back_office.php");
             $_SESSION['admin'] = true;
             $_SESSION['connecter'] = true;
+            $_SESSION['login_username'] = $username;
             deconnexionBd($stmt);
             deconnexionBd($conn);
             exit;

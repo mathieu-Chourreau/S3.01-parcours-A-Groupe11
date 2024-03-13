@@ -18,7 +18,7 @@ body {
 
 .orga{
     display: flex;
-    max-width: 500px;
+    max-width: 65vh;
     border: 1px solid #ccc;
     border-radius: 5px;
     border-top-left-radius: 15px;
@@ -35,17 +35,17 @@ body {
 .selectGrm{
     display: flex;
     align-items: center;
-    margin-bottom: 10px; /* Espacement entre chaque ligne */
+    margin-bottom: 10px; 
 }
 
 .ingre-label {
-    flex: 1; /* Prend autant d'espace que possible */
-    margin-right: 10px; /* Espacement entre le label et l'input */
+    flex: 1;
+    margin-right: 10px; 
 }
 
 .grammage-input {
-    flex: 2; /* Prend deux fois moins d'espace que le label */
-    width: 100%; /* Remplit le reste de l'espace disponible */
+    flex: 2; 
+    width: 100%; 
 }
 
 
@@ -62,7 +62,7 @@ body {
 .tout{
     display: flex;
     grid-template-columns: 1fr 1fr;
-    max-width: 1050px;
+    max-width: 65vw;
     border: 1px solid #ccc;
     border-radius: 5px;
     border-top-left-radius: 15px;

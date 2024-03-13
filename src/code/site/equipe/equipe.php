@@ -125,11 +125,5 @@ session_start();
         </div>
     </div>
 </footer>
-<script>
-    function toggleDropdown() {
-        var dropdownContent = document.getElementById("dropdownContent");
-        dropdownContent.style.display === "block" ? dropdownContent.style.display = "none" : dropdownContent.style.display = "block";
-    }
-</script>
 </body>
 </html>
