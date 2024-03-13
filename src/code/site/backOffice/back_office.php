@@ -1,5 +1,9 @@
 <?php
-session_start(); 
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    header("Location: ../connexion/connexion.php");
+    exit(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
