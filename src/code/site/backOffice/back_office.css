@@ -53,3 +53,54 @@ body{
 .boutons_back_office{
     margin: 15px;
 }
+
+.ingredients{
+    grid-column: 3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f0e8e8;
+}
+
+.categorie{
+    grid-column: 3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f0e8e8;
+}
+
+.selectCat{
+    border-radius: 7px;
+}
+
+.upload{
+    grid-column: 3;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 15px;
+    padding: 20px;
+    height: fit-content;
+    background-color: #f0e8e8;
+}
+
+.bigone{
+    display: flex;
+    flex-direction: column;
+}
