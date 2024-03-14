@@ -32,7 +32,6 @@ if(isset($_SESSION['nom']) && isset($_SESSION['Instruction']) && isset($_SESSION
     }
 
     if ($requete->affected_rows > 0) {
-        echo '<body onLoad="alert(\'Donnee enregistrer\')">';
         echo '<meta http-equiv="refresh" content="0;URL=../index.php">';
     } else {
         echo "Erreur lors de l'insertion des données : " . $requete->error;

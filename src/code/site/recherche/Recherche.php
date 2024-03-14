@@ -121,7 +121,12 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
             echo '<p class="dif"><b>Niveau de difficulté : </b>' . $rec['dif'] . '</p>';
             echo '<p class="tempsP"><b>Temps : </b>' . $rec['temps'] . ' min</p>';
             echo '<p class="prixP"><b>Prix : </b>' . $listeRecette[$rec['nom_recette']] . ' €</p>';
-            echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            if(isset($rec['imageR'])){
+                echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipeImageSrc=' . urlencode($rec['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            }
+            if(!(isset($rec['imageR']))){
+                echo '<a href="details.php?recipeName=' . urlencode($rec['nom_recette']) . '&recipeCategory=' . urlencode($rec['categorie_recette']) . '&recipeDescription=' . urlencode($rec['instruction']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+            }
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -206,7 +211,7 @@ $searchText = isset($_GET['barreDeRecherche']) ? $_GET['barreDeRecherche'] : '';
                 recipe.style.display = showRecipe ? 'block' : 'none';
             });
         }
-
+        
         document.addEventListener("DOMContentLoaded", filterRecipes);
         document.getElementById('searchInput').addEventListener('input', filterRecipes);
         document.getElementById('vegBouton').addEventListener('change', filterRecipes);

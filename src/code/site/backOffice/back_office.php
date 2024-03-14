@@ -75,9 +75,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
             echo '<div class="card-grid">';
                 echo '<div class="card">';
                     echo '<div class="card-content">';
-                        echo '<div class="image-container">';
-                            echo '<img src="../image/logo.png" class="imageCard" alt=une image>';
-                        echo '</div>';
                         echo '<div class="contenu_back_office">';
                             echo "<b>ID:</b> " . $row["id"]. "<br>";
                             echo "<b>Nom: </b>" . $row["nom"]. "<br>";
