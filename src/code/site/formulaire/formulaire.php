@@ -3,39 +3,6 @@ session_start();
 
 include '../bd.php';
 
-// Vérifier si le formulaire a été soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifier si l'utilisateur est connecté
-        echo "<script>alert('formulaire soumis');</script>";
-        // Connexion à la base de données
-        $conn = connexionBd();
-        echo "<script>alert('connexion');</script>";
-        // Préparer la requête d'insertion
-        $sql = "INSERT INTO preferences_utilisateur (nom_utilisateur, nom_ingredient, preference) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-
-        echo "<script>alert('Preparation');</script>";
-
-        // Récupérer l'identifiant de l'utilisateur connecté
-        $id_utilisateur =  $_SESSION['login_username'] ;
-
-        echo "<script>alert('utilisateur');</script>";
-        // Parcourir les données du formulaire
-
-        echo "<script>alert('debut parcours');</script>";
-        foreach ($_POST as $nom_ingredient => $preference) {
-            // Exécuter la requête d'insertion pour chaque ligne du formulaire
-            $stmt->bind_param("ssi", $id_utilisateur, $nom_ingredient, $preference);
-            $stmt->execute();
-        }
-
-        echo "<script>alert('Fin');</script>";
-
-        deconnexionBd($stmt);
-        deconnexionBd($conn);
-    }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -54,9 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <?php
 if ($_SESSION['connecter'] == true) {
+    
     ?>
 
     <body>
+
+
         <div class="background"></div>
         <nav id="nav">
             <div id="imgLogoNav">
@@ -123,11 +93,12 @@ if ($_SESSION['connecter'] == true) {
 
         ?>
 
-        <h1 class="titre_Form">Bienvenu dans votre formulaire de préférence !</h1>
+        <h1 class="titre_Form">Bienvenue dans votre formulaire de préférences !</h1>
 
         <h2 class="aide_categorie">Sélectionnez une catégorie parmi celles proposées :</h2>
 
-        <form id="form_pref" method="POST" onsubmit="submitForm()" action="sale.php">
+        <form id="form_pref" method="POST" action="sale.php">
+            <input type="hidden" name="num_form" value="1">
             <div class="container_form">
                 <div id="choix_categorie">
                     <div id="navBar">
@@ -162,46 +133,175 @@ if ($_SESSION['connecter'] == true) {
 
                             <?php
 
-                            $sql = "SELECT nom, categorie FROM ingredient 
-                        JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant 
-                        WHERE categorie = ?";
+                            $conn = connexionBd();
+                            $userId = $_SESSION['login_username'];
 
-                            $stmt = $conn->prepare($sql);
+                            $sql_check_user = "SELECT COUNT(*) AS user_count FROM preferences_utilisateur WHERE nom_utilisateur = ?";
+                            $stmt_check_user = $conn->prepare($sql_check_user);
+                            $stmt_check_user->bind_param("s", $userId);
+                            $stmt_check_user->execute();
+                            $result_check_user = $stmt_check_user->get_result();
+                            $row_check_user = $result_check_user->fetch_assoc();
+                            $user_count = $row_check_user['user_count'];
 
-                            for ($i = 0; $i < count($listeCategoriesStocks); $i++) {
-                                $stmt->bind_param("s", $categorie);
-                                $categorie = $listeCategoriesStocks[$i];
+                            deconnexionBd($stmt_check_user);
+                            deconnexionBd($conn);
+
+                            if ($user_count > 0) {
+
+                                $preferences = array();
+
+                                // Connexion à la base de données
+                                $conn = connexionBd();
+
+                                // Préparer et exécuter la requête pour récupérer les préférences de l'utilisateur
+                                $sql = "SELECT nom_ingredient, preference FROM preferences_utilisateur WHERE nom_utilisateur = ?";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->bind_param("s", $userId);
                                 $stmt->execute();
                                 $result = $stmt->get_result();
 
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo '<tr class="' . str_replace(" ", "-", $row['categorie']) . '">';
-                                        echo '<td>' . $row["nom"] . '</td>';
-                                        echo '<td>' . $row['categorie'] . '</td>';
-                                        echo '<td> <input type="radio" id="' . $row["nom"] . 'jamais" name="' . $row["nom"] . '" value ="0"> </td>';
-                                        echo '<td> <input type="radio" id="' . $row["nom"] . 'aimePas" name="' . $row["nom"] . '" value ="0.5"> </td>';
-                                        echo '<td> <input type="radio" id="' . $row["nom"] . 'sansPreference" name="' . $row["nom"] . '" value ="1" checked> </td>';
-                                        echo '<td> <input type="radio" id="' . $row["nom"] . 'aime" name="' . $row["nom"] . '" value ="1.5"> </td>';
-                                        echo '<td> <input type="radio" id="' . $row["nom"] . 'adore" name="' . $row["nom"] . '" value ="2"> </td>';
-                                        echo '</tr>';
+                                // Remplissage du tableau des préférences avec les résultats de la requête
+                                while ($row = $result->fetch_assoc()) {
+                                    // Remplacer les caractères de soulignement par des espaces dans la clé
+                                    $nomIngredient = str_replace("_", " ", $row['nom_ingredient']);
+                                    // Assigner la préférence à la clé correspondante
+                                    $preferences[$nomIngredient] = $row['preference'];
+                                }
+
+                                // Fermeture de la connexion à la base de données
+                                deconnexionBd($stmt);
+                                deconnexionBd($conn);
+
+                                // Parcourir les catégories de stocks et afficher les résultats
+                                foreach ($listeCategoriesStocks as $categorie) {
+                                    $sql = "SELECT nom, categorie FROM ingredient 
+                                            JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant 
+                                            WHERE categorie = ?";
+
+                                    $conn = connexionBd();
+
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bind_param("s", $categorie);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo '<tr class="' . str_replace(" ", "-", $row['categorie']) . '">';
+                                            echo '<td>' . $row["nom"] . '</td>';
+                                            echo '<td>' . $row['categorie'] . '</td>';
+
+                                            // Parcours des préférences pour chaque ingrédient
+                                            foreach ($preferences as $ingredient => $preference) {
+                                                if ($row["nom"] === $ingredient) {
+                                                    echo '<td> <input type="radio" id="' . $row["nom"] . 'jamais" name="' . $row["nom"] . '" value ="0"';
+                                                    if ($preference == 0) {
+                                                        echo ' checked';
+                                                    }
+                                                    echo '> </td>';
+
+                                                    echo '<td> <input type="radio" id="' . $row["nom"] . 'aimePas" name="' . $row["nom"] . '" value ="0.5"';
+                                                    if ($preference == 0.5) {
+                                                        echo ' checked';
+                                                    }
+                                                    echo '> </td>';
+
+                                                    echo '<td> <input type="radio" id="' . $row["nom"] . 'sansPreference" name="' . $row["nom"] . '" value ="1"';
+                                                    if ($preference == 1) {
+                                                        echo ' checked';
+                                                    }
+                                                    echo '> </td>';
+
+                                                    echo '<td> <input type="radio" id="' . $row["nom"] . 'aime" name="' . $row["nom"] . '" value ="1.5"';
+                                                    if ($preference == 1.5) {
+                                                        echo ' checked';
+                                                    }
+                                                    echo '> </td>';
+
+                                                    echo '<td> <input type="radio" id="' . $row["nom"] . 'adore" name="' . $row["nom"] . '" value ="2"';
+                                                    if ($preference == 2) {
+                                                        echo ' checked';
+                                                    }
+                                                    echo '> </td>';
+
+                                                    break; // Sortir de la boucle dès qu'une correspondance est trouvée
+                                                }
+                                            }
+
+                                            echo '</tr>';
+                                        }
+                                    }
+
+
+
+
+                                }
+
+                                deconnexionBd($stmt);
+                                deconnexionBd($conn);
+
+
+                                foreach ($listeCategoriesStocks as $categorie) {
+                                    echo '<tr class="' . str_replace(" ", "-", $categorie) . '">';
+                                    echo '<td>' . $categorie . '</td>';
+                                    echo '<td>' . $categorie . '</td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'jamais" name="' . $categorie . '" value ="0"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'aimePas" name="' . $categorie . '" value ="0.5"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'sansPreference" name="' . $categorie . '" value ="1" checked> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'aime" name="' . $categorie . '" value ="1.5"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'adore" name="' . $categorie . '" value ="2"> </td>';
+                                    echo '</tr>';
+                                }
+
+
+
+                            } else {
+
+                                $conn = connexionBd();
+
+                                $sql = "SELECT nom, categorie FROM ingredient 
+                                JOIN categorieingredient ON ingredient.identifiantC = categorieingredient.identifiant 
+                                WHERE categorie = ?";
+
+                                $stmt = $conn->prepare($sql);
+
+                                for ($i = 0; $i < count($listeCategoriesStocks); $i++) {
+                                    $stmt->bind_param("s", $categorie);
+                                    $categorie = $listeCategoriesStocks[$i];
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo '<tr class="' . str_replace(" ", "-", $row['categorie']) . '">';
+                                            echo '<td>' . $row["nom"] . '</td>';
+                                            echo '<td>' . $row['categorie'] . '</td>';
+                                            echo '<td> <input type="radio" id="' . $row["nom"] . 'jamais" name="' . $row["nom"] . '" value ="0"> </td>';
+                                            echo '<td> <input type="radio" id="' . $row["nom"] . 'aimePas" name="' . $row["nom"] . '" value ="0.5"> </td>';
+                                            echo '<td> <input type="radio" id="' . $row["nom"] . 'sansPreference" name="' . $row["nom"] . '" value ="1" checked> </td>';
+                                            echo '<td> <input type="radio" id="' . $row["nom"] . 'aime" name="' . $row["nom"] . '" value ="1.5"> </td>';
+                                            echo '<td> <input type="radio" id="' . $row["nom"] . 'adore" name="' . $row["nom"] . '" value ="2"> </td>';
+                                            echo '</tr>';
+                                        }
                                     }
                                 }
-                            }
 
-                            foreach ($listeCategoriesStocks as $categorie) {
-                                echo '<tr class="' . str_replace(" ", "-", $categorie) . '">';
-                                echo '<td>' . $categorie . '</td>';
-                                echo '<td>' . $categorie . '</td>';
-                                echo '<td> <input type="radio" id="' . $categorie . 'jamais" name="' . $categorie . '" value ="0"> </td>';
-                                echo '<td> <input type="radio" id="' . $categorie . 'aimePas" name="' . $categorie . '" value ="0.5"> </td>';
-                                echo '<td> <input type="radio" id="' . $categorie . 'sansPreference" name="' . $categorie . '" value ="1" checked> </td>';
-                                echo '<td> <input type="radio" id="' . $categorie . 'aime" name="' . $categorie . '" value ="1.5"> </td>';
-                                echo '<td> <input type="radio" id="' . $categorie . 'adore" name="' . $categorie . '" value ="2"> </td>';
-                                echo '</tr>';
+                                foreach ($listeCategoriesStocks as $categorie) {
+                                    echo '<tr class="' . str_replace(" ", "-", $categorie) . '">';
+                                    echo '<td>' . $categorie . '</td>';
+                                    echo '<td>' . $categorie . '</td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'jamais" name="' . $categorie . '" value ="0"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'aimePas" name="' . $categorie . '" value ="0.5"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'sansPreference" name="' . $categorie . '" value ="1" checked> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'aime" name="' . $categorie . '" value ="1.5"> </td>';
+                                    echo '<td> <input type="radio" id="' . $categorie . 'adore" name="' . $categorie . '" value ="2"> </td>';
+                                    echo '</tr>';
+                                }
+                                deconnexionBd($stmt);
+                                deconnexionBd($conn);
+
                             }
-                            deconnexionBd($stmt);
-                            deconnexionBd($conn);
                             ?>
 
                         </tbody>
@@ -417,6 +517,36 @@ if ($_SESSION['connecter'] == true) {
             }
         });
 
+        /*function processRowsByCategory(tableId, categories) {
+            // Sélectionner l'élément de tableau par son ID
+            var table = document.getElementById(tableId);
+
+            // Vérifier si la table existe
+            if (!table) {
+                return;
+            }
+
+            // Parcourir les catégories
+            categories.forEach(function (category) {
+                // Parcourir les lignes de la table pour cette catégorie
+                var trs = table.getElementsByTagName('tr');
+                for (var i = 0; i < trs.length; i++) {
+                    var tr = trs[i];
+                    // Vérifier si la classe de la ligne correspond à la catégorie
+                    if (tr.classList.contains(category.replace(" ", "-"))) {
+                        var checkedInput = tr.querySelector('input:checked');
+                        var firstIngredient = tr.querySelector('td:first-child').textContent.trim().toLowerCase();
+                        var firstCategory = tr.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
+
+                        // Vérifier si la ligne a la même valeur d'ingrédient et de catégorie
+                        if (firstCategory === firstIngredient) {
+                            // Supprimer la ligne de la table form_pref
+                            tr.parentNode.removeChild(tr);
+                        }
+                    }
+                }
+            });
+        }*/
 
         function filterTableBySearch(searchText) {
             var selectedCategory = $(".navLink.active").text().trim();
@@ -491,15 +621,6 @@ if ($_SESSION['connecter'] == true) {
 
         function toggleModal3() {
             modalContainer3.classList.toggle("active")
-        }
-
-        function submitForm() {
-
-            var form = document.getElementById("form_pref");
-
-            console.log(form)
-            alert("Soumission");
-            form.submit();
         }
 
         function sortByCategory(selectedCategory) {

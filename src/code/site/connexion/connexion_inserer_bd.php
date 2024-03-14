@@ -41,6 +41,7 @@
             $sql = "INSERT INTO utilisateur VALUES ('', '$username', '$mail', '$hashedPassword', '$dateCreation', '$dateCreation', '')";
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['connecter'] = true;
+                $_SESSION['login_username'] = $username;
                 deconnexionBd($conn);
                 header("Location: ../index.php");
                 exit;

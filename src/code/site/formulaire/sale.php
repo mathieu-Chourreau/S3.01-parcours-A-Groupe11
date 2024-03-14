@@ -11,46 +11,70 @@ session_start();
 
 include_once '../bd.php';
 
-// Vérifier si le formulaire a été soumis
+// Vérifie si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assurez-vous que les clés existent dans $_POST avant de les utiliser
-    if (isset($_POST['vege'], $_POST['zone_prix'], $_POST['zone_temps'])) {
-        // Connexion à la base de données
-        $conn = connexionBd();
+    // Vérifie si l'utilisateur est connecté
+    if ($_SESSION['connecter'] == true) {
 
-        // Récupération des données du formulaire
-        $user_id = $_SESSION['login_username'];
-        $vege = $_POST['vege'];
-        $budget = $_POST['zone_prix'];
-        $temps = $_POST['zone_temps'];
+        if ($_POST['num_form'] == 1) {
+            // Traitez les données du formulaire
+            $lIngredientsPref = array();
+            foreach ($_POST as $nomIngredient => $preferencePourUtilisateur) {
 
-        // Préparation de la requête d'insertion
-        $stmt = $conn->prepare("INSERT INTO preferencesComplementaires (user_id ,vege_pref, budget, tempsCuisine) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("iiii", $user_id, $vege, $budget, $temps);
+                // Remplacer les "_" par des espaces dans le nom de l'ingrédient
+                $nomIngredient = str_replace("_", " ", $nomIngredient);
 
-        // Exécution de la requête
-        if ($stmt->execute() === TRUE) {
-            echo "<script>alert('Enregistrement des préférences réussi.');</script>";
-        } else {
-            echo "<script>alert('Erreur lors de l\'enregistrement des préférences: " . $conn->error . "');</script>";
+                // Stocke les données dans un tableau
+                if ($nomIngredient !== 'num_form') {
+                    $lIngredientsPref[$nomIngredient] = $preferencePourUtilisateur;
+                }
+            }
+
+            $conn = connexionBd();
+
+            // Supprimer toutes les lignes pour cet utilisateur
+            $sql_delete = "DELETE FROM preferences_utilisateur WHERE nom_utilisateur = ?";
+            $stmt_delete = $conn->prepare($sql_delete);
+            $stmt_delete->bind_param("s", $_SESSION['login_username']);
+            $stmt_delete->execute();
+
+            deconnexionBd($stmt_delete);
+            deconnexionBd($conn);
+
+            // Enregistrement de $lIngredientsPref dans une variable de session
+            $_SESSION['lIngredientsPref'] = $lIngredientsPref;
+
+            foreach ($lIngredientsPref as $nomIngredient => $preference) {
+                // Préparez la requête d'insertion
+                $conn = connexionBd();
+                $user_id = $_SESSION['login_username'];
+                $stmt = $conn->prepare("INSERT INTO preferences_utilisateur (nom_utilisateur, nom_ingredient, preference) VALUES (?, ?, ?)");
+                $stmt->bind_param("ssd", $user_id, $nomIngredient, $preference);
+                $stmt->execute();
+
+            }
+
+            deconnexionBd($stmt);
+            deconnexionBd($conn);
+
         }
-
-        // Fermeture de la requête et de la connexion
-        $stmt->close();
-        $conn->close();
     } else {
-
+        header("Location: ../connexion/connexion.php"); // Redirige l'utilisateur vers la page de connexion si non connecté
+        exit;
     }
 }
+
+
 
 // Vérification de l'ID de l'utilisateur dans la table des préférences complémentaires
 $conn = connexionBd();
 $user_id = $_SESSION['login_username'];
-$stmt = $conn->prepare("SELECT user_id, budget, vege_pref, tempsCuisine FROM preferencesComplementaires WHERE user_id = ?");
-$stmt->bind_param("i", $user_id);
+$stmt = $conn->prepare("SELECT nom_utilisateur, budget, vege_pref, tempsCuisine FROM preferencesComplementaires WHERE nom_utilisateur = ?");
+$stmt->bind_param("s", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
+
     // L'utilisateur a des préférences enregistrées, récupérons les valeurs et affichons-les dans un prompt
     $row = $result->fetch_assoc();
     $vege_pref = $row['vege_pref'];
@@ -58,8 +82,9 @@ if ($result->num_rows > 0) {
     $budgtPref = $row['budget'];
 
 }
-$stmt->close();
-$conn->close();
+deconnexionBd($stmt);
+deconnexionBd($conn);
+
 ?>
 
 
@@ -121,7 +146,8 @@ $conn->close();
         </div>
     </nav>
 
-    <form id="example" method="POST">
+    <form id="example" method="POST" action="affichage_recette.php">
+        <input type="hidden" name="num_form" value="2">
         <div class="container_form">
             <div id="categorie">
                 <img class="etoile" src="../image/pngegg.png">
@@ -151,15 +177,15 @@ $conn->close();
 
                     <div class="prix">
                         <label for="prix" style="font-size:3vw">Budget (euros): </label>
-                        <input type="text" id="zone_prix" value="<?php if (isset($budgtPref))
-                            echo $budgtPref; ?>">
+                        <input type="text" id="zone_prix" name="zone_prix"
+                            value="<?php echo isset($budgtPref) ? $budgtPref : ''; ?>">
                         <div id="prixError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
                     <div class="temps">
                         <label for="temps" style="font-size:3vw">Temps (minute): </label>
-                        <input type="text" id="zone_temps" name="zone_temps" value="<?php if (isset($tempsCuisine))
-                            echo $tempsCuisine; ?>">
+                        <input type="text" id="zone_temps" name="zone_temps"
+                            value="<?php echo isset($tempsCuisine) ? $tempsCuisine : ''; ?>">
                         <div id="tempsError" class="error-message">Veuillez entrer un nombre entier</div>
                     </div>
 
@@ -319,8 +345,9 @@ $conn->close();
             var valid = true;
 
             // Vérification du prix
-            if (!/^\d+$/.test(prixInput.value)) {
+            if (!/^\d+(\.\d{2})?$/.test(prixInput.value)) {
                 document.getElementById('prixError').style.display = 'block';
+                valid = false;
             } else {
                 document.getElementById('prixError').style.display = 'none';
             }
