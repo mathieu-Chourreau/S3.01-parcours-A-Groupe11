@@ -1,5 +1,52 @@
-<?php include_once 'main.php';
- ?>
+<?php
+
+session_start();
+
+include_once '../bd.php';
+
+// Vérifie si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérifie si l'utilisateur est connecté
+    if ($_SESSION['connecter'] == true) {
+
+        if ($_POST['num_form'] == 2) {
+            // Récupérer les valeurs du formulaire 2
+            $vege = $_POST['vege'];
+            $prix = $_POST['zone_prix'];
+            $temps = $_POST['zone_temps'];
+            $user_id = $_SESSION['login_username'];
+
+            $conn = connexionBd();
+
+            // Supprimer toutes les lignes pour cet utilisateur
+            $sql_delete = "DELETE FROM preferencesComplementaires WHERE nom_utilisateur = ?";
+            $stmt_delete = $conn->prepare($sql_delete);
+            $stmt_delete->bind_param("s", $_SESSION['login_username']);
+            $stmt_delete->execute();
+
+            deconnexionBd($stmt_delete);
+            deconnexionBd($conn);
+
+
+            $conn = connexionBd();
+            
+            $stmt = $conn->prepare("INSERT INTO preferencesComplementaires (nom_utilisateur, vege_pref, budget, tempsCuisine) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sddi", $user_id, $vege, $prix, $temps);
+            $stmt->execute();
+
+            deconnexionBd($stmt);
+            deconnexionBd($conn);
+
+        }
+    } else {
+        header("Location: ../connexion/connexion.php"); // Redirige l'utilisateur vers la page de connexion si non connecté
+        exit;
+    }
+
+    include_once 'main.php';
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -15,105 +62,111 @@
 
 </head>
 <?php
-    if ($_SESSION['connecter'] == true) {
+if ($_SESSION['connecter'] == true) {
     ?>
-<body>
-<nav id="nav">
-        <div id="imgLogoNav">
-            <a href="#"><img class="img_logo" src="../image/logo.png"></a>
-            <div class="boutonHamburger">
-                <label class="burger" id="burger" for="burger">
-                    <input type="checkbox" id="burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
+
+    <body>
+        <nav id="nav">
+            <div id="imgLogoNav">
+                <a href="#"><img class="img_logo" src="../image/logo.png"></a>
+                <div class="boutonHamburger">
+                    <label class="burger" id="burger" for="burger">
+                        <input type="checkbox" id="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="titreMenu">
-            <ul id="menu">
-                <li><a href="../index.php" class="link">Accueil</a></li>
-                <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
-                <li><a href="formulaire.php" class="link active">Formulaire</a></li>
-                <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
-                <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
-                <?php if($_SESSION['admin'] == false){ ?>
-                <?php }elseif ($_SESSION['admin'] == true) {echo "<li><a href='../backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";} ?>
-            </ul>
-        </div>
-        <div class="boutonConnexion">
-            <?php if($_SESSION['connecter'] == false){ ?>
-                <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se connecter</button></a>
-            <?php }elseif ($_SESSION['connecter'] == true) {echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";} ?>
-        </div>
-    </nav>
+            <div class="titreMenu">
+                <ul id="menu">
+                    <li><a href="../index.php" class="link">Accueil</a></li>
+                    <li><a href="../recherche/recherche.php" class="link">Rechercher</a></li>
+                    <li><a href="formulaire.php" class="link active">Formulaire</a></li>
+                    <li><a href="../equipe/equipe.php" class="link">L'équipe</a></li>
+                    <li><a href="../proposerRecette/proposRecette.php" class="link">Proposer votre recette</a></li>
+                    <?php if ($_SESSION['admin'] == false) { ?>
+                    <?php } elseif ($_SESSION['admin'] == true) {
+                        echo "<li><a href='../backOffice/back_office.php' class='link'>Gerer les recettes</a></li>";
+                    } ?>
+                </ul>
+            </div>
+            <div class="boutonConnexion">
+                <?php if ($_SESSION['connecter'] == false) { ?>
+                    <a href="connexion/connexion.php" id="lien_se_connecter"><button class="btn white-btn" id="loginBtn">Se
+                            connecter</button></a>
+                <?php } elseif ($_SESSION['connecter'] == true) {
+                    echo "<button class='btn white-btn' id='loginBtn'><a href='../connexion/deconnexion.php' id='lien_se_connecter'>Se déconnecter</a></button>";
+                } ?>
+            </div>
+        </nav>
 
-    <div class="background"></div>
-    <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
-    <section class="s_recherche">
-        <?php
-        include_once '../recherche/touteRecette.php';
+        <div class="background"></div>
+        <h1 class="titre"> Voici nos meilleurs recettes pour vous ! </h1>
+        <section class="s_recherche">
+            <?php
+            include_once '../recherche/touteRecette.php';
 
-        $conn = connexionBd();
+            $conn = connexionBd();
 
-        $topIngredients = array_slice($lRecettePoint, 0, 5);
+            $topIngredients = array_slice($lRecettePoint, 0, 5);
 
-        //$myString = "'" . implode("','", array_column($topIngredients, 'recette')) . "'";
-
-        $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
+            //$myString = "'" . implode("','", array_column($topIngredients, 'recette')) . "'";
+        
+            $recetteValide = "SELECT r.identifiant, r.nom AS nom_recette, r.image AS imageR, r.instruction AS instruction, cr.gout AS categorie_recette, r.temps_min_ AS temps, r.niveau_difficulte AS dif
         FROM recette r
         JOIN appartenirrc a ON a.identifiantR = r.identifiant
         JOIN categorierecette cr ON a.identifiantC = cr.identifiant
         WHERE r.nom IN (?, ?, ?, ?, ?)";
 
-        // Préparation de la requête
-        $stmt = $conn->prepare($recetteValide);
+            // Préparation de la requête
+            $stmt = $conn->prepare($recetteValide);
 
-        // Liaison des paramètres
-        $stmt->bind_param("sssss",  $topIngredients[0]['recette'], $topIngredients[1]['recette'], $topIngredients[2]['recette'], $topIngredients[3]['recette'], $topIngredients[4]['recette']);
+            // Liaison des paramètres
+            $stmt->bind_param("sssss", $topIngredients[0]['recette'], $topIngredients[1]['recette'], $topIngredients[2]['recette'], $topIngredients[3]['recette'], $topIngredients[4]['recette']);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $result = $stmt->get_result();
-        $indice = 0;
+            $result = $stmt->get_result();
+            $indice = 0;
 
-            
 
-        while ($row = $result->fetch_assoc()) {
-            
-            echo '<div class="card-grid">';
-            echo '<div class="card">';
-            echo '<div class="card-content">';
-            echo '<div class="image-container">';
-            echo '<img src="../' . $row['imageR'] . '" class="imageCard">';
-            echo '</div>';
-            echo '<div class="text-container">';
-            echo '<div class="card-body">';
-            echo '<p><b>Points : </b>' .$topIngredients[$indice]['point'] . '</p>';
-            echo '<h4 class="card-title">' . $row['nom_recette'] . '</h4>';
-            echo '<p class="typeP"><b>Catégorie : </b>' . $row['categorie_recette'] . '</p>';
-            echo '<p class="card-text"><b>Description : </b>' . $row['instruction'] . '</p>';
-            echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $row['dif'] . '</p>';
-            echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . ' min</p>';
-            echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$row['nom_recette']] . ' €</p>';
-            echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) .'" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
 
-            $indice = $indice + 1;
-        }
-        deconnexionBd($stmt);
-        deconnexionBd($conn);
-        ?>
+            while ($row = $result->fetch_assoc()) {
 
-    </section>
-    <?php }else {
-        header("Location: ../connexion/connexion.php");
-        exit;
-    } ?>
+                echo '<div class="card-grid">';
+                echo '<div class="card">';
+                echo '<div class="card-content">';
+                echo '<div class="image-container">';
+                echo '<img src="../' . $row['imageR'] . '" class="imageCard">';
+                echo '</div>';
+                echo '<div class="text-container">';
+                echo '<div class="card-body">';
+                echo '<p><b>Correspondance avec vos préférences : </b>' . ($topIngredients[$indice]['point'])/2 . '%</p>';
+                echo '<h4 class="card-title">' . $row['nom_recette'] . '</h4>';
+                echo '<p class="typeP"><b>Catégorie : </b>' . $row['categorie_recette'] . '</p>';
+                echo '<p class="card-text"><b>Description : </b>' . $row['instruction'] . '</p>';
+                echo '<p class="card-text"><b>Niveau de difficulté : </b>' . $row['dif'] . '</p>';
+                echo '<p class="card-text"><b>Temps : </b>' . $row['temps'] . ' min</p>';
+                echo '<p class="card-text"><b>Prix : </b>' . $listeRecette[$row['nom_recette']] . ' €</p>';
+                echo '<a href="../recherche/details.php?recipeName=' . urlencode($row['nom_recette']) . '&recipeCategory=' . urlencode($row['categorie_recette']) . '&recipeDescription=' . urlencode($row['instruction']) . '&recipeImageSrc=' . urlencode($row['imageR']) . '&recipePrix=' . urlencode($listeRecette[$rec['nom_recette']]) . '" class="btn-details"><button class="btn white-btn">Voir les détails</button></a>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+
+                $indice = $indice + 1;
+            }
+            deconnexionBd($stmt);
+            deconnexionBd($conn);
+            ?>
+
+        </section>
+    <?php } else {
+    header("Location: ../connexion/connexion.php");
+    exit;
+} ?>
     <footer class="footer" id="footer">
         <div class="container">
             <div class="row">
@@ -122,7 +175,8 @@
                         <section id="block-block-1" class="block block-block clearfix">
                             <p>@&nbsp;Equipe Edu'Cook<br />
                                 Tous droits réservés<br />
-                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de confidentialité</a>
+                                <a class="lien" href="../newsletter/politique_confidentialite.html">Politique de
+                                    confidentialité</a>
                             </p>
                         </section>
                     </div>

@@ -5,8 +5,6 @@
     src: url('../police/adlery-pro-blockletter-trial.ttf') format('truetype');
 }
 
-
-
 body {
     margin: 0;
     padding: 0;
@@ -15,36 +13,16 @@ body {
 }
 
 .container_form {
-    max-width: 80vw;
-    margin: 5% auto;
+    max-width: 90vw;
+    margin: 0 5%;
     margin-bottom: 0;
     border: 3px solid rgb(255, 255, 255);
     border-radius: 10px;
-    height: 65vh;
     color: #fff;
     overflow: hidden;
-    /* Empêche le défilement du conteneur entier */
     display: flex;
-    /* Utilisation de flexbox pour aligner les éléments */
     flex-direction: column;
-    /* Aligner les éléments verticalement */
-}
-
-
-.custom-select {
-    position: relative;
-    display: flex;
-    font-family: NomDeLaPolice, sans-serif;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.selected-option {
-    background-color: transparent;
-    font-size: 3vw;
-    cursor: pointer;
-    width: 30vw;
+    height: auto;
 }
 
 #choix_categorie {
@@ -53,32 +31,63 @@ body {
     align-items: center;
     display: flex;
     border: 3px solid white;
-    padding: 2%;
     border-radius: 10px 10px 0 0;
+    margin-bottom: 5vh;
 }
 
-.options {
-    position: absolute;
-    top: 100%;
-    font-size: 3vh;
-    left: 0;
-    right: 0;
-    display: none;
-    background-color: rgb(71, 69, 69);
-    border: 1px solid #ccc;
-    z-index: 10;
+#navBar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; /* Alignement des liens sur le début */
+    flex-wrap: nowrap; /* Empêche les éléments de passer à la ligne */
 }
 
-.option {
-    padding: 8px;
-    cursor: pointer;
+.titre_Form{
+    width: 100%;
+    font-family: 'NomDeLaPolice';
+    text-align: center;
+    margin-top: 6vh;
+    margin-bottom: 7vh;
+    font-size: 3.5vw;
+    color: white;
 }
 
-.custom-select.open .options {
-    display: block;
+.aide_categorie{
+    margin-left: 5%;
+    color: white;
+    margin-bottom: 0;
+    font-size: 2vw;
+    font-family: 'NomDeLaPolice';
 }
 
-.background {
+#navBar a {
+    color: #fff;
+    font-family: NomDeLaPolice, sans-serif;
+    text-decoration: none;
+    font-size: 1.8vw;
+    flex-shrink: 0;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-right: solid;
+    border-radius: 0 20px 20px 0;
+    transition: all 0.3s ease;
+    width: 9.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(123, 8, 8);
+}
+
+#navBar a:hover,
+#navBar a.active {
+    background-color: rgba(226, 131, 131, 0.767);
+    flex-grow: 2;
+}
+
+
+
+.background {  
     position: fixed;
     top: 0;
     left: 0;
@@ -100,36 +109,40 @@ input[type="radio"] {
     display: block;
 }
 
-/* Style des boutons radio cochés */
 input[type="radio"]:checked {
     accent-color: rgb(123, 8, 8);
-    /* Rouge */
+
 }
 
 .boutons_form {
     float: right;
     display: flex;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 4.5%;
     margin-top: 1%;
 }
 
 .recherche_aliment {
-    font-family: sans-serif;
+    font-family: 'NomDeLaPolice';
     color: white;
     display: flex;
     font-size: 1.5vw;
-    margin-top: 2vh;
-    margin-bottom: 0.5vh;
+    margin-bottom: 1vh;
     margin-left: 30px;
 
 }
 
+.aide_preference{
+    margin-left: 30px;
+    font-family: 'NomDeLaPolice';
+    font-size: 2vw;
+    margin-bottom: 2vh;
+}
+
 #input_recherche {
     margin-left: 5px;
-    font-family: sans-serif;
     width: 350px;
     font-size: 1vw;
+    border-radius: 10px;
 }
 
 #input_recherche::placeholder {
@@ -137,7 +150,7 @@ input[type="radio"]:checked {
     font-size: 1vw;
 }
 
-.formulaire {
+.div_formulaire {
     flex: 1;
     overflow-y: auto;
     margin: 30px;
@@ -149,31 +162,8 @@ input[type="radio"]:checked {
     background-color: #be5906;
 }
 
-.triangleDroit,
-.triangleGauche {
-    width: 0px;
-    height: 0px;
-    border-style: solid;
-    border-width: 0 20px 40px 20px;
-    border-color: transparent transparent #ffffff transparent;
-    transform: rotate(0);
-    transition: all 0.3s ease;
-    /* Ajoute une transition de 0.3 secondes avec une courbe d'accélération */
-}
 
-.triangleGauche.down {
-    transform: rotate(180deg);
-}
-
-.triangleDroit.down {
-    transform: rotate(-180deg);
-}
-
-.select_categorie {
-    font-size: 3vw;
-}
-
-table {
+table { 
     border-collapse: collapse;
     width: 100%;
     font-size: 1.5vw;
@@ -354,7 +344,7 @@ th {
     color: #fff;
     text-decoration: none;
     padding:5px;
-    flex: 1; /* Les boutons prennent la même taille */
+    flex: 1;
 }
 
 .btn-annuler-modal, .btn-reinitialiser-modal {
@@ -376,6 +366,7 @@ th {
     margin-bottom: 5px;
 }
 
-#example{
+#form_pref{
     margin-bottom: 80px;
 }
+
