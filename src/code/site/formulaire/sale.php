@@ -125,7 +125,7 @@ deconnexionBd($conn);
             </div>
         </div>
         <div class="titreMenu">
-            <ul id="menu"><
+            <ul id="menu">
                 <li><a href="../index.php" class="link">Accueil</a></li>
                 <li><a href="../recherche/recherche.php" class="link">Recherche</a></li>
                 <li><a href="../formulaire/formulaire.php" class="link active">Formulaire</a></li>
